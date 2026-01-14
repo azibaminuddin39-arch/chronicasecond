@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CHRONICA - Jurnalistik SMAN 3 Banjarbaru</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Playfair+Display:wght@700&display=swap');
+
+        /* Warna silver untuk Pengurus Inti dan Judul Divisi */
+        #organisasi h3 { color: #C0C0C0 !important; }
+        .divisi-box h4 { color: #C0C0C0 !important; }
+        
+        /* ==========================================
+           1. NAVIGASI (POSISI ABSOLUTE)
+           ========================================== */
+        
+        .nav-container {
+            /* Posisi Absolute agar tidak ikut scroll (tetap di atas header) */
+            position: absolute !important; 
+            top: 25px;
+            right: 25px;
+            
+            z-index: 999999 !important; /* Paling atas */
+            pointer-events: auto !important; /* WAJIB: Agar bisa diklik */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #hamburger {
+            /* Style Tombol */
+            background: rgba(0, 0, 0, 0.6) !important;
+            border: 2px solid var(--color-silver) !important;
+            border-radius: 50px !important;
+            padding: 10px 25px !important;
+            width: auto !important;
+            height: auto !important;
+            
+            /* Teks */
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff !important;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            
+            /* Interaksi */
+            cursor: pointer !important;
+            pointer-events: auto !important; 
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Hapus garis ikon lama */
+        #hamburger span { display: none !important; }
+
+        #hamburger:hover {
+            background: var(--color-maroon) !important;
+            border-color: var(--color-gold) !important;
+            color: var(--color-gold) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Tampilan saat Aktif (Klik) */
+        #hamburger.active {
+            background: #800000 !important;
+            border-color: #ffffff !important;
+        }
+
+        /* --- SETTINGAN MOBILE (HP) --- */
+        @media (max-width: 850px) {
+            .nav-container {
+                position: absolute !important; 
+                top: 25px !important;       
+                right: 20px !important;     
+                bottom: auto !important;
+                left: auto !important;
+                
+                flex-direction: column;     
+                align-items: flex-end;      
+            }
+
+            .nav-menu {
+                position: absolute !important;
+                top: 60px !important;       
+                right: 0 !important;
+                bottom: auto !important;
+                
+                background: rgba(20, 20, 20, 0.95) !important;
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255,255,255,0.2);
+                border-radius: 15px;
+                padding: 15px;
+                min-width: 200px;
+                
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+            }
+
+            .nav-menu.active {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+            }
+            
+            #hamburger {
+                padding: 8px 20px !important;
+                font-size: 0.8rem !important;
+            }
+        }
+
+        /* ==========================================
+           2. FIX TAMPILAN JAM & VISI MISI
+           ========================================== */
+        .clock-container-center {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: -30px; 
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .live-clock-widget {
+            background: #1a1a1a;
+            padding: 15px 30px;
+            border: 1px solid var(--color-silver);
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            border-bottom: 3px solid var(--color-gold);
+            min-width: 280px;
+            transition: transform 0.3s ease;
+        }
+
+        .live-clock-widget:hover { transform: translateY(-5px); }
+
+        #clock-day-date {
+            font-size: 0.9rem;
+            color: var(--color-silver);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+
+        #clock-time {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 480px) {
+            .clock-container-center { margin-top: 10px; margin-bottom: 10px; }
+            .live-clock-widget { width: 90%; padding: 10px; min-width: auto; border-radius: 15px; }
+            #clock-time { font-size: 1.6rem; }
+            #clock-day-date { font-size: 0.75rem; }
+        }
+
+        /* Style Tombol Mading di Header */
+        .btn-mading-header {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(255, 215, 0, 0.1); 
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative; 
+            z-index: 10000;       
+            pointer-events: auto !important; 
+            cursor: pointer;
+        }
+
+        .btn-mading-header:hover {
+            background: #FFD700;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            transform: translateY(-5px);
+        }
+
+        /* STYLE POPUP PANDUAN (Update Teks) */
+        .guide-steps {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .step-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .step-header i {
+            font-size: 1.5rem;
+            color: var(--color-silver);
+            margin-top: 2px;
+        }
+        .step-text {
+            font-size: 0.85rem;
+            color: #eee;
+            line-height: 1.4;
+        }
+        .step-text strong {
+            color: var(--color-gold);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="Logo_2.png" alt="Logo Chronica">
+                <div class="loader-line"></div>
+            </div>
+            <p>CHRONICA JURNALISTIK</p>
+        </div>
+    </div>
+    
+    <a href="https://forms.gle/89w5K1VCMqdtepg59" class="fab-message" target="_blank" aria-label="Kritik dan Saran" title="Kirim Kritik & Saran">
+        <i class="fas fa-comment-dots"></i>
+    </a>
+
+    <a href="https://www.instagram.com/chronicasmaga_" target="_blank" class="fab-instagram" aria-label="Instagram Chronica">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <header>
+        <nav class="nav-container">
+            <button class="hamburger" id="hamburger" aria-label="Menu">MENU</button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="mading.html" style="color: #FFD700; font-weight: bold;">Mading Online</a></li>
+                <li><a href="panduan.html">Panduan Desktop</a></li>
+                <li><a href="anggota.html">Anggota Divisi</a></li>
+                <li><a href="berita.html">Berita</a></li>
+                <li><a href="suara.html">Suara SMAGA & FAQ</a></li> 
+            </ul>
+        </nav>
+
+        <div class="header-brand-wrapper">
+            <img src="Logo_1.png" alt="Logo Sekolah" class="logo-mini">
+            <div class="text-container">
+                <p class="welcome-text">Welcome to Website</p>
+                <h1 class="brand-name">CHRONICA</h1>
+                
+                <a href="mading.html" class="btn-mading-header">LIHAT MADING</a>
+            </div>
+            <img src="Logo_2.png" alt="Logo Organisasi" class="logo-mini">
+        </div>
+    </header>
+
+    <main>
+        <div class="clock-container-center">
+            <div class="live-clock-widget">
+                <div id="clock-day-date">Memuat Tanggal...</div>
+                <div id="clock-time">00:00:00</div>
+            </div>
+        </div>
+
+        <section id="visi-misi">
+            <div class="visi-container">
+                <h2>Visi & Misi</h2>
+                <p class="visi-text">"Menjadi wadah jurnalistik yang inspiratif dan berintegritas, merekam cerita-cerita inspiratif dan merefleksikan semangat solidaritas antara divisi, serta menjadi referensi bagi masyarakat dalam memahami isu-isu terkini."</p>
+                <hr class="divider">
+                <div class="misi-tujuan-grid">
+                    <div class="misi-box">
+                        <h3>Misi</h3>
+                        <ol>
+                            <li><strong>Merekam Cerita:</strong> Mengabadikan cerita-cerita inspiratif.</li>
+                            <li><strong>Kualitas:</strong> Meningkatkan kualitas penulisan.</li>
+                            <li><strong>Solidaritas:</strong> Meningkatkan kekeluargaan.</li>
+                            <li><strong>Inovasi:</strong> Mengembangkan ide kreatif.</li>
+                            <li><strong>Referensi:</strong> Menjadi sumber informasi tepercaya.</li>
+                        </ol>
+                    </div>
+                    <div class="tujuan-box">
+                        <h3>Tujuan</h3>
+                        <ul>
+                            <li>Meningkatkan kepedulian terhadap isu terkini.</li>
+                            <li>Mengembangkan potensi jurnalistik siswa.</li>
+                            <li>Mempererat hubungan antar divisi.</li>
+                            <li>Menjadi wadah inspiratif berintegritas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="organisasi">
+            <h2>STRUKTUR ORGANISASI</h2>
+            <div class="silsilah-container">
+                <h3 style="text-align: center; margin-bottom: 30px; color: white; letter-spacing: 2px;">PENGURUS INTI</h3>
+                <div class="silsilah-row">
+                    <div class="card-maroon">
+                        <h4>Pembina</h4> 
+                        <p>Dr. Sarifah Triana M.Pd</p>
+                    </div>
+                </div>
+                <div class="silsilah-row">
+                    <div class="card-maroon"><h4>Ketua</h4><p>Nourma Yunita</p></div>
+                    <div class="card-maroon"><h4>Wakil Ketua</h4><p>Awan Putra Ramadhan</p></div>
+                    <div class="card-maroon"><h4>Sekretaris 1</h4><p>Azib Aminuddin</p></div>
+                </div>
+                <div class="silsilah-row">
+                    <div class="card-maroon"><h4>Sekretaris 2</h4><p>Alexandra Octoriza R.s</p></div>
+                    <div class="card-maroon"><h4>Bendahara</h4><p>Kamila Atiqa Manulang</p></div>
+                </div>
+            </div>
+
+            <hr style="margin: 50px 0; opacity: 0.2; border: 0; border-top: 1px solid white;">
+
+            <div class="divisi-container">
+                <h3 style="text-align: center; margin-bottom: 30px; color: white; letter-spacing: 2px;">DIVISI JURNALISTIK</h3>
+                <div class="divisi-grid">
+                    <div class="divisi-box">
+                        <h4>Fotografi</h4>
+                        <p class="leader"><span>Ketua:</span> Ridhani Pasya XI.10</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Moreno Akbar Dhiaulhaq X.9</li>
+                            <li>M.Syarif X.3</li>
+                            <li>M.Riyad XI.6</li>
+                            <li>Jozuno Adalardi Rozali XII.6</li>
+                        </ul>
+                    </div>
+                    <div class="divisi-box">
+                        <h4>Penulis</h4>
+                        <p class="leader"><span>Ketua:</span> Arden Sasragam XI.7</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Salma Hera XI.9</li>
+                            <li>Auliya Nisa XI.10</li>
+                            <li>Gina Syarofa XI.9</li>
+                            <li>Salma XII.2</li>
+                        </ul>
+                    </div>
+                    <div class="divisi-box">
+                        <h4>Desain</h4>
+                        <p class="leader"><span>Ketua:</span> Agustinus Rehan Sentaso XI.7</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Afdhi Lay Shihaf XI.4</li>
+                            <li>Sekar Ratu Nindita X.3</li>
+                            <li>Finsha Etiko NurRasya X.10</li>
+                            <li>Keisya Namira Putri XI.5</li>
+                            <li>M.Ziddan Fiqqi XII.1</li>
+                        </ul>
+                    </div>
+                    <div class="divisi-box">
+                        <h4>Editing</h4>
+                        <p class="leader"><span>Ketua:</span> M.Dafa Khabir XI.10</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Fredysca Maritza Febiananda X.7</li>
+                        </ul>
+                    </div>
+                    <div class="divisi-box">
+                        <h4>Videografi</h4>
+                        <p class="leader"><span>Ketua:</span> M.Rakha Maulana XI.8</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Nabila Najwa Ul Husna XI.7</li>
+                            <li>Ghiyas Arislan X.3</li>
+                            <li>Linda Talisa Putri X.3</li>
+                        </ul>
+                    </div>
+                    <div class="divisi-box">
+                        <h4>Reporter</h4>
+                        <p class="leader"><span>Ketua:</span> Aisyah Rahma Kuswadi XI.9</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Maulida Nadira XI.8</li>
+                            <li>Maysyarah XI.7</li>
+                            <li>Mira AlMunarah X.1</li>
+                            <li>Nadiya Husna X.2</li>
+                        </ul>
+                    </div>
+                    <div class="divisi-box">
+                        <h4>Ide Kreatif</h4>
+                        <p class="leader"><span>Ketua:</span> M. Rezi Farisi XI.7</p>
+                        <button class="toggle-btn">Lihat Anggota</button>
+                        <ul class="anggota-list">
+                            <li>Indie Arya Wardana XI.7</li>
+                            <li>Ludia XI.10</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kegiatan">
+            <h2>KEGIATAN JURNALISTIK</h2>
+            <div class="slider-container">
+                <div class="slider-wrapper" id="slider-wrapper">
+                    <div class="slider-item">
+                        <img src="foto1.jpg" alt="Liputan">
+                        <div class="slider-desc">Liputan Acara Sekolah</div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="foto2.jpg" alt="Rapat">
+                        <div class="slider-desc">Rapat Evaluasi Mingguan</div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="foto3.jpg" alt="Workshop">
+                        <div class="slider-desc">Pelatihan Jurnalistik</div>
+                    </div>
+                </div>
+                <button class="slider-btn prev" id="prevBtn" aria-label="Slide Sebelumnya">&#10094;</button>
+                <button class="slider-btn next" id="nextBtn" aria-label="Slide Selanjutnya">&#10095;</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CHRONICA Jurnalistik SMAN 3 Banjarbaru. All Rights Reserved.</p>
+    </footer>
+
+    <div id="desktop-guide-overlay">
+        <div class="guide-box">
+            <div class="guide-icon">
+                <i class="fas fa-mobile-alt"></i>
+                <i class="fas fa-arrow-right" style="font-size: 1rem; margin: 0 10px;"></i>
+                <i class="fas fa-desktop"></i>
+            </div>
+            <h3>Optimalkan Tampilan</h3>
+            <p class="guide-desc">
+                Agar tampilan website stabil dan rapi, mohon aktifkan <strong>Mode Desktop</strong> di browser HP kamu.
+            </p>
+            
+            <div class="guide-steps">
+                <div class="step-item">
+                    <div class="step-header">
+                        <i class="fab fa-android"></i>
+                        <div class="step-text">
+                            <strong>Android (Chrome):</strong><br>
+                            Klik titik tiga (⋮) > Centang <strong>"Situs Desktop"</strong>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-header">
+                        <i class="fab fa-apple"></i>
+                        <div class="step-text">
+                            <strong>iPhone (Safari):</strong><br>
+                            Klik ikon "aA" > Pilih <strong>"Minta Situs Web Desktop"</strong>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="panduan.html" class="full-guide-link">
+                <i class="fas fa-book-open"></i> Lihat Panduan Selengkapnya
+            </a>
+
+            <button id="close-guide-btn" disabled>Mohon Baca (5)</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            /* 1. LOGIKA TOMBOL MENU */
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+
+                    if (hamburger.classList.contains('active')) {
+                        hamburger.innerText = "TUTUP";
+                    } else {
+                        hamburger.innerText = "MENU";
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        hamburger.innerText = "MENU";
+                    }
+                });
+            }
+
+            /* 2. JAM DIGITAL */
+            function updateClock() {
+                const now = new Date();
+                const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = now.toLocaleDateString('id-ID', optionsDate);
+                const formattedTime = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                const dateElement = document.getElementById('clock-day-date');
+                const timeElement = document.getElementById('clock-time');
+
+                if (dateElement && timeElement) {
+                    dateElement.textContent = formattedDate;
+                    timeElement.textContent = formattedTime + " WITA";
+                }
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            /* 3. LOGIKA TOGGLE DIVISI */
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const list = this.nextElementSibling; 
+                    
+                    if (list) {
+                        list.classList.toggle('active');
+                        if (list.classList.contains('active')) {
+                            this.innerText = "Tutup";
+                        } else {
+                            this.innerText = "Lihat Anggota";
+                        }
+                    }
+                });
+            });
+
+            /* 4. SCRIPT POPUP PANDUAN */
+            const guideOverlay = document.getElementById("desktop-guide-overlay");
+            const closeBtn = document.getElementById("close-guide-btn");
+
+            if (localStorage.getItem("guideSeen") === "true") {
+                if(guideOverlay) guideOverlay.style.display = "none";
+            } else {
+                if(closeBtn) {
+                    let timeLeft = 5;
+                    closeBtn.disabled = true;
+                    closeBtn.style.opacity = "0.5";
+                    closeBtn.style.cursor = "not-allowed";
+                    closeBtn.textContent = `Mohon Baca (${timeLeft})`;
+
+                    const countdown = setInterval(() => {
+                        timeLeft--;
+                        if (timeLeft > 0) {
+                            closeBtn.textContent = `Mohon Baca (${timeLeft})`;
+                        } else {
+                            clearInterval(countdown);
+                            closeBtn.textContent = "Saya Mengerti";
+                            closeBtn.disabled = false;
+                            closeBtn.style.opacity = "1";
+                            closeBtn.style.cursor = "pointer";
+                            closeBtn.style.transform = "scale(1.05)";
+                            setTimeout(() => closeBtn.style.transform = "scale(1)", 200);
+                        }
+                    }, 1000);
+
+                    closeBtn.addEventListener("click", () => {
+                        if (!closeBtn.disabled) {
+                            if(guideOverlay) {
+                                guideOverlay.style.opacity = "0";
+                                setTimeout(() => {
+                                    guideOverlay.style.display = "none";
+                                }, 500);
+                            }
+                            localStorage.setItem("guideSeen", "true");
+                        }
+                    });
+                }
+            }
+
+            /* 5. PRELOADER */
+            const loader = document.getElementById('loader-wrapper');
+            window.addEventListener('load', () => {
+                if(loader) {
+                    setTimeout(() => { loader.classList.add('fade-out'); }, 1000);
+                }
+            });
+        });
+    </script>
+
+    <style>
+    /* CSS LANGSUNG DI SINI AGAR PRIORITAS TINGGI */
+    #maintenance-layer {
+        position: fixed !important; /* KUNCI: Agar mengambang di atas layar */
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important; /* Lebar penuh layar */
+        height: 100vh !important; /* Tinggi penuh layar */
+        background-color: #000000 !important; /* Hitam Pekat */
+        z-index: 2147483647 !important; /* Angka z-index tertinggi yang mungkin */
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    .m-box-content {
+        background: #111;
+        border: 2px solid #FFD700; /* Emas */
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 600px;
+        width: 90%;
+        box-shadow: 0 0 80px rgba(255, 215, 0, 0.2);
+    }
+
+    .m-box-content i {
+        font-size: 4rem;
+        color: #FFD700;
+        margin-bottom: 25px;
+        display: block;
+    }
+
+    .m-box-content h2 {
+        font-family: 'Playfair Display', serif; /* Pastikan font sesuai */
+        font-size: 2.2rem;
+        color: #FFD700;
+        margin-bottom: 20px;
+        margin-top: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .m-box-content p {
+        font-family: 'Montserrat', sans-serif; /* Pastikan font sesuai */
+        color: #C0C0C0;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin: 0;
+    }
+</style>
+
+<div id="maintenance-layer">
+    <div class="m-box-content">
+        <i class="fas fa-tools"></i> <h2>Website Under Maintenance</h2>
+        <p>
+            Mohon maaf, website <strong>CHRONICA</strong> saat ini sedang dalam perbaikan sistem dan pengembangan fitur baru.
+            <br><br>
+            Akses ditutup sementara. Silakan kembali lagi nanti.
+        </p>
+    </div>
+</div>
+
+<script>
+    // Mematikan Scroll agar user tidak bisa melihat ke bawah
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+</script>
+</body>
+</html>
