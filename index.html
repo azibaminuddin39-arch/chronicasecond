@@ -21,36 +21,29 @@
            ========================================== */
         
         .nav-container {
-            /* Posisi Absolute agar tidak ikut scroll (tetap di atas header) */
             position: absolute !important; 
             top: 25px;
             right: 25px;
-            
-            z-index: 999999 !important; /* Paling atas */
-            pointer-events: auto !important; /* WAJIB: Agar bisa diklik */
+            z-index: 999999 !important; 
+            pointer-events: auto !important; 
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
         #hamburger {
-            /* Style Tombol */
             background: rgba(0, 0, 0, 0.6) !important;
             border: 2px solid var(--color-silver) !important;
             border-radius: 50px !important;
             padding: 10px 25px !important;
             width: auto !important;
             height: auto !important;
-            
-            /* Teks */
             font-family: 'Montserrat', sans-serif;
             color: #ffffff !important;
             font-weight: bold;
             font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            
-            /* Interaksi */
             cursor: pointer !important;
             pointer-events: auto !important; 
             transition: all 0.3s ease;
@@ -58,7 +51,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        /* Hapus garis ikon lama */
         #hamburger span { display: none !important; }
 
         #hamburger:hover {
@@ -68,7 +60,6 @@
             transform: translateY(-2px);
         }
 
-        /* Tampilan saat Aktif (Klik) */
         #hamburger.active {
             background: #800000 !important;
             border-color: #ffffff !important;
@@ -82,7 +73,6 @@
                 right: 20px !important;     
                 bottom: auto !important;
                 left: auto !important;
-                
                 flex-direction: column;     
                 align-items: flex-end;      
             }
@@ -92,14 +82,12 @@
                 top: 60px !important;       
                 right: 0 !important;
                 bottom: auto !important;
-                
                 background: rgba(20, 20, 20, 0.95) !important;
                 backdrop-filter: blur(15px);
                 border: 1px solid rgba(255,255,255,0.2);
                 border-radius: 15px;
                 padding: 15px;
                 min-width: 200px;
-                
                 opacity: 0;
                 visibility: hidden;
                 transform: translateY(-10px);
@@ -240,7 +228,7 @@
         body.stop-scroll {
             overflow: hidden !important;
             height: 100vh !important;
-            touch-action: none; /* Mencegah scroll sentuh */
+            touch-action: none; 
         }
     </style>
 </head>
@@ -563,15 +551,17 @@
                 });
             });
 
-            /* 4. SCRIPT POPUP PANDUAN DENGAN LOCK SCROLL */
+            /* 4. SCRIPT POPUP PANDUAN DENGAN PERBAIKAN */
             const guideOverlay = document.getElementById("desktop-guide-overlay");
             const closeBtn = document.getElementById("close-guide-btn");
 
             if (localStorage.getItem("guideSeen") === "true") {
                 if(guideOverlay) guideOverlay.style.display = "none";
             } else {
-                // KUNCI SCROLL SAAT POPUP MUNCUL
-                document.body.classList.add("stop-scroll"); 
+                // PERBAIKAN: Hanya kunci scroll jika layar HP (<= 850px)
+                if (window.innerWidth <= 850) {
+                    document.body.classList.add("stop-scroll"); 
+                }
 
                 if(closeBtn) {
                     let timeLeft = 5;
@@ -601,7 +591,6 @@
                                 guideOverlay.style.opacity = "0";
                                 setTimeout(() => {
                                     guideOverlay.style.display = "none";
-                                    // BUKA KUNCI SCROLL SAAT DITUTUP
                                     document.body.classList.remove("stop-scroll");
                                 }, 500);
                             }
