@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Desktop - CHRONICA</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==========================================
+           1. CSS DASAR & HEADER
+           ========================================== */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+            min-height: 50vh;
+            /* Background GIF */
+            background-image: 
+                linear-gradient(to bottom, transparent 60%, #000000 100%), 
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                url('img panduan/LB_5.gif') !important; 
+            background-size: cover !important;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* EFEK GLASS UNTUK JUDUL */
+        .panduan-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            width: 90%;
+        }
+
+        .panduan-header-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .panduan-header-content p {
+            font-size: 1rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* ==========================================
+           2. NAVIGASI (FIXED & HITBOX DIPERBAIKI)
+           ========================================== */
+        .nav-container {
+            position: fixed !important;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            
+            /* Layout Container */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            
+            background: rgba(0, 0, 0, 0.8) !important;
+            padding: 10px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #C0C0C0 !important;
+            cursor: pointer;
+            outline: none;
+            pointer-events: auto !important;
+            transition: 0.3s;
+            position: relative;
+            z-index: 10002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: #ffffff !important; 
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* Efek silang saat aktif */
+        .hamburger.active { border-color: #FFD700 !important; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* --- PERBAIKAN HITBOX MENU DI SINI --- */
+        .nav-menu {
+            position: absolute !important;
+            top: 55px !important; 
+            right: 0 !important;
+            
+            /* Reset properti yang bikin panjang */
+            bottom: auto !important;
+            min-height: 0 !important;
+            height: fit-content !important; /* KUNCI: Tinggi menyesuaikan isi */
+            
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            list-style: none;
+            padding: 10px 0;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            
+            display: none;
+            flex-direction: column;
+            min-width: 180px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 10001;
+            
+            transform-origin: top right;
+            animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes menuPop {
+            from { opacity: 0; transform: scale(0.8) translateY(-10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .nav-menu.active { display: flex !important; }
+        .nav-menu li { width: 100%; margin: 0; padding: 0; }
+
+        .nav-menu a { 
+            color: #e0e0e0; 
+            text-decoration: none; 
+            padding: 12px 20px; 
+            display: block; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            font-size: 0.9rem;
+            text-align: right; 
+            transition: 0.2s; 
+        }
+
+        .nav-menu a:last-child { border-bottom: none; }
+        .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
+
+        /* ==========================================
+           3. KONTEN PANDUAN
+           ========================================== */
+        .guide-container {
+            max-width: 900px;
+            margin: -50px auto 50px;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .guide-step {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            color: white;
+        }
+
+        .guide-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            border: 2px solid #C0C0C0;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* TOMBOL KEMBALI */
+        .btn-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.6);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid #C0C0C0;
+            z-index: 1000;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-home:hover { background: #600000; border-color: #FFD700; }
+
+        /* RESPONSIF */
+        @media (max-width: 850px) {
+            .nav-container {
+                align-items: flex-end;
+            }
+            .panduan-header-content h1 { font-size: 1.8rem; }
+            .guide-step { padding: 20px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo"><img src="Logo_2.png" alt="Logo"></div>
+            <div class="loader-line"></div>
+            <p>Loading Panduan</p>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn-home" title="Kembali ke Beranda">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <div class="nav-container">
+        <button class="hamburger" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="mading.html">Mading Online</a></li>
+            <li><a href="anggota.html">Anggota Divisi</a></li>
+            <li><a href="berita.html">Berita</a></li>
+            <li><a href="suara.html">Suara SMAGA & FAQ</a></li> 
+        </ul>
+    </div>
+
+    <header>
+        <div class="panduan-header-content">
+            <h1>Panduan Desktop</h1>
+            <p>Cara mengaktifkan tampilan terbaik di Smartphone Anda</p>
+        </div>
+    </header>
+
+    <main class="guide-container">
+        <div class="guide-step">
+            <div class="step-icon"><i class="fab fa-android"></i></div>
+            <h2 class="step-title">Pengguna Android (Chrome)</h2>
+            
+            <p>1. Klik tanda titik tiga (⋮) di pojok kanan atas browser.</p>
+            <img src="img panduan/panduan-android-1.png" alt="Langkah 1 Android" class="guide-img" onerror="this.style.display='none'">
+            
+            <p style="margin-top: 20px;">2. Cari dan centang opsi <strong>"Situs Desktop"</strong>.</p>
+            <img src="img panduan/panduan-android-2.png" alt="Langkah 2 Android" class="guide-img" onerror="this.style.display='none'">
+        </div>
+
+        <div class="guide-step">
+            <div class="step-icon"><i class="fab fa-apple"></i></div>
+            <h2 class="step-title">Pengguna iPhone (Safari)</h2>
+            
+            <p>1. Klik ikon huruf <strong>"aA"</strong> di pojok kiri atas/bawah kolom alamat.</p>
+            <img src="img panduan/panduan-iphone-1.png" alt="Langkah 1 iPhone" class="guide-img" onerror="this.style.display='none'">
+
+            <p style="margin-top: 20px;">2. Menu pengaturan tampilan akan terbuka.</p>
+            <img src="img panduan/panduan-iphone-2.png" alt="Langkah 2 iPhone" class="guide-img" onerror="this.style.display='none'">
+
+            <p style="margin-top: 20px;">3. Pilih opsi <strong>"Minta Situs Web Desktop"</strong>.</p>
+            <img src="img panduan/panduan-iphone-3.png" alt="Langkah 3 iPhone" class="guide-img" onerror="this.style.display='none'">
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CHRONICA Jurnalistik SMAN 3 Banjarbaru.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader-wrapper');
+            setTimeout(() => { 
+                loader.style.opacity = '0'; 
+                setTimeout(() => { loader.style.display = 'none'; }, 500); 
+            }, 800);
+        });
+
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
