@@ -174,67 +174,103 @@
         .btn-home:hover { background: #600000; border-color: #FFD700; }
 
         /* ==========================================
-           3. KONTEN PANDUAN
+           3. KONTEN PANDUAN & HEADER
            ========================================== */
         header {
+            position: relative;
+            width: 100%;
+            min-height: 50vh;
+            /* Background GIF */
+            background-image: 
+                linear-gradient(to bottom, transparent 60%, #000000 100%), 
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                url('img panduan/LB_5.gif') !important; 
+            background-size: cover !important;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 100px 20px 40px;
-            background: linear-gradient(to bottom, #111, #000);
+            padding: 20px;
         }
 
-        .header-content h1 {
+        /* EFEK GLASS UNTUK JUDUL */
+        .panduan-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            width: 90%;
+        }
+
+        .panduan-header-content h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             color: #FFD700;
             margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .panduan-header-content p {
+            font-size: 1rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .guide-container {
-            max-width: 800px;
-            margin: 0 auto 50px;
+            max-width: 900px;
+            margin: -50px auto 50px;
             padding: 20px;
+            position: relative;
+            z-index: 5;
         }
 
         .guide-step {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 25px;
+            padding: 30px;
             margin-bottom: 30px;
             display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            background: #FFD700;
-            color: #000;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            text-align: center;
+            transition: transform 0.3s;
         }
 
-        .step-content h3 { color: #fff; margin-top: 0; margin-bottom: 10px; }
-        .step-content p { color: #ccc; line-height: 1.6; margin-bottom: 15px; }
-        
-        .step-image {
+        .step-icon {
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            color: white;
+        }
+
+        .guide-img {
             width: 100%;
+            max-width: 300px;
             border-radius: 10px;
-            border: 1px solid #333;
-            margin-top: 10px;
+            border: 2px solid #C0C0C0;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         /* RESPONSIF */
-        @media (max-width: 768px) {
-            .guide-step { flex-direction: column; }
-            .header-content h1 { font-size: 2rem; }
+        @media (max-width: 850px) {
             .nav-container { align-items: flex-end; gap: 0px !important; }
+            .panduan-header-content h1 { font-size: 1.8rem; }
+            .guide-step { padding: 20px; }
         }
 
     </style>
@@ -270,35 +306,36 @@
     </div>
 
     <header>
-        <div class="header-content">
-            <h1>PANDUAN MODE DESKTOP</h1>
-            <p>Cara mengaktifkan tampilan terbaik di HP Android & iPhone</p>
+        <div class="panduan-header-content">
+            <h1>Panduan Desktop</h1>
+            <p>Cara mengaktifkan tampilan terbaik di Smartphone Anda</p>
         </div>
     </header>
 
-    <main>
-        <div class="guide-container">
+    <main class="guide-container">
+        <div class="guide-step">
+            <div class="step-icon"><i class="fab fa-android"></i></div>
+            <h2 class="step-title">Pengguna Android (Chrome)</h2>
             
-            <div class="guide-step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Untuk Pengguna Android (Chrome)</h3>
-                    <p>1. Buka menu dengan menekan ikon <strong>titik tiga</strong> di pojok kanan atas browser Chrome.</p>
-                    <p>2. Cari dan centang opsi <strong>"Situs Desktop"</strong> atau "Desktop Site".</p>
-                    <img src="img/android-guide.jpg" alt="Panduan Android" class="step-image" onerror="this.style.display='none'">
-                </div>
-            </div>
+            <p>1. Klik tanda titik tiga (⋮) di pojok kanan atas browser.</p>
+            <img src="img panduan/panduan-android-1.png" alt="Langkah 1 Android" class="guide-img" onerror="this.style.display='none'">
+            
+            <p style="margin-top: 20px;">2. Cari dan centang opsi <strong>"Situs Desktop"</strong>.</p>
+            <img src="img panduan/panduan-android-2.png" alt="Langkah 2 Android" class="guide-img" onerror="this.style.display='none'">
+        </div>
 
-            <div class="guide-step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Untuk Pengguna iPhone (Safari)</h3>
-                    <p>1. Tekan ikon <strong>"aA"</strong> di pojok kiri atas (di kolom alamat website).</p>
-                    <p>2. Pilih menu <strong>"Minta Situs Web Desktop"</strong> atau "Request Desktop Website".</p>
-                    <img src="img/ios-guide.jpg" alt="Panduan iOS" class="step-image" onerror="this.style.display='none'">
-                </div>
-            </div>
+        <div class="guide-step">
+            <div class="step-icon"><i class="fab fa-apple"></i></div>
+            <h2 class="step-title">Pengguna iPhone (Safari)</h2>
+            
+            <p>1. Klik ikon huruf <strong>"aA"</strong> di pojok kiri atas/bawah kolom alamat.</p>
+            <img src="img panduan/panduan-iphone-1.png" alt="Langkah 1 iPhone" class="guide-img" onerror="this.style.display='none'">
 
+            <p style="margin-top: 20px;">2. Menu pengaturan tampilan akan terbuka.</p>
+            <img src="img panduan/panduan-iphone-2.png" alt="Langkah 2 iPhone" class="guide-img" onerror="this.style.display='none'">
+
+            <p style="margin-top: 20px;">3. Pilih opsi <strong>"Minta Situs Web Desktop"</strong>.</p>
+            <img src="img panduan/panduan-iphone-3.png" alt="Langkah 3 iPhone" class="guide-img" onerror="this.style.display='none'">
         </div>
     </main>
 
