@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suara SMAGA - CHRONICA</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Playfair+Display:wght@700&display=swap');
+
+        /* ==========================================
+           1. CSS HEADER & KONTEN ASLI ANDA
+           ========================================== */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-brand-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        /* Tombol Kembali (Panah) */
+        .back-link-wrapper {
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 10001 !important;
+        }
+
+        .back-link-wrapper:hover { transform: scale(1.02); }
+
+        .text-container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px 50px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .back-arrow {
+            color: #C0C0C0;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .back-link-wrapper:hover .back-arrow { color: white; }
+
+        .text-container h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: white;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .text-container p {
+            color: #C0C0C0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 5px;
+        }
+
+        /* Header Background (Menggunakan GIF asli Anda) */
+        header {
+            position: relative;
+            width: 100%;
+            min-height: 50vh;
+            background-image: 
+                linear-gradient(to bottom, transparent 60%, #000000 100%), 
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                url('img/LB_3.gif') !important; 
+            background-size: cover !important;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Style Konten Utama (Kritik Saran & FAQ) */
+        .suara-section { text-align: center; padding: 40px 20px; }
+        .suara-icon { font-size: 3rem; color: #FFD700; margin-bottom: 20px; }
+        .btn-suara {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #800000;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 1px solid #FFD700;
+        }
+        .btn-suara:hover { background: #a00000; transform: translateY(-3px); }
+
+        .faq-section { max-width: 800px; margin: 0 auto 50px; padding: 20px; }
+        .faq-title { text-align: center; font-family: 'Playfair Display', serif; color: #FFD700; margin-bottom: 30px; }
+        
+        .faq-item { 
+            background: rgba(255,255,255,0.05); 
+            margin-bottom: 15px; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.1); 
+        }
+        
+        .faq-question { 
+            width: 100%;
+            background: none;
+            border: none;
+            color: white;
+            text-align: left;
+            padding: 20px; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: bold; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .faq-answer { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: all 0.4s ease; 
+            opacity: 0; 
+            padding: 0 20px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer { 
+            max-height: 500px; 
+            padding: 20px; 
+            opacity: 1; 
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .faq-item.active .faq-question { color: #FFD700; }
+        .faq-item.active .fa-chevron-down { transform: rotate(180deg); transition: 0.3s; }
+
+        /* ==========================================
+           2. NAVIGASI BARU (FIXED & RAPI - DARI PANDUAN)
+           ========================================== */
+        .nav-container {
+            position: fixed !important;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.8) !important;
+            padding: 10px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #C0C0C0 !important;
+            cursor: pointer;
+            outline: none;
+            pointer-events: auto !important;
+            transition: 0.3s;
+            position: relative;
+            z-index: 10002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: #ffffff !important; 
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        .hamburger.active { border-color: #FFD700 !important; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* MENU DROPDOWN (HITBOX FIX) */
+        .nav-menu {
+            position: absolute !important;
+            top: 55px !important; 
+            right: 0 !important;
+            bottom: auto !important;
+            min-height: 0 !important;
+            height: fit-content !important; 
+            
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            list-style: none;
+            padding: 10px 0;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            
+            display: none;
+            flex-direction: column;
+            min-width: 180px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 10001;
+            transform-origin: top right;
+            animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes menuPop {
+            from { opacity: 0; transform: scale(0.8) translateY(-10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .nav-menu.active { display: flex !important; }
+        .nav-menu li { width: 100%; margin: 0; padding: 0; }
+
+        .nav-menu a { 
+            color: #e0e0e0; 
+            text-decoration: none; 
+            padding: 12px 20px; 
+            display: block; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            font-size: 0.9rem;
+            text-align: right; 
+            transition: 0.2s; 
+        }
+
+        .nav-menu a:last-child { border-bottom: none; }
+        .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
+
+        /* RESPONSIF */
+        @media (max-width: 850px) {
+            .nav-container { align-items: flex-end; gap: 0px !important; }
+            .text-container h1 { font-size: 2rem; }
+            .header-brand-wrapper { padding: 40px 20px; }
+        }
+    </style>
+</head>
+
+<body class="page-suara">
+
+    <div class="nav-container">
+        <button class="hamburger" id="hamburgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="mading.html">Mading Online</a></li>
+            <li><a href="panduan.html">Panduan Desktop</a></li>
+            <li><a href="anggota.html">Anggota Divisi</a></li>
+            <li><a href="berita.html">Berita</a></li>
+        </ul>
+    </div>
+
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="Logo_2.png" alt="Logo Chronica">
+                <div class="loader-line"></div>
+            </div>
+            <p>CHRONICA JURNALISTIK</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-brand-wrapper">
+            <a href="index.html" class="back-link-wrapper">
+                <div class="text-container">
+                    <i class="fas fa-arrow-left back-arrow"></i>
+                    <h1>SUARA SMAGA</h1>
+                    <p>Aspirasi & Pertanyaan Umum</p>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="suara-section">
+            <i class="fas fa-bullhorn suara-icon"></i>
+            <h2>Kritik & Saran</h2>
+            <p>Sampaikan kritik, saran, atau ide secara anonim.</p>
+            <a href="https://forms.gle/89w5K1VCMqdtepg59" target="_blank" class="btn-suara">
+                KRITIK & SARAN <i class="fas fa-paper-plane"></i>
+            </a>
+        </section>
+
+        <section class="faq-section">
+            <div class="faq-container">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Apa itu CHRONICA?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>CHRONICA adalah media jurnalistik resmi SMAN 3 Banjarbaru yang berfungsi sebagai wadah aspirasi, informasi, dan kreativitas siswa.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Apakah identitas aman?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ya, privasi kamu adalah prioritas kami. Identitas pengirim kritik atau saran akan dijaga kerahasiaannya atau bisa dikirimkan secara anonim.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Apa saja kegiatan utama di ekskul jurnalistik?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kegiatan kami meliputi liputan acara sekolah, wawancara, fotografi, desain grafis untuk mading digital, hingga pengelolaan website ini.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Bagaimana cara saya menyampaikan kritik dan saran?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kamu bisa menggunakan formulir yang tersedia di halaman "Suara Siswa" ini atau melalui kotak saran fisik yang ada di depan ruang redaksi.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Bolehkah saya memberikan saran secara anonim?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tentu saja. Kami menyediakan opsi anonim agar kamu bisa menyampaikan pendapat dengan lebih nyaman tanpa perlu khawatir tentang identitas.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CHRONICA Jurnalistik SMAN 3 Banjarbaru</p>
+    </footer>
+
+    <script>
+        // LOADER
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader-wrapper');
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }, 1000);
+            }
+        });
+
+        // LOGIKA NAVIGASI BARU
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        if (hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hamburgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                    hamburgerBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // LOGIKA FAQ ACCORDION
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                
+                // Opsional: Tutup yang lain jika satu dibuka
+                faqItems.forEach(i => i.classList.remove('active'));
+
+                if (!isOpen) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
