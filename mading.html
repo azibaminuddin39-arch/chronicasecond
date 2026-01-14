@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mading Online - CHRONICA</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==========================================
+           CSS KHUSUS MADING (MASONRY LAYOUT & GLASS HEADER)
+           ========================================== */
+        
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            margin: 0; /* Reset margin body */
+        }
+
+        /* HEADER DENGAN BACKGROUND BERGERAK */
+        header {
+            position: relative;
+            width: 100%;
+            min-height: 60vh; /* Tinggi sedikit ditambah */
+            /* Ganti 'LB_4.gif' dengan gambar/gif background yang kamu mau (TANPA img/) */
+            background-image: 
+                linear-gradient(to bottom, transparent 20%, #050505 100%), 
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('mading folder/LB_6.gif') !important; 
+            background-size: cover !important;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* --- PERUBAHAN 1: KOTAK KACA UNTUK HEADER --- */
+        .mading-header-content {
+            text-align: center;
+            z-index: 10;
+            /* Hapus margin-top lama */
+            
+            /* Tambahkan Efek Glass */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px; /* Memberi ruang di dalam kaca */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            width: 90%;
+            animation: fadeInGlass 1s ease-out;
+        }
+
+        @keyframes fadeInGlass {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PERUBAHAN 2: POSISI TOMBOL KEMBALI --- */
+        .btn-back-mading {
+            /* Hapus posisi absolute lama */
+            /* position: absolute; top: 30px; left: 30px; */
+            
+            /* Posisi baru: Relatif dan ditengah */
+            position: relative;
+            display: inline-flex; /* Agar bisa di-center dengan margin auto */
+            margin: 0 auto 20px;  /* Center horizontal, jarak bawah 20px */
+            
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            
+            /* WAJIB AGAR BISA DIKLIK */
+            pointer-events: auto !important; 
+            cursor: pointer;
+        }
+
+        .btn-back-mading:hover {
+            background: var(--color-maroon);
+            border-color: var(--color-gold);
+            transform: scale(1.1);
+        }
+
+        /* JUDUL & SUBJUDUL */
+        .mading-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #FFD700; /* Gold */
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            margin: 0;
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+
+        .mading-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            color: #C0C0C0;
+            font-size: 1rem;
+            margin-top: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* LAYOUT MADING (MASONRY / PINTEREST STYLE) */
+        .mading-container {
+            max-width: 1200px;
+            margin: 40px auto 50px; /* Jarak dari header */
+            padding: 20px;
+            position: relative;
+            z-index: 20;
+            
+            /* Logic Masonry */
+            column-count: 3;
+            column-gap: 25px;
+        }
+
+        /* KARTU KARYA (ITEM MADING) */
+        .mading-item {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 25px; /* Jarak antar kartu vertikal */
+            break-inside: avoid; /* Agar kartu tidak terpotong */
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mading-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mading-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mading-content {
+            padding: 20px;
+        }
+
+        /* LABEL KATEGORI */
+        .tag {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .tag.puisi { background: rgba(100, 0, 100, 0.6); color: #ffccff; border: 1px solid #ffccff; }
+        .tag.cerpen { background: rgba(0, 50, 100, 0.6); color: #99ccff; border: 1px solid #99ccff; }
+        .tag.foto { background: rgba(100, 50, 0, 0.6); color: #ffcc99; border: 1px solid #ffcc99; }
+        .tag.info { background: rgba(0, 100, 50, 0.6); color: #99ffcc; border: 1px solid #99ffcc; }
+
+        .mading-title-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 10px;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .mading-snippet {
+            font-size: 0.85rem;
+            color: #ccc;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .mading-author {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #888;
+            font-style: italic;
+            border-top: 1px dashed rgba(255,255,255,0.1);
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* RESPONSIF */
+        @media (max-width: 900px) {
+            .mading-container { column-count: 2; }
+        }
+        @media (max-width: 768px) {
+             header { min-height: 50vh; }
+            .mading-title { font-size: 2.5rem; }
+            .mading-header-content { padding: 30px 20px; }
+        }
+        @media (max-width: 600px) {
+            .mading-container { column-count: 1; }
+        }
+
+        /* MODAL POPUP */
+        .modal-mading {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-box {
+            background: #1a1a1a;
+            max-width: 700px;
+            margin: 50px auto;
+            border-radius: 15px;
+            border: 1px solid var(--color-silver);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            z-index: 100;
+            background: rgba(0,0,0,0.5);
+            width: 40px; height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+        }
+
+        .modal-img { width: 100%; height: auto; display: block; }
+        
+        .modal-details { padding: 30px; }
+        .modal-details h2 { font-family: 'Playfair Display'; color: var(--color-gold); margin-top: 0; font-size: 2rem; }
+        .modal-full-text { font-size: 1rem; line-height: 1.8; color: #e0e0e0; white-space: pre-line; }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo"><img src="Logo_2.png" alt="Logo"></div>
+            <div class="loader-line"></div>
+            <p>MEMBUKA MADING...</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="mading-header-content">
+            <a href="index.html" class="btn-back-mading">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+
+            <h1 class="mading-title">MADING KITA</h1>
+            <p class="mading-subtitle">Kreativitas Tanpa Batas Warga SMAGA</p>
+        </div>
+    </header>
+
+    <main class="mading-container">
+
+        <div class="mading-item" onclick="openMading('puisi1')">
+            <div class="mading-content">
+                <span class="tag puisi">Puisi</span>
+                <h3 class="mading-title-text">Senja di Banjarbaru</h3>
+                <p class="mading-snippet">
+                    Langit jingga memeluk kota idaman, 
+                    di sudut sekolah kita menyimpan kenangan. 
+                    Setiap detak jam dinding kelas...
+                </p>
+                <div class="mading-author"><i class="fas fa-pen-nib"></i> Karya: Siti Aminah (X.2)</div>
+            </div>
+            <div id="data-puisi1" style="display:none;">
+                <data-img></data-img> <data-title>Senja di Banjarbaru</data-title>
+                <data-content>
+Langit jingga memeluk kota idaman,
+di sudut sekolah kita menyimpan kenangan.
+Setiap detak jam dinding kelas,
+menyaksikan mimpi yang tak pernah kandas.
+
+Hujan turun membasahi lapangan,
+namun semangat kita takkan hilang.
+SMAGA tercinta tempat kita ditempa,
+menjadi insan yang berguna bagi bangsa.
+
+Terima kasih guruku, terima kasih temanku,
+Waktu ini akan abadi dalam tintaku.
+                </data-content>
+            </div>
+        </div>
+
+        <div class="mading-item" onclick="openMading('foto1')">
+            <img src="foto1.jpg" class="mading-img" alt="Kegiatan">
+            <div class="mading-content">
+                <span class="tag foto">Fotografi</span>
+                <h3 class="mading-title-text">Semangat Pagi Apel Senin</h3>
+                <p class="mading-snippet">Potret khidmat pelaksanaan upacara bendera hari Senin. Pasukan pengibar bendera tampil memukau.</p>
+                <div class="mading-author"><i class="fas fa-camera"></i> Foto: Ridhani Pasya</div>
+            </div>
+            <div id="data-foto1" style="display:none;">
+                <data-img>foto1.jpg</data-img>
+                <data-title>Semangat Pagi Apel Senin</data-title>
+                <data-content>
+Foto ini diambil saat upacara bendera hari Senin tanggal 12 Januari 2026.
+Tampak pasukan pengibar bendera (Paskibra) sedang menjalankan tugasnya dengan sangat disiplin dan rapi.
+Cuaca pagi itu sangat cerah mendukung kekhidmatan upacara.
+                </data-content>
+            </div>
+        </div>
+
+        <div class="mading-item" onclick="openMading('cerpen1')">
+            <div class="mading-content">
+                <span class="tag cerpen">Cerpen</span>
+                <h3 class="mading-title-text">Misteri Ruang Musik</h3>
+                <p class="mading-snippet">
+                    Konon katanya, setiap sore terdengar denting piano dari ruang musik lama. Budi yang penasaran memberanikan diri untuk mengeceknya...
+                </p>
+                <div class="mading-author"><i class="fas fa-book-open"></i> Karya: Anonim</div>
+            </div>
+            <div id="data-cerpen1" style="display:none;">
+                <data-img></data-img>
+                <data-title>Misteri Ruang Musik</data-title>
+                <data-content>
+Konon katanya, setiap sore terdengar denting piano dari ruang musik lama. Budi yang penasaran memberanikan diri untuk mengeceknya sepulang sekolah. Lorong sekolah sudah sepi, hanya ada suara angin berdesir.
+
+"Ting... ting..." suara itu terdengar lagi.
+Jantung Budi berdegup kencang. Ia mengintip lewat celah jendela.
+Ternyata... itu hanyalah Pak Asep, penjaga sekolah yang sedang membersihkan piano sambil memencet tuts-tutsnya secara acak.
+
+Budi pun tertawa lega dan pulang dengan hati tenang. Jangan terlalu percaya mitos ya teman-teman!
+                </data-content>
+            </div>
+        </div>
+
+        <div class="mading-item" onclick="openMading('info1')">
+            <img src="foto3.jpg" class="mading-img" alt="Poster">
+            <div class="mading-content">
+                <span class="tag info">Pengumuman</span>
+                <h3 class="mading-title-text">Open Recruitment CHRONICA</h3>
+                <p class="mading-snippet">Dicari! Siswa-siswi berbakat untuk bergabung menjadi jurnalis muda sekolah. Cek syaratnya di sini.</p>
+                <div class="mading-author"><i class="fas fa-bullhorn"></i> Divisi Humas</div>
+            </div>
+            <div id="data-info1" style="display:none;">
+                <data-img>foto3.jpg</data-img>
+                <data-title>Open Recruitment Anggota Baru</data-title>
+                <data-content>
+Halo Warga SMAGA!
+CHRONICA kembali membuka kesempatan bagi kalian yang memiliki minat di bidang:
+1. Fotografi
+2. Videografi
+3. Menulis (Jurnalis/Sastra)
+4. Desain Grafis
+
+Segera daftarkan diri kalian ke sekretariat OSIS atau hubungi Kak Nourma.
+Mari berkarya bersama!
+                </data-content>
+            </div>
+        </div>
+
+        <div class="mading-item" onclick="openMading('foto2')">
+            <img src="foto2.jpg" class="mading-img" alt="Rapat">
+            <div class="mading-content">
+                <span class="tag foto">Dokumentasi</span>
+                <h3 class="mading-title-text">Suasana Rapat Redaksi</h3>
+                <div class="mading-author"><i class="fas fa-camera"></i> Tim Dokum</div>
+            </div>
+            <div id="data-foto2" style="display:none;">
+                <data-img>foto2.jpg</data-img>
+                <data-title>Suasana Rapat Redaksi</data-title>
+                <data-content>
+Diskusi hangat membahas tema majalah dinding edisi bulan depan.
+Semua anggota aktif memberikan ide-ide kreatif mereka.
+                </data-content>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="madingModal" class="modal-mading">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeMading()">&times;</span>
+            <img id="viewImg" class="modal-img" style="display:none;">
+            
+            <div class="modal-details">
+                <h2 id="viewTitle">Judul Karya</h2>
+                <div id="viewContent" class="modal-full-text">
+                    Isi karya...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="text-align: center; padding: 20px; color: #888; margin: 0;">&copy; 2026 Mading CHRONICA</p>
+    </footer>
+
+    <script>
+        // LOADER
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader-wrapper');
+            setTimeout(() => { 
+                loader.style.opacity = '0'; 
+                setTimeout(() => { loader.style.display = 'none'; }, 500); 
+            }, 800);
+        });
+
+        // LOGIKA MEMBUKA KONTEN MADING
+        function openMading(id) {
+            const dataDiv = document.getElementById('data-' + id);
+            
+            const imgSource = dataDiv.querySelector('data-img').innerText;
+            const title = dataDiv.querySelector('data-title').innerText;
+            const content = dataDiv.querySelector('data-content').innerHTML;
+
+            const modalImg = document.getElementById('viewImg');
+            if (imgSource.trim() !== "") {
+                modalImg.src = imgSource;
+                modalImg.style.display = "block";
+            } else {
+                modalImg.style.display = "none";
+            }
+
+            document.getElementById('viewTitle').innerText = title;
+            document.getElementById('viewContent').innerHTML = content;
+
+            document.getElementById('madingModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMading() {
+            document.getElementById('madingModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('madingModal');
+            if (event.target == modal) {
+                closeMading();
+            }
+        }
+    </script>
+
+</body>
+</html>
