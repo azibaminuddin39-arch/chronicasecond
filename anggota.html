@@ -119,27 +119,26 @@
         }
 
         /* ==========================================
-           FIX NAVIGASI (POJOK KANAN ATAS & HIDDEN SAAT LOAD)
+           NAVIGASI (ABSOLUTE AGAR IKUT SCROLL)
            ========================================== */
         .nav-container { 
-            position: fixed !important; 
+            /* PERUBAHAN DI SINI: Absolute agar menempel di halaman, bukan di layar */
+            position: absolute !important; 
+            
             top: 25px !important; 
             right: 25px !important; 
-            
-            /* Pastikan z-index di bawah loader tapi di atas konten */
             z-index: 10000; 
-            
             display: flex; 
             align-items: center; 
             gap: 15px;
             
-            /* SEMBUNYI SAAT LOADING (Default) */
+            /* Sembunyikan Navigasi di awal (biar gak bocor saat loading) */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        /* KELAS INI DITAMBAHKAN JS SETELAH LOADING SELESAI */
+        /* Kelas ini akan ditambahkan JS setelah loading selesai */
         .nav-container.show-nav {
             opacity: 1;
             visibility: visible;
@@ -161,7 +160,7 @@
         @media (max-width: 850px) { 
             .nav-container { 
                 top: 25px !important;     /* Tetap di Atas */
-                bottom: auto !important;  /* JANGAN di Bawah */
+                bottom: auto !important;  
                 right: 25px !important;   /* Tetap Kanan */
                 left: auto !important;
                 
