@@ -199,7 +199,7 @@
             transform: translateY(-5px);
         }
 
-        /* STYLE POPUP PANDUAN (Update Teks) */
+        /* STYLE POPUP PANDUAN */
         .guide-steps {
             text-align: left;
             background: rgba(255, 255, 255, 0.05);
@@ -234,6 +234,13 @@
         }
         .step-text strong {
             color: var(--color-gold);
+        }
+
+        /* KUNCI SCROLL SAAT POPUP MUNCUL */
+        body.stop-scroll {
+            overflow: hidden !important;
+            height: 100vh !important;
+            touch-action: none; /* Mencegah scroll sentuh */
         }
     </style>
 </head>
@@ -556,13 +563,16 @@
                 });
             });
 
-            /* 4. SCRIPT POPUP PANDUAN */
+            /* 4. SCRIPT POPUP PANDUAN DENGAN LOCK SCROLL */
             const guideOverlay = document.getElementById("desktop-guide-overlay");
             const closeBtn = document.getElementById("close-guide-btn");
 
             if (localStorage.getItem("guideSeen") === "true") {
                 if(guideOverlay) guideOverlay.style.display = "none";
             } else {
+                // KUNCI SCROLL SAAT POPUP MUNCUL
+                document.body.classList.add("stop-scroll"); 
+
                 if(closeBtn) {
                     let timeLeft = 5;
                     closeBtn.disabled = true;
@@ -591,6 +601,8 @@
                                 guideOverlay.style.opacity = "0";
                                 setTimeout(() => {
                                     guideOverlay.style.display = "none";
+                                    // BUKA KUNCI SCROLL SAAT DITUTUP
+                                    document.body.classList.remove("stop-scroll");
                                 }, 500);
                             }
                             localStorage.setItem("guideSeen", "true");
