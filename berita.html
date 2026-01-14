@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita Terkini - CHRONICA</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css"> 
+
+    <style>
+        /* ==========================================
+           1. STYLE ASLI HALAMAN BERITA (DIPERBAIKI UNTUK MOBILE)
+           ========================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+        
+        body { margin: 0; padding: 0; background-color: #000; color: white; font-family: 'Montserrat', sans-serif; }
+
+        /* Header Berita */
+        .news-header {
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, #000000, #111);
+        }
+        .text-container { margin: 0 auto; max-width: 800px; padding-top: 60px; }
+        .text-container h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #FFD700; margin: 10px 0; }
+        .text-container p { color: #ccc; letter-spacing: 1px; }
+
+        /* Grid Berita */
+        .news-grid { 
+            display: grid; 
+            /* PERBAIKAN 1: Ukuran minimal kartu dikecilkan agar pas di HP */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            margin-top: 30px; 
+            padding: 0 20px; 
+            max-width: 1200px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .news-card { 
+            background: #222; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            border: 1px solid #333; 
+            display: flex; 
+            flex-direction: column; 
+            transition: 0.3s; 
+            /* PERBAIKAN 2: Pastikan kartu tidak terlalu sempit */
+            width: 100%;
+        }
+        
+        .news-card:hover { transform: translateY(-5px); border-color: #C0C0C0; }
+        
+        .news-image-wrapper { width: 100%; height: 200px; background: #333; overflow: hidden; position: relative; }
+        .news-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .news-body { padding: 20px; flex-grow: 1; }
+        .news-tag { color: #FFD700; font-size: 0.75em; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; }
+        .news-title { color: white; font-size: 1.3em; margin-bottom: 12px; font-family: 'Playfair Display', serif; line-height: 1.3; }
+        .news-excerpt { color: #ccc; font-size: 0.9em; line-height: 1.6; margin-bottom: 0; }
+        
+        .back-link { display: inline-block; margin-bottom: 20px; color: #FFD700; text-decoration: none; font-weight: bold; font-size: 0.9em; letter-spacing: 1px; }
+        .back-link:hover { color: white; }
+
+        /* ==========================================
+           2. STYLE NAVIGASI BARU (FIXED & RAPI)
+           ========================================== */
+        .nav-container {
+            position: fixed !important;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.8) !important;
+            padding: 10px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #C0C0C0 !important;
+            cursor: pointer;
+            outline: none;
+            pointer-events: auto !important;
+            transition: 0.3s;
+            position: relative;
+            z-index: 10002; 
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: #ffffff !important; 
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        .hamburger.active { border-color: #FFD700 !important; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* MENU DROPDOWN */
+        .nav-menu {
+            position: absolute !important;
+            top: 55px !important; 
+            right: 0 !important;
+            bottom: auto !important;
+            min-height: 0 !important;
+            height: fit-content !important; 
+            
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            list-style: none;
+            padding: 10px 0;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            
+            display: none;
+            flex-direction: column;
+            min-width: 180px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 10001;
+            
+            transform-origin: top right;
+            animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes menuPop {
+            from { opacity: 0; transform: scale(0.8) translateY(-10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .nav-menu.active { display: flex !important; }
+        .nav-menu li { width: 100%; margin: 0; padding: 0; }
+
+        .nav-menu a { 
+            color: #e0e0e0; 
+            text-decoration: none; 
+            padding: 12px 20px; 
+            display: block; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            font-size: 0.9rem;
+            text-align: right; 
+            transition: 0.2s; 
+        }
+
+        .nav-menu a:last-child { border-bottom: none; }
+        .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
+
+        /* ==========================================
+           3. MEDIA QUERY KHUSUS MOBILE (PERBAIKAN TAMPILAN SEMPIT)
+           ========================================== */
+        @media (max-width: 600px) {
+            .nav-container { 
+                align-items: flex-end; 
+                gap: 0px !important; 
+            }
+            
+            /* Header lebih ringkas */
+            .text-container { padding-top: 80px; padding-left: 15px; padding-right: 15px; }
+            .text-container h1 { font-size: 1.8rem; }
+            
+            /* Layout Berita di Mobile */
+            .news-grid {
+                display: flex; /* Ganti ke flex column agar memenuhi lebar */
+                flex-direction: column;
+                padding: 0 15px; /* Margin kiri-kanan lebih tipis */
+                gap: 20px;
+            }
+            
+            .news-card {
+                width: 100%; /* Paksa lebar penuh */
+                margin: 0;
+            }
+            
+            .news-image-wrapper {
+                height: 180px; /* Gambar sedikit lebih pendek */
+            }
+            
+            .news-body {
+                padding: 15px; /* Padding dalam kartu dikurangi */
+            }
+        }
+    </style>
+</head>
+<body class="page-berita"> 
+
+    <div class="nav-container">
+        <button class="hamburger" id="hamburgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="mading.html">Mading Online</a></li>
+            <li><a href="panduan.html">Panduan Desktop</a></li>
+            <li><a href="anggota.html">Anggota Divisi</a></li>
+            <li><a href="suara.html">Suara SMAGA & FAQ</a></li> 
+        </ul>
+    </div>
+
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="Logo_2.png" alt="Logo Chronica">
+                <div class="loader-line"></div>
+            </div>
+            <p>CHRONICA JURNALISTIK</p>
+        </div>
+    </div>
+    
+    <header class="news-header">
+        <div class="text-container">
+            <a href="index.html" class="back-link">← KEMBALI KE BERANDA</a>
+            <h1>WARTA CHRONICA</h1>
+            <p>Update Prestasi dan Kegiatan SMAN 3 Banjarbaru</p>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image-wrapper"><img src="TIM-FUTSAL.jpg" alt="Futsal SMAGA" onerror="this.src='Logo_2.png'"></div>
+                    <div class="news-body">
+                        <span class="news-tag">Olahraga | September 2025</span>
+                        <h3 class="news-title">SMAGA Berlaga di Futsal Series Regional Banjarmasin 2025</h3>
+                        <p class="news-excerpt">Tim Futsal SMAN 3 Banjarbaru tampil kompetitif melawan SMAN 9 Banjarmasin dengan jersey abu-hitam-hitam, menunjukkan semangat juang tinggi di kancah regional.</p>
+                    </div>
+                </article>
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CHRONICA SMAN 3 Banjarbaru.</p>
+    </footer>
+
+    <script>
+        // Loader Logic
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader-wrapper');
+            setTimeout(() => {
+                loader.style.opacity = '0'; 
+                setTimeout(() => { loader.style.display = 'none'; }, 500); 
+            }, 1000); 
+        });
+
+        // Navigation Logic
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        if(hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hamburgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                    hamburgerBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
