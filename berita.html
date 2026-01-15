@@ -20,7 +20,7 @@
         body { margin: 0; padding: 0; background-color: #000; color: white; font-family: 'Montserrat', sans-serif; }
 
         /* ==========================================
-           2. LOADER STYLE (DIPERBAIKI)
+           2. LOADER STYLE (FIX PRESISI TENGAH)
            ========================================== */
         #loader-wrapper {
             position: fixed;
@@ -29,35 +29,42 @@
             width: 100%;
             height: 100%;
             background: #000000;
+            
+            /* PUSATKAN KONTEN UTAMA */
             display: flex;
             justify-content: center;
             align-items: center;
+            
             z-index: 2147483647 !important;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
 
         .loader-content {
-            text-align: center;
+            /* Flex Column untuk menyusun Logo, Garis, Teks ke bawah */
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: center; /* WAJIB: Agar rata tengah horizontal */
+            justify-content: center;
+            text-align: center;
+            width: 100%; /* Pastikan lebar penuh container */
         }
 
         .loader-logo img { 
             width: 100px; 
-            margin-bottom: 15px;
+            margin-bottom: 20px; /* Jarak ke garis */
+            display: block; /* Pastikan dianggap blok */
             animation: pulse 2s infinite; 
         }
 
         /* Garis Loading */
         .loader-line {
             width: 150px;
-            height: 2px;
+            height: 3px; /* Sedikit dipertebal biar jelas */
             background: rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
-            margin-bottom: 10px;
-            border-radius: 2px;
+            margin: 0 auto 15px auto; /* Auto kiri-kanan biar tengah, bawah 15px */
+            border-radius: 5px;
         }
 
         .loader-line::after {
@@ -75,10 +82,11 @@
         .loader-content p {
             color: #C0C0C0;
             letter-spacing: 4px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             text-transform: uppercase;
-            margin-top: 10px;
+            margin: 0; /* Reset margin bawaan paragraf */
+            text-align: center;
         }
 
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
@@ -277,8 +285,8 @@
         <div class="loader-content">
             <div class="loader-logo">
                 <img src="Logo_2.png" alt="Logo Chronica">
-                <div class="loader-line"></div>
             </div>
+            <div class="loader-line"></div>
             <p>CHRONICA JURNALISTIK</p>
         </div>
     </div>
