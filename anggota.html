@@ -28,11 +28,13 @@
                 linear-gradient(to bottom, transparent 50%, #000000 100%), 
                 linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
                 url('img/LB_4.gif') !important; 
-         /* Tambahkan atau perbarui bagian ini pada CSS background Anda */
-    background-repeat: no-repeat !important; /* Mencegah gambar berulang */
-    background-size: cover !important;       /* Memaksa gambar memenuhi area tanpa gepeng */
-    background-position: center center !important; /* Posisi gambar di tengah */
-    background-attachment: fixed; /* (Opsional) Membuat efek background diam saat discroll */
+            background-size: cover !important;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 20px;
         }
 
         /* KOTAK GLASS (KACA) */
@@ -120,8 +122,7 @@
            NAVIGASI (ABSOLUTE AGAR IKUT SCROLL)
            ========================================== */
         .nav-container { 
-            /* Absolute agar menempel di halaman, bukan di layar */
-            position: absolute !important; 
+            position: absolute !important; /* Ikut scroll */
             
             top: 25px !important; 
             right: 25px !important; 
@@ -141,14 +142,14 @@
             visibility: visible;
         }
 
-        /* --- STYLE HAMBURGER DESKTOP (DEFAULT) --- */
+        /* --- STYLE HAMBURGER DESKTOP (UKURAN BESAR) --- */
         .hamburger { 
             display: flex; 
             flex-direction: column; 
             gap: 6px; 
             background: rgba(0, 0, 0, 0.7) !important; 
             
-            /* Ukuran Desktop */
+            /* Ukuran Standar Desktop */
             padding: 10px; 
             width: 45px; 
             height: 45px; 
@@ -196,21 +197,21 @@
                 right: 0 !important; 
             } 
 
-            /* --- MENGECILKAN TOMBOL DI HP --- */
+            /* --- MENGECILKAN TOMBOL KHUSUS DI HP --- */
             .hamburger {
-                width: 35px !important;       /* Lebar lebih kecil */
-                height: 35px !important;      /* Tinggi lebih kecil */
-                padding: 7px !important;      /* Padding dikurangi */
-                gap: 4px !important;          /* Jarak garis dirapatkan */
-                border-radius: 50% !important; /* Biar jadi bulat sempurna di HP */
+                width: 35px !important;       /* Lebih Kecil */
+                height: 35px !important;      
+                padding: 6px !important;      /* Jarak dalam dikurangi */
+                gap: 4px !important;          /* Jarak antar garis dirapatkan */
+                border-radius: 50% !important; 
             }
 
             .hamburger span {
-                width: 20px !important;       /* Lebar garis lebih pendek */
+                width: 20px !important;       /* Garis lebih pendek */
                 height: 2px !important;       /* Garis lebih tipis */
             }
 
-            /* Sesuaikan animasi silang untuk ukuran kecil */
+            /* Sesuaikan animasi silang agar pas di tombol kecil */
             .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg) !important; }
             .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg) !important; }
         }
@@ -514,7 +515,7 @@
             navMenu.classList.remove('active');
         });
 
-        // MODAL LOGIC (PATH SUDAH DIPERBAIKI)
+        // MODAL LOGIC
         function openModal(name, job, imgFile) {
             document.getElementById('modalName').innerText = name;
             document.getElementById('modalJob').innerText = job;
