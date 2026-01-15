@@ -3,544 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anggota CHRONICA - Jurnalistik SMAN 3 Banjarbaru</title>
+    <title>Berita Terkini - CHRONICA</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
 
     <style>
         /* ==========================================
-           CSS KHUSUS HALAMAN ANGGOTA
+           1. RESET & STYLE UMUM
            ========================================== */
-        .page-anggota {
-            background: #000000;
-            color: white;
-            padding-bottom: 50px;
-        }
-
-        /* HEADER DENGAN BACKGROUND */
-        header {
-            position: relative;
-            width: 100%;
-            min-height: 60vh; 
-            background-image: 
-                linear-gradient(to bottom, transparent 50%, #000000 100%), 
-                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
-                url('img/LB_4.gif') !important; 
-            background-size: cover !important;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        /* KOTAK GLASS (KACA) */
-        .glass-header-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            max-width: 900px;
-            width: 95%;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-            position: relative;
-            margin-top: 40px;
-            animation: fadeInGlass 1s ease-out;
-            pointer-events: auto !important;
-        }
-
-        @keyframes fadeInGlass {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* TOMBOL KEMBALI DI DALAM KACA */
-        .btn-back-glass {
-            position: absolute;
-            left: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.8rem;
-            transition: 0.3s;
-            z-index: 1000; 
-            pointer-events: auto !important; 
-            cursor: pointer;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
         
-        .btn-back-glass:hover {
-            color: #FFD700;
-            transform: translateY(-50%) scale(1.2);
-        }
+        /* PENTING: Agar tombol tidak lonjong */
+        * { box-sizing: border-box; }
 
-        /* JUDUL BESAR */
-        .glass-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: white;
-            margin: 0 0 15px 0;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            letter-spacing: 2px;
-        }
-
-        /* DESKRIPSI (VERSI SINGKAT) */
-        .glass-desc {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            color: #e0e0e0;
-            line-height: 1.6;
-            font-style: italic;
-            max-width: 800px;
-            margin: 0 auto;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        /* RESPONSIF HEADER */
-        @media (max-width: 768px) {
-            header { min-height: 50vh; }
-            .glass-header-box { padding: 30px 20px; margin-top: 20px; }
-            .glass-title { font-size: 1.8rem; margin-top: 10px; }
-            .glass-desc { font-size: 0.85rem; } 
-            
-            .btn-back-glass { 
-                position: relative; 
-                left: 0; top: 0; 
-                transform: none; 
-                display: inline-block; 
-                margin-bottom: 10px; 
-            }
-            .btn-back-glass:hover { transform: scale(1.1); }
-        }
+        body { margin: 0; padding: 0; background-color: #000; color: white; font-family: 'Montserrat', sans-serif; }
 
         /* ==========================================
-           NAVIGASI: ABSOLUTE (IKUT SCROLL) & HIDDEN DI AWAL
+           2. NAVIGASI (FIXED & RESPONSIVE)
            ========================================== */
-        .nav-container { 
-            /* WAJIB: Sembunyikan total di awal */
-            display: none !important; 
+        .nav-container {
+            /* Sembunyikan saat loading */
+            display: none !important;
             
-            /* Posisi Absolute (Ikut Scroll) */
-            position: absolute !important; 
+            position: fixed !important;
+            top: 25px !important;
+            right: 25px !important;
+            z-index: 10000;
             
-            /* Posisi Pasti: Pojok Kanan Atas */
-            top: 25px !important; 
-            right: 25px !important; 
-            
-            /* Z-Index di bawah loader */
-            z-index: 10000; 
-            
-            align-items: center; 
+            align-items: center;
             gap: 15px;
         }
 
-        /* --- STYLE HAMBURGER (DESKTOP) --- */
-        .hamburger { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 6px; 
-            background: rgba(0, 0, 0, 0.7) !important; 
+        /* TOMBOL HAMBURGER (DESKTOP DEFAULT) */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            
+            background: rgba(0, 0, 0, 0.8) !important;
+            border: 2px solid #C0C0C0 !important;
             
             /* Ukuran Desktop */
-            padding: 10px; 
-            width: 45px; 
-            height: 45px; 
+            width: 45px;
+            height: 45px;
+            padding: 10px;
+            border-radius: 50%; /* Bulat sempurna */
             
-            border-radius: 8px; 
-            border: 1px solid #C0C0C0 !important; 
-            cursor: pointer; 
-            outline: none; 
-            pointer-events: auto !important; 
+            cursor: pointer;
+            outline: none;
+            pointer-events: auto !important;
+            transition: 0.3s;
+            position: relative;
+            z-index: 10002; 
+            flex-shrink: 0;
         }
 
-        .hamburger span { 
-            display: block; 
-            width: 30px; 
-            height: 3px; 
-            background: #C0C0C0; 
-            border-radius: 2px; 
-            transition: 0.3s ease; 
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: #ffffff !important; 
+            border-radius: 2px;
+            transition: 0.3s ease;
         }
 
-        .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger.active { border-color: #FFD700 !important; }
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-        
-        .nav-menu { 
-            position: absolute !important; 
-            top: 65px; 
-            right: 0; 
-            background: rgba(20, 20, 20, 0.95); 
-            backdrop-filter: blur(15px); 
-            list-style: none; 
-            padding: 15px; 
-            border-radius: 12px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            display: none; 
-            flex-direction: column; 
-            min-width: 180px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-            pointer-events: auto !important; 
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* MENU DROPDOWN */
+        .nav-menu {
+            position: absolute !important;
+            top: 60px !important; 
+            right: 0 !important;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px);
+            list-style: none;
+            padding: 10px 0;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+            flex-direction: column;
+            min-width: 180px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 10001;
+            transform-origin: top right;
+            animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
+        @keyframes menuPop {
+            from { opacity: 0; transform: scale(0.8) translateY(-10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         .nav-menu.active { display: flex !important; }
-        .nav-menu a { color: white; text-decoration: none; padding: 12px; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-menu li { width: 100%; margin: 0; padding: 0; }
+
+        .nav-menu a { 
+            color: #e0e0e0; 
+            text-decoration: none; 
+            padding: 12px 20px; 
+            display: block; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            font-size: 0.9rem;
+            text-align: right; 
+            transition: 0.2s; 
+        }
+
+        .nav-menu a:last-child { border-bottom: none; }
+        .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
 
         /* ==========================================
-           SETTINGAN KHUSUS HP (MOBILE FIX)
+           3. MEDIA QUERY KHUSUS MOBILE (FIX UKURAN & POSISI)
            ========================================== */
-        @media (max-width: 850px) { 
+        @media (max-width: 850px) {
             .nav-container { 
-                /* Paksa posisi di ATAS KANAN */
-                top: 25px !important;     
-                right: 25px !important;   
-                
-                /* Reset posisi lain agar tidak konflik */
-                bottom: auto !important;  
-                left: auto !important;
-                
-                flex-direction: column;   
-                align-items: flex-end;
-            } 
-            
-            .nav-menu { 
-                top: 50px !important;     
-                right: 0 !important; 
-                bottom: auto !important; 
-            } 
+                top: 20px !important;       
+                right: 20px !important;
+                flex-direction: column;     
+                align-items: flex-end;      
+            }
 
-            /* --- MENGECILKAN TOMBOL DI HP --- */
+            /* FIX UKURAN TOMBOL DI HP AGAR TIDAK LONJONG */
             .hamburger {
-                width: 35px !important;       
-                height: 35px !important;      
-                padding: 7px !important;      
-                gap: 4px !important;          
-                border-radius: 50% !important; 
+                width: 35px !important;   /* Lebar fix */
+                height: 35px !important;  /* Tinggi fix */
+                padding: 7px !important;  /* Padding disesuaikan */
+                gap: 4px !important;      /* Jarak garis */
             }
-
-            .hamburger span {
-                width: 20px !important;       
-                height: 2px !important;       
+            
+            .hamburger span { 
+                width: 18px !important;   /* Garis lebih pendek */
+                height: 2px !important; 
             }
-
+            
             .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg) !important; }
             .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg) !important; }
+
+            .nav-menu { top: 50px !important; }
+            
+            /* Header Mobile */
+            .news-header { padding: 80px 20px 40px; }
+            .text-container h1 { font-size: 2rem; }
+            
+            /* Layout Berita Mobile */
+            .news-grid { 
+                display: flex; 
+                flex-direction: column;
+                padding: 0 20px 40px;
+                gap: 25px;
+            }
+            .news-image-wrapper { height: 200px; }
         }
 
-        /* CONTENT STYLES */
-        main { background: rgba(0, 0, 0, 0.6); min-height: 100vh; }
-        .divisi-section { padding: 40px 20px; max-width: 1200px; margin: auto; }
-        .section-title { text-align: center; color: #C0C0C0 !important; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 40px; border-bottom: 2px solid #C0C0C0; display: inline-block; left: 50%; transform: translateX(-50%); position: relative; padding-bottom: 10px; font-family: 'Playfair Display', serif; }
-        .anggota-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px; justify-items: center; }
-        .anggota-card { text-align: center; cursor: pointer; transition: 0.3s; width: 100%; max-width: 160px; }
-        .anggota-card:hover { transform: translateY(-10px); }
-        .foto-container { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 3px solid #C0C0C0; background: #2a2a2a; }
-        .foto-lingkaran { width: 100%; height: 100%; object-fit: cover; }
-        .anggota-card h3 { font-size: 0.9rem; color: #C0C0C0; line-height: 1.2; font-family: 'Montserrat', sans-serif; }
+        /* HEADER BERITA */
+        .news-header {
+            position: relative;
+            padding: 100px 20px;
+            text-align: center;
+            background-image: 
+                linear-gradient(to bottom, rgba(0,0,0,0.5), #000000), 
+                url('img/LB_4.gif'); /* Background */
+            background-size: cover !important;       
+            background-repeat: no-repeat !important; 
+            background-position: center center !important; 
+            background-attachment: fixed;
+        }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; pointer-events: auto !important; }
-        .modal-content { background: #1a1a1a; padding: 40px; border-radius: 25px; display: flex; align-items: center; gap: 35px; max-width: 650px; width: 95%; position: relative; border: 2px solid #C0C0C0; }
-        .modal-foto { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #C0C0C0; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #C0C0C0; cursor: pointer; }
+        .text-container { margin: 0 auto; max-width: 800px; position: relative; z-index: 2; }
+        .text-container h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #FFD700; margin: 10px 0; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        .text-container p { color: #e0e0e0; letter-spacing: 1px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+
+        .back-link { display: inline-block; margin-bottom: 20px; color: #FFD700; text-decoration: none; font-weight: bold; font-size: 0.9em; letter-spacing: 1px; border: 1px solid #FFD700; padding: 8px 20px; border-radius: 50px; transition: 0.3s; background: rgba(0,0,0,0.5); }
+        .back-link:hover { background: #FFD700; color: #000; }
+
+        /* GRID BERITA */
+        .news-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            margin-top: 30px; 
+            padding: 0 20px 50px 20px; 
+            max-width: 1200px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .news-card { 
+            background: #1a1a1a; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            border: 1px solid #333; 
+            display: flex; 
+            flex-direction: column; 
+            transition: 0.3s; 
+            width: 100%;
+        }
         
-        @media (max-width: 600px) {
-            .modal-content { flex-direction: column; text-align: center; }
+        .news-card:hover { transform: translateY(-10px); border-color: #FFD700; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1); }
+        
+        .news-image-wrapper { width: 100%; height: 220px; background: #333; overflow: hidden; position: relative; }
+        .news-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .news-card:hover .news-image-wrapper img { transform: scale(1.1); }
+        
+        .news-body { padding: 25px; flex-grow: 1; }
+        .news-tag { color: #FFD700; font-size: 0.75em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        .news-title { color: white; font-size: 1.4em; margin-bottom: 15px; font-family: 'Playfair Display', serif; line-height: 1.4; }
+        .news-excerpt { color: #ccc; font-size: 0.95em; line-height: 1.6; margin-bottom: 0; }
+        
+        /* CSS LOADER */
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2147483647 !important;
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
+        .loader-logo img { width: 100px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
     </style>
 </head>
-<body class="page-anggota">
-    
+<body class="page-berita"> 
+
     <div id="loader-wrapper">
         <div class="loader-content">
-            <div class="loader-logo"><img src="Logo_2.png" alt="Logo"></div>
-            <div class="loader-line"></div>
-            <p>Loading Anggota</p>
+            <div class="loader-logo">
+                <img src="Logo_2.png" alt="Logo Chronica">
+            </div>
         </div>
     </div>
-
+    
     <div class="nav-container">
         <button class="hamburger" id="hamburgerBtn">
             <span></span><span></span><span></span>
         </button>
+
         <ul class="nav-menu" id="navMenu">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="mading.html">Mading Online</a></li>
             <li><a href="panduan.html">Panduan Desktop</a></li>
-            <li><a href="berita.html">Berita</a></li>
+            <li><a href="anggota.html">Anggota Divisi</a></li>
             <li><a href="suara.html">Suara SMAGA & FAQ</a></li> 
         </ul>
     </div>
-
-    <header>
-        <div class="glass-header-box">
-            <a href="index.html" class="btn-back-glass">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-
-            <h1 class="glass-title">FAMILY CHRONICA</h1>
-            
-            <p class="glass-desc">
-                "Inilah wajah-wajah penuh dedikasi keluarga besar CHRONICA, <br>
-                bersatu merekam jejak dan menyuarakan kebenaran."
-            </p>
+    
+    <header class="news-header">
+        <div class="text-container">
+            <a href="index.html" class="back-link">← KEMBALI KE BERANDA</a>
+            <h1>WARTA CHRONICA</h1>
+            <p>Update Prestasi dan Kegiatan SMAN 3 Banjarbaru</p>
         </div>
     </header>
 
     <main>
-        <section class="divisi-section">
-            <h2 class="section-title">Pengurus Inti</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('Dr. Sarifah Triana M.Pd', 'Pembina', 'img/pembina.jpg')">
-                    <div class="foto-container"><img src="img/pembina.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Dr. Sarifah Triana M.Pd</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Nourma Yunita', 'Ketua Umum', 'img/nourma.jpg')">
-                    <div class="foto-container"><img src="img/nourma.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Nourma Yunita</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Awan Putra Ramadhan', 'Wakil Ketua', 'img/awan.jpg')">
-                    <div class="foto-container"><img src="img/awan.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Awan Putra Ramadhan</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Azib Aminuddin', 'Sekretaris 1', 'img/azib.webp')">
-                    <div class="foto-container"><img src="img/azib.webp" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Azib Aminuddin</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Alexandra Octoriza R.s', 'Sekretaris 2', 'img/alexandra.jpg')">
-                    <div class="foto-container"><img src="img/alexandra.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Alexandra Octoriza R.s</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Kamila Atiqa Manulang', 'Bendahara', 'img/kamila.jpg')">
-                    <div class="foto-container"><img src="img/kamila.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Kamila Atiqa M.</h3>
-                </div>
-            </div>
-        </section>
-
-        <section class="divisi-section">
-            <h2 class="section-title">Divisi Fotografi</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('Ridhani Pasya', 'Ketua Divisi (XI.10)', 'img/ridhani.jpg')">
-                    <div class="foto-container"><img src="img/ridhani.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Ridhani Pasya</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Moreno Akbar Dhiaulhaq', 'Anggota (X.9)', 'img/moreno.jpg')">
-                    <div class="foto-container"><img src="img/moreno.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Moreno Akbar D.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('M. Syarif', 'Anggota (X.3)', 'img/syarif.jpg')">
-                    <div class="foto-container"><img src="img/syarif.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>M. Syarif</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('M. Riyad', 'Anggota (XI.6)', 'img/riyad.jpg')">
-                    <div class="foto-container"><img src="img/riyad.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>M. Riyad</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Jozuno Adalardi Rozali', 'Anggota (XII.6)', 'img/jozuno.jpg')">
-                    <div class="foto-container"><img src="img/jozuno.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Jozuno Adalardi R.</h3>
-                </div>
-            </div>
-        </section>
-
-        <section class="divisi-section">
-            <h2 class="section-title">Divisi Penulis</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('Arden Sasragam', 'Ketua Divisi (XI.7)', 'img/arden.jpg')">
-                    <div class="foto-container"><img src="img/arden.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Arden Sasragam</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Salma Hera', 'Anggota (XI.9)', 'img/salma_h.jpg')">
-                    <div class="foto-container"><img src="img/salma_h.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Salma Hera</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Auliya Nisa', 'Anggota (XI.10)', 'img/auliya.jpg')">
-                    <div class="foto-container"><img src="img/auliya.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Auliya Nisa</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Gina Syarofa', 'Anggota (XI.9)', 'img/gina.jpg')">
-                    <div class="foto-container"><img src="img/gina.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Gina Syarofa</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Salma', 'Anggota (XII.2)', 'img/salma.jpg')">
-                    <div class="foto-container"><img src="img/salma.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Salma</h3>
-                </div>
-            </div>
-        </section>
-
-        <section class="divisi-section">
-            <h2 class="section-title">Divisi Desain</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('Agustinus Rehan Sentaso', 'Ketua Divisi (XI.7)', 'img/rehan.jpg')">
-                    <div class="foto-container"><img src="img/rehan.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Agustinus Rehan S.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Afdhi Lay Shihaf', 'Anggota (XI.4)', 'img/afdhi.jpg')">
-                    <div class="foto-container"><img src="img/afdhi.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Afdhi Lay Shihaf</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Sekar Ratu Nindita', 'Anggota (X.3)', 'img/sekar.jpg')">
-                    <div class="foto-container"><img src="img/sekar.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Sekar Ratu N.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Finsha Etiko NurRasya', 'Anggota (X.10)', 'img/finsha.jpg')">
-                    <div class="foto-container"><img src="img/finsha.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Finsha Etiko N.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Keisya Namira Putri', 'Anggota (XI.5)', 'img/keisya.jpg')">
-                    <div class="foto-container"><img src="img/keisya.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Keisya Namira P.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('M. Ziddan Fiqqi', 'Anggota (XII.1)', 'img/ziddan.jpg')">
-                    <div class="foto-container"><img src="img/ziddan.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>M. Ziddan Fiqqi</h3>
-                </div>
-            </div>
-        </section>
-
-        <section class="divisi-section">
-            <h2 class="section-title">Editing & Videografi</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('M. Dafa Khabir', 'Ketua Divisi Editing (XI.10)', 'img/dafa.jpg')">
-                    <div class="foto-container"><img src="img/dafa.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>M. Dafa Khabir</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Fredysca Maritza Febiananda', 'Anggota Editing (X.7)', 'img/fredysca.jpg')">
-                    <div class="foto-container"><img src="img/fredysca.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Fredysca Maritza F.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('M. Rakha Maulana', 'Ketua Divisi Videografi (XI.8)', 'img/rakha.jpg')">
-                    <div class="foto-container"><img src="img/rakha.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>M. Rakha Maulana</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Nabila Najwa Ul Husna', 'Anggota Videografi (XI.7)', 'img/nabila.jpg')">
-                    <div class="foto-container"><img src="img/nabila.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Nabila Najwa U.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Ghiyas Arislan', 'Anggota Videografi (X.3)', 'img/ghiyas.jpg')">
-                    <div class="foto-container"><img src="img/ghiyas.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Ghiyas Arislan</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Linda Talisa Putri', 'Anggota Videografi (X.3)', 'img/linda.jpg')">
-                    <div class="foto-container"><img src="img/linda.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Linda Talisa P.</h3>
-                </div>
-            </div>
-        </section>
-
-        <section class="divisi-section">
-            <h2 class="section-title">Divisi Reporter</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('Aisyah Rahma Kuswadi', 'Ketua Divisi (XI.9)', 'img/aisyah.jpg')">
-                    <div class="foto-container"><img src="img/aisyah.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Aisyah Rahma K.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Maulida Nadira', 'Anggota (XI.8)', 'img/maulida.jpg')">
-                    <div class="foto-container"><img src="img/maulida.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Maulida Nadira</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Maysyarah', 'Anggota (XI.7)', 'img/maysyarah.jpg')">
-                    <div class="foto-container"><img src="img/maysyarah.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Maysyarah</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Mira AlMunarah', 'Anggota (X.1)', 'img/mira.jpg')">
-                    <div class="foto-container"><img src="img/mira.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Mira AlMunarah</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Nadiya Husna', 'Anggota (X.2)', 'img/nadiya.jpg')">
-                    <div class="foto-container"><img src="img/nadiya.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Nadiya Husna</h3>
-                </div>
-            </div>
-        </section>
-
-        <section class="divisi-section">
-            <h2 class="section-title">Divisi Ide Kreatif</h2>
-            <div class="anggota-grid">
-                <div class="anggota-card" onclick="openModal('M. Rezi Farisi', 'Ketua Divisi (XI.7)', 'img/rezi.jpg')">
-                    <div class="foto-container"><img src="img/rezi.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>M. Rezi Farisi</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Indie Arya Wardana', 'Anggota (XI.7)', 'img/indie.jpg')">
-                    <div class="foto-container"><img src="img/indie.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Indie Arya W.</h3>
-                </div>
-                <div class="anggota-card" onclick="openModal('Ludia', 'Anggota (XI.10)', 'img/ludia.jpg')">
-                    <div class="foto-container"><img src="img/ludia.jpg" class="foto-lingkaran" onerror="this.src='img/profile.jpg'"></div>
-                    <h3>Ludia</h3>
-                </div>
+        <section>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image-wrapper"><img src="TIM-FUTSAL.jpg" alt="Futsal SMAGA" onerror="this.src='Logo_2.png'"></div>
+                    <div class="news-body">
+                        <span class="news-tag">Olahraga | September 2025</span>
+                        <h3 class="news-title">SMAGA Berlaga di Futsal Series Regional Banjarmasin 2025</h3>
+                        <p class="news-excerpt">Tim Futsal SMAN 3 Banjarbaru tampil kompetitif melawan SMAN 9 Banjarmasin dengan jersey abu-hitam-hitam, menunjukkan semangat juang tinggi di kancah regional.</p>
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <div class="news-image-wrapper"><img src="https://via.placeholder.com/600x400" alt="Berita Lain" onerror="this.src='Logo_2.png'"></div>
+                    <div class="news-body">
+                        <span class="news-tag">Akademik | Oktober 2025</span>
+                        <h3 class="news-title">Prestasi Gemilang di Olimpiade Sains Nasional</h3>
+                        <p class="news-excerpt">Siswa SMAN 3 Banjarbaru kembali menorehkan prestasi membanggakan dengan membawa pulang medali emas dalam ajang bergengsi tahunan ini.</p>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <div id="memberModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div class="modal-left">
-                <img id="modalImg" src="" class="modal-foto" onerror="this.src='img/profile.jpg'">
-            </div>
-            <div class="modal-right">
-                <h2 id="modalName">Nama</h2>
-                <p id="modalJob" class="modal-job">Jabatan</p>
-                <p style="font-size: 0.8rem; color: #C0C0C0; opacity: 0.6; margin-top: 10px;">CHRONICA JURNALISTIK</p>
-            </div>
-        </div>
-    </div>
-
     <footer>
-        <p>&copy; 2025 CHRONICA Jurnalistik SMAN 3 Banjarbaru. All Rights Reserved.</p>
+        <p>&copy; 2025 CHRONICA SMAN 3 Banjarbaru.</p>
     </footer>
 
     <script>
-        // SCRIPT LOGIKA UTAMA (FIX LOADING)
-        window.addEventListener('load', () => {
+        // Loader & Nav Logic
+        window.addEventListener('load', function() {
             const loader = document.getElementById('loader-wrapper');
             const nav = document.querySelector('.nav-container');
 
-            // 1. TUNGGU LOADING SELESAI
-            setTimeout(() => { 
+            setTimeout(() => {
                 loader.style.opacity = '0'; 
-                
                 setTimeout(() => { 
-                    loader.style.display = 'none'; 
-                    // 2. BARU MUNCULKAN NAVIGASI (Ubah Display None jadi Flex)
-                    nav.style.display = 'flex';
+                    loader.style.display = 'none';
+                    // BARU MUNCULKAN NAVIGASI SETELAH LOADER HILANG
+                    nav.style.display = 'flex'; 
                 }, 500); 
-            }, 800);
+            }, 1000); 
         });
 
-        // NAVIGATION LOGIC
+        // Hamburger Logic
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const navMenu = document.getElementById('navMenu');
 
-        hamburgerBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hamburgerBtn.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+        if(hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hamburgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
 
-        document.addEventListener('click', () => {
-            hamburgerBtn.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-
-        // MODAL LOGIC
-        function openModal(name, job, imgFile) {
-            document.getElementById('modalName').innerText = name;
-            document.getElementById('modalJob').innerText = job;
-            document.getElementById('modalImg').src = imgFile;
-            document.getElementById('memberModal').style.display = 'flex';
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                    hamburgerBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
         }
-
-        function closeModal() { document.getElementById('memberModal').style.display = 'none'; }
-        window.onclick = (e) => { if (e.target.id == 'memberModal') closeModal(); }
     </script>
 </body>
 </html>
