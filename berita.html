@@ -87,10 +87,9 @@
         @keyframes loadingLine { 0% { left: -50%; } 100% { left: 150%; } }
 
         /* ==========================================
-           3. NAVIGASI (FIXED) - PERBAIKAN DI SINI
+           3. NAVIGASI (FIXED)
            ========================================== */
         .nav-container {
-            /* HAPUS !important AGAR BISA MUNCUL LAGI VIA JS */
             display: none; 
             
             position: fixed !important;
@@ -141,7 +140,7 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* MENU DROPDOWN */
+        /* --- MENU DROPDOWN (PERBAIKAN HITBOX DI SINI) --- */
         .nav-menu {
             position: absolute !important;
             top: 60px !important; 
@@ -150,11 +149,16 @@
             backdrop-filter: blur(15px);
             list-style: none;
             padding: 10px 0;
-            border-radius: 15px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            
             display: none;
             flex-direction: column;
-            min-width: 180px;
+            
+            /* FIX: Agar lebar kotak pas dengan teks */
+            min-width: auto !important; 
+            width: max-content !important; 
+            
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             z-index: 10001;
             transform-origin: top right;
@@ -172,11 +176,12 @@
         .nav-menu a { 
             color: #e0e0e0; 
             text-decoration: none; 
-            padding: 12px 20px; 
+            padding: 10px 20px; /* Padding sedikit dirapatkan */
             display: block; 
             border-bottom: 1px solid rgba(255,255,255,0.05); 
             font-size: 0.9rem;
             text-align: right; 
+            white-space: nowrap; /* Mencegah teks turun baris */
             transition: 0.2s; 
         }
 
@@ -347,7 +352,6 @@
                 loader.style.opacity = '0'; 
                 setTimeout(() => { 
                     loader.style.display = 'none';
-                    // MUNCULKAN NAVIGASI (Sekarang pasti bisa karena !important sudah dihapus di CSS)
                     nav.style.display = 'flex'; 
                 }, 500); 
             }, 1000); 
