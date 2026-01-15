@@ -122,7 +122,7 @@
            NAVIGASI (ABSOLUTE AGAR IKUT SCROLL)
            ========================================== */
         .nav-container { 
-            /* PERUBAHAN DI SINI: Absolute agar menempel di halaman, bukan di layar */
+            /* Absolute agar menempel di halaman, bukan di layar */
             position: absolute !important; 
             
             top: 25px !important; 
@@ -132,20 +132,45 @@
             align-items: center; 
             gap: 15px;
             
-            /* Sembunyikan Navigasi di awal (biar gak bocor saat loading) */
+            /* Sembunyikan Navigasi di awal */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        /* Kelas ini akan ditambahkan JS setelah loading selesai */
         .nav-container.show-nav {
             opacity: 1;
             visibility: visible;
         }
 
-        .hamburger { display: flex; flex-direction: column; gap: 6px; background: rgba(0, 0, 0, 0.7) !important; padding: 10px; border-radius: 8px; border: 1px solid #C0C0C0 !important; cursor: pointer; outline: none; pointer-events: auto !important; }
-        .hamburger span { width: 30px; height: 3px; background: #C0C0C0; border-radius: 2px; transition: 0.3s ease; }
+        /* --- STYLE HAMBURGER DESKTOP (DEFAULT) --- */
+        .hamburger { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+            background: rgba(0, 0, 0, 0.7) !important; 
+            
+            /* Ukuran Desktop */
+            padding: 10px; 
+            width: 45px; 
+            height: 45px; 
+            
+            border-radius: 8px; 
+            border: 1px solid #C0C0C0 !important; 
+            cursor: pointer; 
+            outline: none; 
+            pointer-events: auto !important; 
+        }
+
+        .hamburger span { 
+            display: block; 
+            width: 30px; 
+            height: 3px; 
+            background: #C0C0C0; 
+            border-radius: 2px; 
+            transition: 0.3s ease; 
+        }
+
         .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
@@ -155,23 +180,41 @@
         .nav-menu a { color: white; text-decoration: none; padding: 12px; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================
-           FIX MOBILE POSISI (MEMAKSA TETAP DI ATAS)
+           SETTINGAN KHUSUS HP (NON-DESKTOP)
            ========================================== */
         @media (max-width: 850px) { 
             .nav-container { 
-                top: 25px !important;     /* Tetap di Atas */
+                top: 25px !important;     
                 bottom: auto !important;  
-                right: 25px !important;   /* Tetap Kanan */
+                right: 25px !important;   
                 left: auto !important;
                 
-                flex-direction: column;   /* Menu turun ke bawah */
+                flex-direction: column;   
                 align-items: flex-end;
             } 
             .nav-menu { 
                 bottom: auto !important; 
-                top: 60px !important;     /* Menu muncul di bawah tombol */
+                top: 50px !important;     
                 right: 0 !important; 
             } 
+
+            /* --- MENGECILKAN TOMBOL DI HP --- */
+            .hamburger {
+                width: 35px !important;       /* Lebar lebih kecil */
+                height: 35px !important;      /* Tinggi lebih kecil */
+                padding: 7px !important;      /* Padding dikurangi */
+                gap: 4px !important;          /* Jarak garis dirapatkan */
+                border-radius: 50% !important; /* Biar jadi bulat sempurna di HP */
+            }
+
+            .hamburger span {
+                width: 20px !important;       /* Lebar garis lebih pendek */
+                height: 2px !important;       /* Garis lebih tipis */
+            }
+
+            /* Sesuaikan animasi silang untuk ukuran kecil */
+            .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg) !important; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg) !important; }
         }
 
         /* CONTENT STYLES */
