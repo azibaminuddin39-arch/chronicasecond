@@ -78,25 +78,27 @@
         }
 
         /* ==========================================
-           HEADER BACKGROUND (SETTINGS DISAMAKAN DENGAN ANGGOTA)
+           HEADER BACKGROUND (IKUT SCROLL / TIDAK DIAM)
            ========================================== */
         header {
             position: relative;
             width: 100%;
             min-height: 50vh;
             
-            /* Gambar Background */
+            /* Background Image */
             background-image: 
                 linear-gradient(to bottom, transparent 60%, #000000 100%), 
                 linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
-                url('LB_3.gif') !important; 
+                url('img/LB_3.gif') !important; 
             
-            /* --- SETTINGAN FIXED, COVER, NO-REPEAT --- */
+            /* --- SETTINGAN SCROLL --- */
             background-size: cover !important;
-            background-repeat: no-repeat !important; /* Mencegah gambar berulang */
-            background-position: center center !important; /* Posisi tengah */
-            background-attachment: fixed; /* Efek diam saat scroll (Parallax) */
-            /* ----------------------------------------- */
+            background-repeat: no-repeat !important; 
+            background-position: center center !important; 
+            
+            /* PERUBAHAN DI SINI: Scroll agar background ikut bergerak */
+            background-attachment: scroll !important; 
+            /* ------------------------ */
 
             display: flex;
             align-items: center;
@@ -213,7 +215,7 @@
             transition: 0.3s ease;
         }
 
-        /* Saat Aktif (Warna Tetap Merah) */
+        /* Saat Aktif */
         .hamburger.active { 
             background: #800000 !important; 
             border-color: #FFD700 !important; 
@@ -223,7 +225,7 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* MENU DROPDOWN (BACKGROUND MERAH GELAP) */
+        /* MENU DROPDOWN (MERAH GELAP) */
         .nav-menu {
             position: absolute !important;
             top: 55px !important; 
