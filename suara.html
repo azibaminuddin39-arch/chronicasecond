@@ -30,7 +30,6 @@
             padding: 80px 20px;
         }
 
-        /* Tombol Kembali (Panah) */
         .back-link-wrapper {
             text-decoration: none;
             display: inline-block;
@@ -78,7 +77,6 @@
             margin-top: 5px;
         }
 
-        /* Header Background */
         header {
             position: relative;
             width: 100%;
@@ -94,7 +92,6 @@
             justify-content: center;
         }
 
-        /* Style Konten Utama (Kritik Saran & FAQ) */
         .suara-section { text-align: center; padding: 40px 20px; }
         .suara-icon { font-size: 3rem; color: #FFD700; margin-bottom: 20px; }
         .btn-suara {
@@ -159,10 +156,10 @@
         .faq-item.active .fa-chevron-down { transform: rotate(180deg); transition: 0.3s; }
 
         /* ==========================================
-           2. NAVIGASI BARU (ABSOLUTE & MERAH GELAP)
+           2. NAVIGASI BARU (RED THEME & ABSOLUTE)
            ========================================== */
         .nav-container {
-            /* PERUBAHAN: Absolute agar ikut scroll (tidak menempel di layar) */
+            /* Posisi Absolute agar IKUT SCROLL */
             position: absolute !important; 
             
             top: 20px;
@@ -180,7 +177,7 @@
             align-items: center;
             gap: 5px;
             
-            /* PERUBAHAN: Warna Merah Gelap */
+            /* WARNA MERAH GELAP */
             background: #800000 !important; 
             
             padding: 10px;
@@ -205,12 +202,17 @@
             transition: 0.3s ease;
         }
 
-        .hamburger.active { border-color: #FFD700 !important; }
+        /* Saat Aktif (Warna Tetap Merah) */
+        .hamburger.active { 
+            background: #800000 !important; 
+            border-color: #FFD700 !important; 
+        }
+        
         .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* MENU DROPDOWN */
+        /* MENU DROPDOWN (BACKGROUND MERAH GELAP) */
         .nav-menu {
             position: absolute !important;
             top: 55px !important; 
@@ -222,7 +224,9 @@
             width: max-content !important; 
             min-width: auto !important;
             
-            background: rgba(20, 20, 20, 0.95);
+            /* BACKGROUND NUANSA MERAH MAROON GELAP (Bukan Biru) */
+            background: rgba(50, 0, 0, 0.95) !important; 
+            
             backdrop-filter: blur(15px);
             list-style: none;
             padding: 10px 0;
@@ -259,7 +263,12 @@
         }
 
         .nav-menu a:last-child { border-bottom: none; }
-        .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
+        
+        /* Hover Effect: Sedikit lebih terang */
+        .nav-menu a:hover { 
+            background: rgba(255, 0, 0, 0.2); 
+            color: #FFD700; 
+        }
 
         /* RESPONSIF */
         @media (max-width: 850px) {
