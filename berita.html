@@ -87,20 +87,20 @@
         @keyframes loadingLine { 0% { left: -50%; } 100% { left: 150%; } }
 
         /* ==========================================
-           3. NAVIGASI (COPY DARI SUARA.HTML)
+           3. NAVIGASI (ABSOLUTE - IKUT SCROLL)
            ========================================== */
         .nav-container {
-            /* Sembunyikan dulu saat loading */
-            display: none; 
-
-            position: fixed !important;
-            top: 20px;
-            right: 20px;
+            display: none; /* Default Hidden saat loading */
+            
+            /* PERUBAHAN DI SINI: Absolute agar tombol ikut naik saat scroll */
+            position: absolute !important; 
+            
+            top: 25px !important;
+            right: 25px !important;
             z-index: 10000;
             
-            /* Flex properties dari suara.html */
-            flex-direction: column;
-            align-items: flex-end;
+            align-items: center;
+            gap: 15px;
         }
 
         .hamburger {
@@ -108,24 +108,29 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            
             background: rgba(0, 0, 0, 0.8) !important;
-            padding: 10px;
+            border: 2px solid #C0C0C0 !important;
+            
+            /* Ukuran Desktop */
             width: 45px;
             height: 45px;
+            padding: 10px;
             border-radius: 50%;
-            border: 2px solid #C0C0C0 !important;
+            
             cursor: pointer;
             outline: none;
             pointer-events: auto !important;
             transition: 0.3s;
             position: relative;
-            z-index: 10002;
+            z-index: 10002; 
+            flex-shrink: 0;
         }
 
         .hamburger span {
             display: block;
-            width: 22px;
+            width: 25px;
             height: 2px;
             background-color: #ffffff !important; 
             border-radius: 2px;
@@ -133,34 +138,34 @@
         }
 
         .hamburger.active { border-color: #FFD700 !important; }
-        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* MENU DROPDOWN (STYLE DARI SUARA.HTML) */
+        /* MENU DROPDOWN */
         .nav-menu {
             position: absolute !important;
-            top: 55px !important; 
+            top: 60px !important; 
             right: 0 !important;
-            bottom: auto !important;
-            
-            /* INI KUNCI AGAR UKURAN PAS */
-            min-height: 0 !important;
-            height: fit-content !important; 
-            min-width: 180px;
             
             background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(15px);
             list-style: none;
             padding: 10px 0;
-            border-radius: 15px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             
             display: none;
             flex-direction: column;
+            
+            /* Ukuran Box Pas */
+            width: max-content !important; 
+            height: auto !important;       
+            min-height: 0 !important;      
+            min-width: 0 !important;       
+            
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             z-index: 10001;
-            
             transform-origin: top right;
             animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -181,6 +186,7 @@
             border-bottom: 1px solid rgba(255,255,255,0.05); 
             font-size: 0.9rem;
             text-align: right; 
+            white-space: nowrap; 
             transition: 0.2s; 
         }
 
@@ -188,19 +194,45 @@
         .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
 
         /* ==========================================
-           4. MEDIA QUERY (DARI SUARA.HTML)
+           4. MEDIA QUERY KHUSUS MOBILE
            ========================================== */
         @media (max-width: 850px) {
             .nav-container { 
-                align-items: flex-end; 
-                gap: 0px !important; 
+                /* Pastikan Absolute di HP juga */
+                position: absolute !important;
+                
+                top: 20px !important;       
+                right: 20px !important;
+                flex-direction: column;     
+                align-items: flex-end;      
             }
-            .header-brand-wrapper { padding: 40px 20px; }
+
+            .hamburger {
+                width: 35px !important;   
+                height: 35px !important;  
+                padding: 7px !important;  
+                gap: 4px !important;      
+            }
+            
+            .hamburger span { width: 18px !important; height: 2px !important; }
+            .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg) !important; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg) !important; }
+
+            .nav-menu { top: 50px !important; }
+            
+            .news-header { padding: 80px 20px 40px; }
+            .text-container h1 { font-size: 2rem; }
+            
+            .news-grid { 
+                display: flex; 
+                flex-direction: column;
+                padding: 0 20px 40px;
+                gap: 25px;
+            }
+            .news-image-wrapper { height: 200px; }
         }
 
-        /* ==========================================
-           5. HEADER BERITA
-           ========================================== */
+        /* HEADER BERITA */
         .news-header {
             position: relative;
             padding: 100px 20px;
@@ -254,20 +286,6 @@
         .news-tag { color: #FFD700; font-size: 0.75em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
         .news-title { color: white; font-size: 1.4em; margin-bottom: 15px; font-family: 'Playfair Display', serif; line-height: 1.4; }
         .news-excerpt { color: #ccc; font-size: 0.95em; line-height: 1.6; margin-bottom: 0; }
-        
-        /* Mobile Layout for News */
-        @media (max-width: 850px) {
-            .news-header { padding: 80px 20px 40px; }
-            .text-container h1 { font-size: 2rem; }
-            
-            .news-grid { 
-                display: flex; 
-                flex-direction: column;
-                padding: 0 20px 40px;
-                gap: 25px;
-            }
-            .news-image-wrapper { height: 200px; }
-        }
     </style>
 </head>
 <body class="page-berita"> 
@@ -342,7 +360,6 @@
                 loader.style.opacity = '0'; 
                 setTimeout(() => { 
                     loader.style.display = 'none';
-                    // MUNCULKAN NAVIGASI (Sesuai keinginan: Muncul setelah loading)
                     nav.style.display = 'flex'; 
                 }, 500); 
             }, 1000); 
