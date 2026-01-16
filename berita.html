@@ -20,7 +20,7 @@
         body { margin: 0; padding: 0; background-color: #000; color: white; font-family: 'Montserrat', sans-serif; }
 
         /* ==========================================
-           2. LOADER STYLE (PRESISI TENGAH)
+           2. LOADER STYLE
            ========================================== */
         #loader-wrapper {
             position: fixed;
@@ -90,7 +90,7 @@
            3. NAVIGASI (FIXED)
            ========================================== */
         .nav-container {
-            display: none; 
+            display: none; /* Default Hidden saat loading */
             
             position: fixed !important;
             top: 25px !important;
@@ -140,24 +140,27 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* --- MENU DROPDOWN (PERBAIKAN HITBOX DI SINI) --- */
+        /* --- MENU DROPDOWN (PERBAIKAN HITBOX FINAL) --- */
         .nav-menu {
             position: absolute !important;
             top: 60px !important; 
             right: 0 !important;
+            
             background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(15px);
             list-style: none;
-            padding: 10px 0;
+            padding: 10px 0; /* Padding vertikal secukupnya */
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             
             display: none;
             flex-direction: column;
             
-            /* FIX: Agar lebar kotak pas dengan teks */
-            min-width: auto !important; 
-            width: max-content !important; 
+            /* FIX UKURAN BOX AGAR PAS DENGAN KONTEN */
+            width: max-content !important; /* Lebar mengikuti teks terpanjang */
+            height: auto !important;       /* Tinggi mengikuti jumlah menu */
+            min-height: 0 !important;      /* Mencegah tinggi minimum */
+            min-width: 0 !important;       /* Mencegah lebar minimum */
             
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             z-index: 10001;
@@ -176,12 +179,12 @@
         .nav-menu a { 
             color: #e0e0e0; 
             text-decoration: none; 
-            padding: 10px 20px; /* Padding sedikit dirapatkan */
+            padding: 12px 20px; 
             display: block; 
             border-bottom: 1px solid rgba(255,255,255,0.05); 
             font-size: 0.9rem;
             text-align: right; 
-            white-space: nowrap; /* Mencegah teks turun baris */
+            white-space: nowrap; /* Teks satu baris */
             transition: 0.2s; 
         }
 
