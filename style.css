@@ -714,6 +714,8 @@ h2 {
 /* ==========================================
    HALAMAN SPESIFIK: SUARA & BERITA
    ========================================== */
+
+/* 1. Header Background (Tidak perlu diubah jika sudah benar) */
 .page-suara header {
     background-image: 
         linear-gradient(to bottom, transparent 65%, var(--color-bg-main) 100%), 
@@ -721,26 +723,31 @@ h2 {
         url('LB_3.gif') !important;
 }
 
-.page-berita header {
-    background-image: 
-        linear-gradient(to bottom, transparent 65%, var(--color-bg-main) 100%), 
-        linear-gradient(rgba(0,0,0,0.6), rgba(96,0,0,0.4)), 
-        url('LB_2.gif') !important;
-}
-
+/* 2. MENU DROPDOWN (GANTI DARI BIRU KE MERAH GELAP) */
 .page-suara .nav-menu {
-    background: rgba(0, 0, 50, 0.95) !important; 
-    border: 1px solid rgba(100, 149, 237, 0.3) !important;
+    /* GANTI BAGIAN INI */
+    background: rgba(50, 0, 0, 0.95) !important; /* Merah Maroon Gelap */
+    border: 1px solid rgba(255, 215, 0, 0.3) !important; /* Border Emas Tipis */
 }
 
+/* 3. TOMBOL HAMBURGER (GANTI DARI BIRU KE MERAH) */
 .page-suara .hamburger {
-    background: #000032 !important;
+    /* GANTI BAGIAN INI */
+    background: #800000 !important; /* Merah Maroon Solid */
     border: 2px solid #ffffff !important;
 }
 
+/* 4. GARIS DI DALAM HAMBURGER */
 .page-suara .hamburger span {
     background: #ffffff !important;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    box-shadow: none !important; /* Hilangkan glow biru jika ada */
+}
+
+/* 5. MEMASTIKAN TOMBOL IKUT SCROLL (ABSOLUTE) */
+.page-suara .nav-container {
+    position: absolute !important; 
+    top: 20px !important;
+    right: 20px !important;
 }
 
 /* ==========================================
