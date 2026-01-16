@@ -77,16 +77,27 @@
             margin-top: 5px;
         }
 
+        /* ==========================================
+           HEADER BACKGROUND (UPDATED: LB_2.gif & FIX SETTINGS)
+           ========================================== */
         header {
             position: relative;
             width: 100%;
             min-height: 50vh;
+            
+            /* Background Image: LB_2.gif */
             background-image: 
                 linear-gradient(to bottom, transparent 60%, #000000 100%), 
                 linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
                 url('img/LB_3.gif') !important; 
-            background-size: cover !important;
-            background-position: center;
+            
+            /* --- SETTINGAN YANG DISAMAKAN DENGAN ANGGOTA.HTML --- */
+            background-size: cover !important;       
+            background-repeat: no-repeat !important; /* Mencegah gambar ganda */
+            background-position: center center !important; 
+            background-attachment: fixed;            /* Efek Parallax */
+            /* --------------------------------------------------- */
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -224,7 +235,7 @@
             width: max-content !important; 
             min-width: auto !important;
             
-            /* BACKGROUND NUANSA MERAH MAROON GELAP (Bukan Biru) */
+            /* BACKGROUND NUANSA MERAH MAROON GELAP */
             background: rgba(50, 0, 0, 0.95) !important; 
             
             backdrop-filter: blur(15px);
@@ -264,7 +275,7 @@
 
         .nav-menu a:last-child { border-bottom: none; }
         
-        /* Hover Effect: Sedikit lebih terang */
+        /* Hover Effect */
         .nav-menu a:hover { 
             background: rgba(255, 0, 0, 0.2); 
             color: #FFD700; 
