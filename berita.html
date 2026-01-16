@@ -3,104 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berita Terkini - CHRONICA</title>
-    
+    <title>Suara SMAGA - CHRONICA</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        /* ==========================================
-           1. RESET & STYLE UMUM
-           ========================================== */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
-        
-        * { box-sizing: border-box; }
-
-        body { margin: 0; padding: 0; background-color: #000; color: white; font-family: 'Montserrat', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Playfair+Display:wght@700&display=swap');
 
         /* ==========================================
-           2. LOADER STYLE
+           1. CSS HEADER & KONTEN ASLI
            ========================================== */
-        #loader-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2147483647 !important;
-            transition: opacity 0.8s ease, visibility 0.8s;
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-        .loader-content {
+        .header-brand-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             text-align: center;
-            width: 100%;
+            padding: 80px 20px;
         }
 
-        .loader-logo img { 
-            width: 100px; 
-            margin-bottom: 20px;
-            display: block;
-            animation: pulse 2s infinite; 
+        /* Tombol Kembali (Panah) */
+        .back-link-wrapper {
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 10001 !important;
         }
 
-        .loader-line {
-            width: 150px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.2);
+        .back-link-wrapper:hover { transform: scale(1.02); }
+
+        .text-container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px 50px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
-            overflow: hidden;
-            margin: 0 auto 15px auto;
-            border-radius: 5px;
         }
 
-        .loader-line::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -50%;
-            width: 50%;
-            height: 100%;
-            background: #FFD700;
-            animation: loadingLine 1.5s infinite ease-in-out;
-        }
-
-        .loader-content p {
+        .back-arrow {
             color: #C0C0C0;
-            letter-spacing: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin: 0;
-            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s ease;
         }
 
-        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
-        @keyframes loadingLine { 0% { left: -50%; } 100% { left: 150%; } }
+        .back-link-wrapper:hover .back-arrow { color: white; }
+
+        .text-container h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: white;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .text-container p {
+            color: #C0C0C0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 5px;
+        }
+
+        /* Header Background */
+        header {
+            position: relative;
+            width: 100%;
+            min-height: 50vh;
+            background-image: 
+                linear-gradient(to bottom, transparent 60%, #000000 100%), 
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                url('img/LB_3.gif') !important; 
+            background-size: cover !important;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Style Konten Utama (Kritik Saran & FAQ) */
+        .suara-section { text-align: center; padding: 40px 20px; }
+        .suara-icon { font-size: 3rem; color: #FFD700; margin-bottom: 20px; }
+        .btn-suara {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #800000;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 1px solid #FFD700;
+        }
+        .btn-suara:hover { background: #a00000; transform: translateY(-3px); }
+
+        .faq-section { max-width: 800px; margin: 0 auto 50px; padding: 20px; }
+        .faq-title { text-align: center; font-family: 'Playfair Display', serif; color: #FFD700; margin-bottom: 30px; }
+        
+        .faq-item { 
+            background: rgba(255,255,255,0.05); 
+            margin-bottom: 15px; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.1); 
+        }
+        
+        .faq-question { 
+            width: 100%;
+            background: none;
+            border: none;
+            color: white;
+            text-align: left;
+            padding: 20px; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: bold; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .faq-answer { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: all 0.4s ease; 
+            opacity: 0; 
+            padding: 0 20px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer { 
+            max-height: 500px; 
+            padding: 20px; 
+            opacity: 1; 
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .faq-item.active .faq-question { color: #FFD700; }
+        .faq-item.active .fa-chevron-down { transform: rotate(180deg); transition: 0.3s; }
 
         /* ==========================================
-           3. NAVIGASI (ABSOLUTE - IKUT SCROLL)
+           2. NAVIGASI BARU (FIXED & HITBOX PAS)
            ========================================== */
         .nav-container {
-            display: none; /* Default Hidden saat loading */
-            
-            /* PERUBAHAN DI SINI: Absolute agar tombol ikut naik saat scroll */
-            position: absolute !important; 
-            
-            top: 25px !important;
-            right: 25px !important;
+            position: fixed !important;
+            top: 20px;
+            right: 20px;
             z-index: 10000;
-            
-            align-items: center;
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
         .hamburger {
@@ -108,29 +176,24 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 6px;
-            
+            gap: 5px;
             background: rgba(0, 0, 0, 0.8) !important;
-            border: 2px solid #C0C0C0 !important;
-            
-            /* Ukuran Desktop */
+            padding: 10px;
             width: 45px;
             height: 45px;
-            padding: 10px;
             border-radius: 50%;
-            
+            border: 2px solid #C0C0C0 !important;
             cursor: pointer;
             outline: none;
             pointer-events: auto !important;
             transition: 0.3s;
             position: relative;
-            z-index: 10002; 
-            flex-shrink: 0;
+            z-index: 10002;
         }
 
         .hamburger span {
             display: block;
-            width: 25px;
+            width: 22px;
             height: 2px;
             background-color: #ffffff !important; 
             border-radius: 2px;
@@ -138,34 +201,35 @@
         }
 
         .hamburger.active { border-color: #FFD700 !important; }
-        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* MENU DROPDOWN */
+        /* MENU DROPDOWN (HITBOX FIX - MENYESUAIKAN TEKS) */
         .nav-menu {
             position: absolute !important;
-            top: 60px !important; 
+            top: 55px !important; 
             right: 0 !important;
+            bottom: auto !important;
+            
+            /* KUNCI PERBAIKAN UKURAN */
+            min-height: 0 !important;
+            height: fit-content !important; 
+            width: max-content !important; /* Lebar mengikuti teks */
+            min-width: auto !important;    /* Reset lebar minimal */
             
             background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(15px);
             list-style: none;
             padding: 10px 0;
-            border-radius: 12px;
+            border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             
             display: none;
             flex-direction: column;
-            
-            /* Ukuran Box Pas */
-            width: max-content !important; 
-            height: auto !important;       
-            min-height: 0 !important;      
-            min-width: 0 !important;       
-            
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             z-index: 10001;
+            
             transform-origin: top right;
             animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -186,190 +250,148 @@
             border-bottom: 1px solid rgba(255,255,255,0.05); 
             font-size: 0.9rem;
             text-align: right; 
-            white-space: nowrap; 
+            white-space: nowrap; /* Mencegah teks turun baris */
             transition: 0.2s; 
         }
 
         .nav-menu a:last-child { border-bottom: none; }
         .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
 
-        /* ==========================================
-           4. MEDIA QUERY KHUSUS MOBILE
-           ========================================== */
+        /* RESPONSIF */
         @media (max-width: 850px) {
-            .nav-container { 
-                /* Pastikan Absolute di HP juga */
-                position: absolute !important;
-                
-                top: 20px !important;       
-                right: 20px !important;
-                flex-direction: column;     
-                align-items: flex-end;      
-            }
-
-            .hamburger {
-                width: 35px !important;   
-                height: 35px !important;  
-                padding: 7px !important;  
-                gap: 4px !important;      
-            }
-            
-            .hamburger span { width: 18px !important; height: 2px !important; }
-            .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg) !important; }
-            .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg) !important; }
-
-            .nav-menu { top: 50px !important; }
-            
-            .news-header { padding: 80px 20px 40px; }
+            .nav-container { align-items: flex-end; gap: 0px !important; }
             .text-container h1 { font-size: 2rem; }
-            
-            .news-grid { 
-                display: flex; 
-                flex-direction: column;
-                padding: 0 20px 40px;
-                gap: 25px;
-            }
-            .news-image-wrapper { height: 200px; }
+            .header-brand-wrapper { padding: 40px 20px; }
         }
-
-        /* HEADER BERITA */
-        .news-header {
-            position: relative;
-            padding: 100px 20px;
-            text-align: center;
-            background-image: 
-                linear-gradient(to bottom, rgba(0,0,0,0.5), #000000), 
-                url('img/LB_4.gif'); 
-            background-size: cover !important;       
-            background-repeat: no-repeat !important; 
-            background-position: center center !important; 
-            background-attachment: fixed;
-        }
-
-        .text-container { margin: 0 auto; max-width: 800px; position: relative; z-index: 2; }
-        .text-container h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #FFD700; margin: 10px 0; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
-        .text-container p { color: #e0e0e0; letter-spacing: 1px; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-
-        .back-link { display: inline-block; margin-bottom: 20px; color: #FFD700; text-decoration: none; font-weight: bold; font-size: 0.9em; letter-spacing: 1px; border: 1px solid #FFD700; padding: 8px 20px; border-radius: 50px; transition: 0.3s; background: rgba(0,0,0,0.5); }
-        .back-link:hover { background: #FFD700; color: #000; }
-
-        /* GRID BERITA */
-        .news-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-            margin-top: 30px; 
-            padding: 0 20px 50px 20px; 
-            max-width: 1200px; 
-            margin-left: auto; 
-            margin-right: auto; 
-        }
-
-        .news-card { 
-            background: #1a1a1a; 
-            border-radius: 15px; 
-            overflow: hidden; 
-            border: 1px solid #333; 
-            display: flex; 
-            flex-direction: column; 
-            transition: 0.3s; 
-            width: 100%;
-        }
-        
-        .news-card:hover { transform: translateY(-10px); border-color: #FFD700; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1); }
-        
-        .news-image-wrapper { width: 100%; height: 220px; background: #333; overflow: hidden; position: relative; }
-        .news-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .news-card:hover .news-image-wrapper img { transform: scale(1.1); }
-        
-        .news-body { padding: 25px; flex-grow: 1; }
-        .news-tag { color: #FFD700; font-size: 0.75em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
-        .news-title { color: white; font-size: 1.4em; margin-bottom: 15px; font-family: 'Playfair Display', serif; line-height: 1.4; }
-        .news-excerpt { color: #ccc; font-size: 0.95em; line-height: 1.6; margin-bottom: 0; }
     </style>
 </head>
-<body class="page-berita"> 
 
-    <div id="loader-wrapper">
-        <div class="loader-content">
-            <div class="loader-logo">
-                <img src="Logo_2.png" alt="Logo Chronica">
-            </div>
-            <div class="loader-line"></div>
-            <p>CHRONICA JURNALISTIK</p>
-        </div>
-    </div>
-    
+<body class="page-suara">
+
     <div class="nav-container">
         <button class="hamburger" id="hamburgerBtn">
             <span></span><span></span><span></span>
         </button>
-
         <ul class="nav-menu" id="navMenu">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="mading.html">Mading Online</a></li>
             <li><a href="panduan.html">Panduan Desktop</a></li>
             <li><a href="anggota.html">Anggota Divisi</a></li>
-            <li><a href="suara.html">Suara SMAGA & FAQ</a></li> 
+            <li><a href="berita.html">Berita</a></li>
         </ul>
     </div>
-    
-    <header class="news-header">
-        <div class="text-container">
-            <a href="index.html" class="back-link">← KEMBALI KE BERANDA</a>
-            <h1>WARTA CHRONICA</h1>
-            <p>Update Prestasi dan Kegiatan SMAN 3 Banjarbaru</p>
+
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="Logo_2.png" alt="Logo Chronica">
+                <div class="loader-line"></div>
+            </div>
+            <p>CHRONICA JURNALISTIK</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-brand-wrapper">
+            <a href="index.html" class="back-link-wrapper">
+                <div class="text-container">
+                    <i class="fas fa-arrow-left back-arrow"></i>
+                    <h1>SUARA SMAGA</h1>
+                    <p>Aspirasi & Pertanyaan Umum</p>
+                </div>
+            </a>
         </div>
     </header>
 
     <main>
-        <section>
-            <div class="news-grid">
-                <article class="news-card">
-                    <div class="news-image-wrapper"><img src="TIM-FUTSAL.jpg" alt="Futsal SMAGA" onerror="this.src='Logo_2.png'"></div>
-                    <div class="news-body">
-                        <span class="news-tag">Olahraga | September 2025</span>
-                        <h3 class="news-title">SMAGA Berlaga di Futsal Series Regional Banjarmasin 2025</h3>
-                        <p class="news-excerpt">Tim Futsal SMAN 3 Banjarbaru tampil kompetitif melawan SMAN 9 Banjarmasin dengan jersey abu-hitam-hitam, menunjukkan semangat juang tinggi di kancah regional.</p>
+        <section class="suara-section">
+            <i class="fas fa-bullhorn suara-icon"></i>
+            <h2>Kritik & Saran</h2>
+            <p>Sampaikan kritik, saran, atau ide secara anonim.</p>
+            <a href="https://forms.gle/89w5K1VCMqdtepg59" target="_blank" class="btn-suara">
+                KRITIK & SARAN <i class="fas fa-paper-plane"></i>
+            </a>
+        </section>
+
+        <section class="faq-section">
+            <div class="faq-container">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Apa itu CHRONICA?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>CHRONICA adalah media jurnalistik resmi SMAN 3 Banjarbaru yang berfungsi sebagai wadah aspirasi, informasi, dan kreativitas siswa.</p>
                     </div>
-                </article>
-                
-                <article class="news-card">
-                    <div class="news-image-wrapper"><img src="https://via.placeholder.com/600x400" alt="Berita Lain" onerror="this.src='Logo_2.png'"></div>
-                    <div class="news-body">
-                        <span class="news-tag">Akademik | Oktober 2025</span>
-                        <h3 class="news-title">Prestasi Gemilang di Olimpiade Sains Nasional</h3>
-                        <p class="news-excerpt">Siswa SMAN 3 Banjarbaru kembali menorehkan prestasi membanggakan dengan membawa pulang medali emas dalam ajang bergengsi tahunan ini.</p>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Apakah identitas aman?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ya, privasi kamu adalah prioritas kami. Identitas pengirim kritik atau saran akan dijaga kerahasiaannya atau bisa dikirimkan secara anonim.</p>
                     </div>
-                </article>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Apa saja kegiatan utama di ekskul jurnalistik?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kegiatan kami meliputi liputan acara sekolah, wawancara, fotografi, desain grafis untuk mading digital, hingga pengelolaan website ini.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Bagaimana cara saya menyampaikan kritik dan saran?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Kamu bisa menggunakan formulir yang tersedia di halaman "Suara Siswa" ini atau melalui kotak saran fisik yang ada di depan ruang redaksi.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Bolehkah saya memberikan saran secara anonim?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tentu saja. Kami menyediakan opsi anonim agar kamu bisa menyampaikan pendapat dengan lebih nyaman tanpa perlu khawatir tentang identitas.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 CHRONICA SMAN 3 Banjarbaru.</p>
+        <p>&copy; 2025 CHRONICA Jurnalistik SMAN 3 Banjarbaru</p>
     </footer>
 
     <script>
-        // Loader & Nav Logic
-        window.addEventListener('load', function() {
+        // LOADER
+        window.addEventListener('load', () => {
             const loader = document.getElementById('loader-wrapper');
-            const nav = document.querySelector('.nav-container');
-
-            setTimeout(() => {
-                loader.style.opacity = '0'; 
-                setTimeout(() => { 
-                    loader.style.display = 'none';
-                    nav.style.display = 'flex'; 
-                }, 500); 
-            }, 1000); 
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }, 1000);
+            }
         });
 
-        // Hamburger Logic
+        // LOGIKA NAVIGASI BARU
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const navMenu = document.getElementById('navMenu');
 
-        if(hamburgerBtn && navMenu) {
+        if (hamburgerBtn && navMenu) {
             hamburgerBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 hamburgerBtn.classList.toggle('active');
@@ -383,6 +405,22 @@
                 }
             });
         }
+
+        // LOGIKA FAQ ACCORDION
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                
+                // Opsional: Tutup yang lain jika satu dibuka
+                faqItems.forEach(i => i.classList.remove('active'));
+
+                if (!isOpen) {
+                    item.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
