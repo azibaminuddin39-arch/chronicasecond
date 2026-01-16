@@ -160,25 +160,21 @@
         }
 
         /* ==========================================
-           4. HEADER (BACKGROUND FIX)
+           4. HEADER (BACKGROUND DIPERBARUI SESUAI PERMINTAAN)
            ========================================== */
         header {
             position: relative;
             width: 100%;
             min-height: 60vh; 
             
+            /* Pengaturan Background Diperbarui */
             background-image: 
                 linear-gradient(to bottom, transparent 50%, #000000 100%), 
                 linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
                 url('img/LB_4.gif') !important; 
             
-            /* --- FIX BACKGROUND --- */
-            background-size: cover !important;       
-            background-repeat: no-repeat !important; 
-            background-position: center center !important; 
-            background-attachment: fixed; 
-            /* --------------------- */
-
+            background-size: cover !important;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
