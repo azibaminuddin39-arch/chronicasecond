@@ -1182,3 +1182,4 @@ body.stop-scroll {
     height: 100vh !important;    /* Membatasi tinggi body sesuai layar */
     touch-action: none;          /* Mencegah scroll sentuh di beberapa browser */
 }
+
