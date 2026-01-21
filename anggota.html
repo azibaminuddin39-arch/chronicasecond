@@ -26,40 +26,30 @@
         }
 
         /* ==========================================
-           2. NAVIGASI (HITAM ELEGAN - BEDA DARI SUARA)
+           2. NAVIGASI (HITAM ELEGAN)
            ========================================== */
         .nav-container { 
-            /* Sembunyikan saat loading */
             display: none;
-
-            /* Absolute agar tombol IKUT SCROLL ke atas */
             position: absolute !important; 
-            
             top: 25px !important; 
             right: 25px !important; 
             z-index: 10000; 
-            
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
 
-        /* TOMBOL HAMBURGER (KEMBALI KE HITAM/SILVER) */
         .hamburger { 
             display: flex; 
             flex-direction: column; 
             justify-content: center;
             align-items: center;     
             gap: 5px;                
-            
-            /* Warna Hitam Transparan (Bukan Merah) */
             background: rgba(0, 0, 0, 0.8) !important; 
             border: 2px solid #C0C0C0 !important; 
-            
             width: 45px !important;
             height: 45px !important;
             padding: 10px !important;
-            
             border-radius: 50%; 
             cursor: pointer; 
             outline: none; 
@@ -87,33 +77,25 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         
-        /* MENU DROPDOWN (HITAM GELAP & FIT) */
         .nav-menu { 
             position: absolute !important; 
             top: 60px !important; 
             right: 0 !important; 
             bottom: auto !important;
-            
-            /* Settingan Ukuran Pas (Sama seperti Suara) */
             min-height: 0 !important;
             height: fit-content !important; 
             width: max-content !important; 
-            min-width: 180px; /* Sedikit lebih lebar untuk nama menu */
-            
-            /* Background Hitam Gelap (Bukan Merah) */
+            min-width: 180px; 
             background: rgba(20, 20, 20, 0.95) !important; 
-            
             backdrop-filter: blur(15px); 
             list-style: none; 
             padding: 10px 0; 
             border-radius: 15px; 
             border: 1px solid rgba(255, 255, 255, 0.2); 
-            
             display: none; 
             flex-direction: column; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
             z-index: 10001;
-            
             transform-origin: top right;
             animation: menuPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -141,9 +123,6 @@
         .nav-menu a:last-child { border-bottom: none; }
         .nav-menu a:hover { background: rgba(255, 255, 255, 0.1); color: #FFD700; }
 
-        /* ==========================================
-           3. RESPONSIVE MOBILE (HP)
-           ========================================== */
         @media (max-width: 850px) { 
             .nav-container { 
                 align-items: flex-end; 
@@ -151,30 +130,24 @@
                 top: 25px !important;
                 right: 25px !important;
             } 
-            
-            /* Penyesuaian Ukuran Tombol di HP */
-            .hamburger {
-                width: 40px !important;
-                height: 40px !important;
-            }
+            .hamburger { width: 40px !important; height: 40px !important; }
         }
 
         /* ==========================================
-           4. HEADER (BACKGROUND DIPERBARUI SESUAI PERMINTAAN)
+           3. HEADER 
            ========================================== */
         header {
             position: relative;
             width: 100%;
             min-height: 60vh; 
-            
-            /* Pengaturan Background Diperbarui */
             background-image: 
                 linear-gradient(to bottom, transparent 50%, #000000 100%), 
                 linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
                 url('img/LB_4.gif') !important; 
-            
-            background-size: cover !important;
-            background-position: center;
+            background-size: cover !important;       
+            background-repeat: no-repeat !important; 
+            background-position: center center !important; 
+            background-attachment: fixed; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -213,7 +186,6 @@
             transition: 0.3s;
             cursor: pointer;
         }
-        
         .btn-back-glass:hover { color: #FFD700; transform: translateY(-50%) scale(1.2); }
 
         .glass-title {
@@ -241,13 +213,9 @@
             .glass-header-box { padding: 30px 20px; margin-top: 20px; }
             .glass-title { font-size: 1.8rem; margin-top: 10px; }
             .glass-desc { font-size: 0.85rem; } 
-            
             .btn-back-glass { 
-                position: relative; 
-                left: 0; top: 0; 
-                transform: none; 
-                display: inline-block; 
-                margin-bottom: 10px; 
+                position: relative; left: 0; top: 0; transform: none; 
+                display: inline-block; margin-bottom: 10px; 
             }
         }
 
@@ -262,22 +230,92 @@
         .foto-lingkaran { width: 100%; height: 100%; object-fit: cover; }
         .anggota-card h3 { font-size: 0.9rem; color: #C0C0C0; line-height: 1.2; font-family: 'Montserrat', sans-serif; }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 20000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #1a1a1a; padding: 40px; border-radius: 25px; display: flex; align-items: center; gap: 35px; max-width: 650px; width: 95%; position: relative; border: 2px solid #C0C0C0; }
-        .modal-foto { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #C0C0C0; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #C0C0C0; cursor: pointer; }
+        /* ==========================================
+           4. MODAL POPUP (PERBAIKAN AREA KLIK)
+           ========================================== */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 20000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.95); 
+            backdrop-filter: blur(10px); 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        
+        .modal-content { 
+            background: #1a1a1a; 
+            padding: 40px; 
+            border-radius: 25px; 
+            display: flex; 
+            align-items: center; 
+            gap: 35px; 
+            max-width: 650px; 
+            width: 95%; 
+            position: relative; 
+            border: 2px solid #C0C0C0; 
+        }
+        
+        .modal-foto { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 4px solid #C0C0C0; 
+        }
+
+        /* --- PERBAIKAN UTAMA: TOMBOL CLOSE --- */
+        .close-modal { 
+            position: absolute; 
+            top: 5px;        
+            right: 15px;      
+            
+            /* Area sentuh yang BESAR dan JELAS */
+            width: 50px;
+            height: 50px;
+            line-height: 50px; /* Menengahkan teks vertikal */
+            text-align: center; /* Menengahkan teks horizontal */
+            
+            font-size: 40px; 
+            color: #C0C0C0; 
+            
+            cursor: pointer; 
+            z-index: 100; /* Lapisan paling atas */
+            
+            /* Debugging (Hapus komentar jika ingin melihat kotak area sentuh) */
+            /* background: rgba(255,0,0,0.2); */
+        }
+
+        .close-modal:hover {
+            color: #FFD700;
+            transform: scale(1.1);
+        }
+        /* ------------------------------------- */
         
         @media (max-width: 600px) {
-            .modal-content { flex-direction: column; text-align: center; }
+            .modal-content { 
+                flex-direction: column; 
+                text-align: center; 
+                padding-top: 50px; /* Beri jarak untuk tombol close */
+            }
+            
+            /* Optimasi untuk layar sentuh */
+            .close-modal {
+                top: 5px;
+                right: 5px;
+                width: 60px; /* Lebih besar di HP */
+                height: 60px;
+                line-height: 60px;
+            }
         }
 
         /* LOADER */
-        #loader-wrapper {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000000; display: flex; justify-content: center; align-items: center;
-            z-index: 999999; transition: opacity 0.5s ease, visibility 0.5s;
-        }
+        #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; display: flex; justify-content: center; align-items: center; z-index: 999999; transition: opacity 0.5s ease, visibility 0.5s; }
         .loader-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .loader-logo img { width: 100px; margin-bottom: 20px; animation: pulse 2s infinite; }
         .loader-line { width: 150px; height: 3px; background: rgba(255,255,255,0.2); position: relative; overflow: hidden; margin-bottom: 10px; border-radius: 5px; }
@@ -305,7 +343,6 @@
             <li><a href="index.html">Beranda</a></li>
             <li><a href="mading.html">Mading Online</a></li>
             <li><a href="panduan.html">Panduan Desktop</a></li>
-            <li><a href="berita.html">Berita</a></li>
             <li><a href="suara.html">Suara SMAGA & FAQ</a></li> 
         </ul>
     </div>
@@ -517,6 +554,7 @@
     <div id="memberModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
+            
             <div class="modal-left">
                 <img id="modalImg" src="" class="modal-foto" onerror="this.src='img/profile.jpg'">
             </div>
