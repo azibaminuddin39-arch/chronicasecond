@@ -15,14 +15,13 @@
            ========================================== */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
         
-        /* PENTING: Mencegah elemen melebar keluar layar */
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body { 
             background-color: #000; 
             color: white; 
             font-family: 'Montserrat', sans-serif; 
-            overflow-x: hidden; /* Mencegah scroll samping */
+            overflow-x: hidden; 
         }
 
         /* ==========================================
@@ -39,7 +38,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2147483647 !important;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            transition: opacity 0.5s ease, visibility 0.5s;
         }
 
         .loader-content {
@@ -93,11 +92,14 @@
         @keyframes loadingLine { 0% { left: -50%; } 100% { left: 150%; } }
 
         /* ==========================================
-           3. NAVIGASI (COPY DARI SUARA.HTML)
+           3. NAVIGASI (STYLE HITAM ELEGAN UNTUK BERITA)
            ========================================== */
         .nav-container {
             display: none; 
+            
+            /* Absolute agar tombol ikut naik saat scroll */
             position: absolute !important; 
+            
             top: 25px !important;
             right: 25px !important;
             z-index: 10000;
@@ -145,15 +147,18 @@
             top: 55px !important; 
             right: 0 !important;
             bottom: auto !important;
+            
             min-height: 0 !important;
             height: fit-content !important; 
             min-width: 180px; 
+            
             background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(15px);
             list-style: none;
             padding: 10px 0;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            
             display: none;
             flex-direction: column;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
@@ -184,20 +189,56 @@
         .nav-menu a:last-child { border-bottom: none; }
         .nav-menu a:hover { background: rgba(255, 215, 0, 0.1); color: #FFD700; }
 
+        @media (max-width: 850px) {
+            .nav-container { 
+                align-items: flex-end; 
+                gap: 0px !important; 
+                top: 25px !important;
+                right: 25px !important;
+            }
+            .news-header { padding: 80px 20px 40px; }
+            .text-container h1 { font-size: 2rem; }
+            
+            /* Tampilan Grid Berita di HP */
+            .news-grid { 
+                display: flex; 
+                flex-direction: column;
+                align-items: center; 
+                padding: 0 20px 40px 20px;
+                gap: 30px;
+                width: 100%;
+            }
+            .news-card {
+                width: 100%; 
+                max-width: 400px;
+                margin: 0 auto; 
+            }
+            .news-image-wrapper { height: 200px; }
+        }
+
         /* ==========================================
-           4. HEADER BERITA
+           4. HEADER BERITA (BACKGROUND DIUBAH)
            ========================================== */
         .news-header {
             position: relative;
             padding: 100px 20px;
             text-align: center;
+            
+            /* --- PERUBAHAN DI SINI --- */
+            /* 1. Menggunakan LB_2.gif */
             background-image: 
                 linear-gradient(to bottom, rgba(0,0,0,0.5), #000000), 
-                url('img/LB_4.gif'); 
+                url('img/LB_2.gif'); 
+            
+            /* 2. Agar gambar tidak berulang dan pas */
             background-size: cover !important;       
             background-repeat: no-repeat !important; 
             background-position: center center !important; 
-            background-attachment: fixed;
+            
+            /* 3. Agar background IKUT SCROLL (tidak diam) */
+            background-attachment: scroll !important; 
+            /* ------------------------- */
+            
             width: 100%;
         }
 
@@ -209,15 +250,14 @@
         .back-link:hover { background: #FFD700; color: #000; }
 
         /* ==========================================
-           5. GRID BERITA (PERBAIKAN UTAMA DI SINI)
+           5. GRID BERITA
            ========================================== */
         main {
             width: 100%;
             display: flex;
-            justify-content: center; /* Pastikan konten di tengah */
+            justify-content: center;
         }
 
-        /* Tampilan Desktop (Grid) */
         .news-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -226,10 +266,9 @@
             padding: 0 20px 50px 20px; 
             max-width: 1200px; 
             width: 100%;
-            justify-content: center; /* Grid tengah */
+            justify-content: center;
         }
 
-        /* Style Kartu */
         .news-card { 
             background: #1a1a1a; 
             border-radius: 15px; 
@@ -238,7 +277,7 @@
             display: flex; 
             flex-direction: column; 
             transition: 0.3s; 
-            width: 100%; /* Agar full di mobile */
+            width: 100%; 
         }
         
         .news-card:hover { transform: translateY(-10px); border-color: #FFD700; box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1); }
@@ -251,38 +290,6 @@
         .news-tag { color: #FFD700; font-size: 0.75em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
         .news-title { color: white; font-size: 1.4em; margin-bottom: 15px; font-family: 'Playfair Display', serif; line-height: 1.4; }
         .news-excerpt { color: #ccc; font-size: 0.95em; line-height: 1.6; margin-bottom: 0; }
-
-        /* ==========================================
-           6. SETTINGAN KHUSUS HP (AGAR PAS DI TENGAH)
-           ========================================== */
-        @media (max-width: 850px) {
-            .nav-container { 
-                align-items: flex-end; 
-                gap: 0px !important; 
-                top: 25px !important;
-                right: 25px !important;
-            }
-            .news-header { padding: 80px 20px 40px; }
-            .text-container h1 { font-size: 2rem; }
-            
-            /* PERBAIKAN TAMPILAN BERITA DI HP */
-            .news-grid { 
-                display: flex; /* Ganti Grid ke Flex agar mudah diatur */
-                flex-direction: column;
-                align-items: center; /* PENTING: Item rata tengah */
-                padding: 0 20px 40px 20px;
-                gap: 30px;
-                width: 100%;
-            }
-            
-            .news-card {
-                width: 100%; /* Kartu memenuhi lebar container */
-                max-width: 400px; /* Batasi agar tidak terlalu lebar */
-                margin: 0 auto; /* Pastikan margin otomatis tengah */
-            }
-
-            .news-image-wrapper { height: 200px; }
-        }
     </style>
 </head>
 <body class="page-berita"> 
@@ -323,7 +330,7 @@
         <section style="width: 100%; display: flex; justify-content: center;">
             <div class="news-grid">
                 <article class="news-card">
-                    <div class="news-image-wrapper"><img src="TIM-FUTSAL.webp" alt="Futsal SMAGA" onerror="this.src='Logo_2.png'"></div>
+                    <div class="news-image-wrapper"><img src="TIM-FUTSAL.jpg" alt="Futsal SMAGA" onerror="this.src='Logo_2.png'"></div>
                     <div class="news-body">
                         <span class="news-tag">Olahraga | September 2025</span>
                         <h3 class="news-title">SMAGA Berlaga di Futsal Series Regional Banjarmasin 2025</h3>
@@ -348,7 +355,7 @@
     </footer>
 
     <script>
-        // LOGIKA LOADING CEPAT (DOMContentLoaded)
+        // LOGIKA LOADING CEPAT
         document.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader-wrapper');
             const nav = document.querySelector('.nav-container');
@@ -358,7 +365,7 @@
                     loader.style.opacity = '0';
                     setTimeout(() => { 
                         loader.style.display = 'none';
-                        if(nav) nav.style.display = 'flex'; // Munculkan navigasi
+                        if(nav) nav.style.display = 'flex';
                     }, 500); 
                 }
             }, 500); 
