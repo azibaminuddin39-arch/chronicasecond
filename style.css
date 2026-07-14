@@ -183,3 +183,18 @@ main {
 .nav-item.active .icon-wrapper {
     background-color: #4a0000; /* Lingkaran merah maron super gelap di balik ikon aktif */
 }
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 22%;
+    padding: 5px 0;
+    
+    /* Tambahkan dua baris ini untuk menghilangkan hit block/kotak biru */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
