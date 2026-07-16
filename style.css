@@ -1,370 +1,134 @@
 /* ==========================================
-   1. RESET & FONTS GLOBAL
+   1. RESET, FONTS & GLOBAL STYLES
    ========================================== */
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Menghapus highlight biru di HP */
-    outline: none;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #121212;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+html, body {
+    height: auto; /* Membebaskan tinggi halaman mengikuti konten */
+    background: linear-gradient(180deg, #180202 0%, #200404 100%);
     color: #ffffff;
-}
-
-/* ==========================================
-   2. CONTAINER SMARTPHONE (MOCKUP)
-   ========================================== */
-.mobile-container {
-    width: 100%;
-    max-width: 430px;
-    height: 932px;
-    background: linear-gradient(-45deg, #0a0a0a, #220202, #0d0a1a, #1a0303);
-    background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite; /* Gradasi mengalir santai */
-    position: relative;
-    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    overflow-y: auto; /* FIX: Mengaktifkan scroll utama browser */
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 40px rgba(0,0,0,0.9);
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    align-items: center;
 }
 
 /* ==========================================
-   3. HEADER STYLE
+   2. MAIN LAYOUT (FIXED SCROLL)
    ========================================== */
-header {
-    text-align: center;
-    padding: 30px 20px 10px 20px;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
-}
-
-.logo-area {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.header-logo {
-    height: 45px;
-    width: auto;
-    object-fit: contain;
-}
-
-.welcome-text {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: #cccccc;
-    font-weight: 300;
-}
-
-.main-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    margin-top: 3px;
-    color: #ffffff;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-
-.title-divider {
-    width: 35%;
-    margin: 10px auto 0 auto;
-    border: 0;
-    height: 1.5px;
-    background-color: rgba(255,255,255,0.6);
-}
-
-/* ==========================================
-   4. BREAKING NEWS TICKER
-   ========================================== */
-.ticker-wrap {
+/* Ganti .container di bawah ini sesuai dengan nama class pembungkus konten utamamu */
+.container {
     width: 100%;
-    overflow: hidden;
-    background-color: rgba(138, 0, 0, 0.4);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 6px 0;
-}
-
-.ticker {
+    max-width: 480px; /* Lebar optimal tampilan mobile */
+    padding: 16px;
+    padding-bottom: 110px; /* Jarak aman di bawah agar konten tidak tertutup navigasi melayang */
     display: flex;
-    white-space: nowrap;
-    animation: marquee 25s linear infinite;
-}
-
-.ticker-item {
-    display: inline-block;
-    padding-right: 50px;
-    font-size: 0.78rem;
-    color: #ffd700;
-}
-
-@keyframes marquee {
-    0% { transform: translate3d(100%, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
+    flex-direction: column;
+    gap: 16px;
+    height: auto; /* FIX: Mencegah batasan tinggi layar */
+    overflow: visible; /* FIX: Mematikan inner scroll bawaan container */
 }
 
 /* ==========================================
-   5. MAIN CONTENT AREA & TABS
+   3. STICKY RUNNING TEXT
    ========================================== */
-main {
-    flex: 1;
-    overflow-y: scroll;
-    padding: 15px 20px 120px 20px;
-}
-
-main::-webkit-scrollbar { display: none; }
-
-.tab-content { animation: fadeIn 0.4s ease; }
-.hidden { display: none !important; }
-.active { display: block !important; }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Jika kamu ingin running text tetap diam di atas saat halaman di-scroll */
+.running-text-container {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    background-color: #200404; /* Menyamakan background saat melayang */
+    padding: 8px 12px;
 }
 
 /* ==========================================
-   6. USER BAR & POIN WIDGET
+   4. COMPONENTS (User Bar, Cards, Buttons)
    ========================================== */
-.user-bar {
-    display: flex;
-    justify-content: space-between;
+.user-bar, .instagram-card {
+    background-color: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn-login, .btn-logout {
+    display: inline-flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 12px 15px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-
-.user-info { display: flex; align-items: center; gap: 10px; }
-.avatar { font-size: 1.5rem; }
-.greeting { font-size: 0.85rem; font-weight: 600; }
-.sub-greeting { font-size: 0.7rem; color: #aaaaaa; }
-
-.point-badge {
-    background: linear-gradient(135deg, #ffd700, #b8860b);
-    padding: 6px 12px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.point-value { font-size: 0.75rem; font-weight: 600; color: #000000; }
-
-/* ==========================================
-   7. FEATURED CARD
-   ========================================== */
-.featured-card {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 30px;
-    padding: 15px;
-    border: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 20px;
-}
-
-.featured-img { width: 100%; border-radius: 18px; display: block; }
-
-/* ==========================================
-   8. CATEGORY SCROLL
-   ========================================== */
-.category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
-.category-scroll::-webkit-scrollbar { display: none; }
-
-.category-pill {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #cccccc;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    white-space: nowrap;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.category-pill.active {
-    background: #8a0000;
+.btn-logout {
+    background-color: #e63946;
     color: #ffffff;
-    border-color: #ff3333;
 }
 
 /* ==========================================
-   9. ARTIKEL LIST FEED
+   5. PREMIUM CAPSULE BOTTOM NAVIGATION (FIXED)
    ========================================== */
-.feed-title { font-size: 1.05rem; margin-bottom: 12px; }
-
-.article-item {
-    display: flex;
-    gap: 12px;
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid rgba(255,255,255,0.05);
-    padding: 12px;
-    border-radius: 18px;
-    margin-bottom: 12px;
-    cursor: pointer;
-}
-
-.article-thumb {
-    width: 75px; height: 75px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 14px;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 1.5rem; flex-shrink: 0;
-}
-
-.article-details { display: flex; flex-direction: column; justify-content: space-between; }
-.tag-label { font-size: 0.65rem; background: rgba(0, 150, 255, 0.15); color: #0096ff; padding: 2px 8px; border-radius: 6px; width: fit-content; }
-.tag-label.Sastra { background: rgba(155, 0, 255, 0.15); color: #be5eff; }
-.article-details h4 { font-size: 0.85rem; font-weight: 500; line-height: 1.3; color: #eeeeee; }
-.article-meta { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888888; gap: 20px; }
-.reward-tag { color: #ffd700; font-weight: 600; }
-
-/* ==========================================
-   10. INSTAGRAM CARD
-   ========================================== */
-.instagram-card {
-    background: linear-gradient(135deg, rgba(138, 0, 0, 0.3), rgba(40, 0, 0, 0.5));
-    border: 1px solid rgba(255, 50, 50, 0.2);
-    border-radius: 24px; padding: 20px; margin-top: 15px; text-align: center;
-}
-
-.ig-header { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 8px; }
-.ig-icon { font-size: 1.3rem; }
-.instagram-card p { font-size: 0.78rem; color: #cccccc; margin-bottom: 15px; }
-.btn-ig { display: inline-block; background: #ffffff; color: #8a0000; text-decoration: none; font-size: 0.8rem; font-weight: 600; padding: 8px 24px; border-radius: 30px; }
-
-/* ==========================================
-   11. AUTHENTICATION & PROFILE
-   ========================================== */
-.auth-box {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255,255,255,0.07);
-    padding: 25px 20px;
-    border-radius: 24px;
-    text-align: center;
-    margin-top: 15px;
-}
-
-.btn-login {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    width: 100%; background-color: #ffffff; color: #333333; border: none;
-    padding: 12px; border-radius: 30px; font-size: 0.9rem; font-weight: 600;
-    margin-top: 20px; cursor: pointer;
-}
-
-.btn-login img { width: 20px; height: 20px; }
-.profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
-.profile-avatar { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #8a0000; margin-bottom: 10px; object-fit: cover; }
-#user-name { font-size: 1.1rem; font-weight: 600; }
-#user-email { font-size: 0.8rem; color: #aaaaaa; }
-.profile-stats { background: rgba(138, 0, 0, 0.2); padding: 10px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 20px; }
-.btn-logout { background: none; border: 1px solid #ff3333; color: #ff3333; padding: 10px 20px; border-radius: 30px; font-size: 0.85rem; cursor: pointer; width: 100%; }
-
-.section-title { font-size: 1.2rem; margin-bottom: 10px; color: #ffd700; }
-.placeholder-text { font-size: 0.85rem; color: #888888; }
-
-/* ==========================================
-   12. STABILIZED BOTTOM NAVIGATION (PERFECT CENTER)
-   ========================================== */
-.bottom-nav {
+/* Sesuaikan class ini dengan nama class pembungkus navbar milikmu */
+.nav-container {
     position: fixed;
-    bottom: 12px; 
+    bottom: 20px;
     left: 50%;
-    transform: translateX(-50%) !important; /* Posisi horizontal dikunci di tengah */
-    width: 85%; 
-    max-width: 340px; 
-    height: 56px; 
-    background: rgba(15, 23, 42, 0.95) !important; /* Slate Gelap Mewah */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 20px !important; 
-    display: flex !important;
-    justify-content: space-around !important;
-    align-items: center !important; /* Semua item dikunci tepat di tengah vertikal */
-    z-index: 1000 !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-    padding: 0 8px !important;
-    box-sizing: border-box !important;
-}
-
-/* Tombol Menu */
-.nav-item {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: #64748b !important; /* Warna pasif abu-abu */
-    font-size: 10px !important; 
-    font-family: 'Poppins', sans-serif !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    flex: 1 !important;
-    height: 100% !important;
-    text-align: center !important;
-    opacity: 1 !important; /* Memaksa opacity konstan */
-    padding: 0 !important;
-    width: auto !important;
-    transform: none !important; /* Mencegah guncangan posisi */
-    transition: color 0.15s ease !important; /* HANYA transisi warna */
-}
-
-/* Pembungkus Ikon (Sengaja Dibuat Statis Total) */
-.icon-wrapper {
-    width: 20px !important; 
-    height: 20px !important;
-    margin-bottom: 3px !important; /* Jarak pas ke teks */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: transparent !important; /* Menghapus bulatan merah */
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transform: none !important; /* Mencegah ikon melompat */
-    transition: color 0.15s ease !important;
-}
-
-.nav-icon {
-    width: 100% !important;
-    height: 100% !important;
-    fill: currentColor !important;
-}
-
-/* Efek Tab Aktif: HANYA Berubah Warna Biru */
-.nav-item.active {
-    color: #3b82f6 !important; 
-    opacity: 1 !important;
-}
-
-.nav-item.active .icon-wrapper {
-    color: #3b82f6 !important;
-    background: transparent !important; /* Jaminan lingkaran merah hilang selamanya */
-    transform: none !important; /* Mengunci posisi di tengah tanpa gerakan bouncy */
-}
-
-/* Jarak Konten Bawah */
-#content-area {
-    padding-bottom: 85px !important;
-}
-.nav-container { /* ganti dengan nama class navigasimu */
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: rgba(14, 21, 37, 0.95); /* Warna biru gelap transparan premium */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px; /* Bentuk kapsul sempurna */
+    
+    /* FIX: Ditambah padding kiri-kanan (24px) agar Beranda & Profile tidak terjepit */
+    padding: 12px 24px; 
+    
     display: flex;
-    justify-content: space-around; /* atau space-between */
+    justify-content: space-around;
     align-items: center;
-    padding: 0 20px; /* <--- TAMBAHKAN ATAU PERBESAR INI (Atas-Bawah 0, Kiri-Kanan 20px) */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #5d6d7e; /* Warna ikon saat tidak aktif (abu-abu) */
+    font-size: 11px;
+    font-weight: 500;
+    gap: 4px;
+    flex: 1;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-item i {
+    font-size: 20px;
+}
+
+/* Style saat menu aktif / ditekan */
+.nav-item.active {
+    color: #3b82f6; /* Warna biru cerah */
+    transform: scale(1.05);
+}
+
+.nav-item.active i {
+    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6)); /* Efek glow neon halus */
 }
