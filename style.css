@@ -365,25 +365,68 @@ main::-webkit-scrollbar { display: none; }
    12. STABILIZED BOTTOM NAVIGATION (PERFECT CENTER)
    ========================================== */
 .bottom-nav {
-    position: absolute; /* Tetap menempel rapi di bagian paling bawah frame HP */
-    bottom: 12px; 
+    position: absolute;
+    bottom: 20px; /* Jarak dari bawah HP */
     left: 50%;
-    transform: translateX(-50%) !important;
-    width: 85%; 
-    max-width: 340px; 
-    height: 56px; 
-    background: rgba(15, 23, 42, 0.95) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 20px !important; 
-    display: flex !important;
-    justify-content: space-around !important;
-    align-items: center !important;
-    z-index: 1000 !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-    padding: 0 18px !important; 
-    box-sizing: border-box !important;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 380px;
+    height: 65px; /* Tinggi navigasi */
+    background: rgba(20, 20, 20, 0.95); /* Warna gelap elegan */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly; /* Menyebar ikon dengan jarak yang sama */
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    padding: 0 10px;
+}
+
+/* Item Menu / Tombol */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #888888; /* Warna abu-abu saat tidak aktif */
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    width: 60px; /* Lebar klik masing-masing tombol */
+    height: 100%;
+    transition: all 0.3s ease;
+    gap: 4px; /* Jarak antara ikon dan teks */
+}
+
+/* Ikon Menu */
+.nav-item i {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+/* Efek Tab Aktif */
+.nav-item.active {
+    color: #ffd700; /* Warna emas menyala saat aktif */
+}
+
+.nav-item.active i {
+    transform: translateY(-2px); /* Ikon sedikit naik saat aktif */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Efek cahaya pada ikon */
+}
+
+/* Efek Hover di Desktop/Laptop */
+.nav-item:hover {
+    color: #ffffff;
+}
+
+/* Menjauhkan konten mading agar tidak tertutup navigasi bawah */
+main {
+    padding-bottom: 100px;
 }
 
 /* Tombol Menu */
