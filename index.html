@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronica Mobile</title>
+    <title>Chronica Mobile v2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,27 +22,95 @@
             <hr class="title-divider">
         </header>
 
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <div class="ticker-item">📢 Pengumuman: Hasil seleksi karya cerpen mading edisi Mei sudah rilis!</div>
+                <div class="ticker-item">🔥 Info: Pendaftaran Workshop Fotografi Jurnalistik dibuka besok pagi!</div>
+            </div>
+        </div>
+
         <main id="content-area">
             
             <section id="tab-beranda" class="tab-content active">
+                
+                <div class="user-bar">
+                    <div class="user-info">
+                        <span class="avatar">👋</span>
+                        <div class="user-text">
+                            <p class="greeting">Halo, Pembaca Setia!</p>
+                            <p class="sub-greeting">Mau baca mading apa hari ini?</p>
+                        </div>
+                    </div>
+                    <div class="point-badge">
+                        <span class="coin-icon">🪙</span>
+                        <span id="display-poin" class="point-value">120 Poin</span>
+                    </div>
+                </div>
+
                 <div class="featured-card">
                     <img src="paskibraka2026.png" alt="Seleksi Paskibraka 2026" class="featured-img">
                 </div>
+
+                <div class="category-scroll">
+                    <button class="category-pill active">✨ Semua</button>
+                    <button class="category-pill">📰 Berita</button>
+                    <button class="category-pill">✍️ Sastra</button>
+                    <button class="category-pill">📸 Galeri</button>
+                    <button class="category-pill">📢 Opini</button>
+                </div>
+
+                <div class="article-feed">
+                    <h3 class="feed-title">Artikel Populer</h3>
+                    
+                    <div class="article-item" onclick="tambahPoin()">
+                        <div class="article-thumb placeholder-img">📰</div>
+                        <div class="article-details">
+                            <span class="tag-label">Berita</span>
+                            <h4>Keseruan Dibalik Layar Classmeet SMAN 3 Banjarbaru</h4>
+                            <div class="article-meta">
+                                <span>⏱️ 3 Menit Baca</span>
+                                <span class="reward-tag">+10 Poin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-item" onclick="tambahPoin()">
+                        <div class="article-thumb placeholder-img">✍️</div>
+                        <div class="article-details">
+                            <span class="tag-label Sastra">Sastra</span>
+                            <h4>Rembulan di Balik Jendela Kelas (Sebuah Puisi)</h4>
+                            <div class="article-meta">
+                                <span>⏱️ 2 Menit Baca</span>
+                                <span class="reward-tag">+10 Poin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instagram-card">
+                    <div class="ig-header">
+                        <span class="ig-icon">📸</span>
+                        <h4>@jurnalistik_sman3</h4>
+                    </div>
+                    <p>Ikuti keseruan Chronica di Instagram! Dapatkan informasi liputan tercepat dan mading visual yang keren.</p>
+                    <a href="https://instagram.com" target="_blank" class="btn-ig">Follow Us</a>
+                </div>
+
             </section>
 
             <section id="tab-news" class="tab-content hidden">
                 <h2 class="section-title">Berita & Mading</h2>
-                <p class="placeholder-text">Konten artikel, berita jurnalistik, dan mading digital akan tampil di sini.</p>
+                <p class="placeholder-text">Halaman arsip mading lengkap ada di sini.</p>
             </section>
 
             <section id="tab-anggota" class="tab-content hidden">
                 <h2 class="section-title">Susunan Anggota</h2>
-                <p class="placeholder-text">Susunan pengurus mulai dari Pembina hingga Bendahara akan tampil di sini.</p>
+                <p class="placeholder-text">Susunan pengurus inti Chronica.</p>
             </section>
 
             <section id="tab-profile" class="tab-content hidden">
                 <h2 class="section-title">Profil Pengguna</h2>
-                <p class="placeholder-text">Halaman login, data diri pembaca, beserta total reward poin yang dikumpulkan.</p>
+                <p class="placeholder-text">Pengaturan akun pembaca.</p>
             </section>
 
         </main>
@@ -81,3 +149,28 @@
     <script src="script.js"></script>
 </body>
 </html>
+<section id="tab-profile" class="tab-content hidden">
+    <h2 class="section-title">Profil Pengguna</h2>
+    
+    <div id="auth-logged-out" class="auth-box">
+        <p class="placeholder-text">Masuk untuk menyimpan poin membaca kamu agar tidak hilang.</p>
+        <button id="btn-login-google" class="btn-login">
+            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo">
+            Masuk dengan Google
+        </button>
+    </div>
+
+    <div id="auth-logged-in" class="auth-box hidden">
+        <div class="profile-card">
+            <img id="user-photo" src="" alt="Foto Profil" class="profile-avatar">
+            <h4 id="user-name">Nama Pengguna</h4>
+            <p id="user-email">email@sman3.sch.id</p>
+        </div>
+        
+        <div class="profile-stats">
+            <p>Total Poin Kamu: <span id="profile-poin" class="reward-tag">120 Poin</span></p>
+        </div>
+
+        <button id="btn-logout" class="btn-logout">Keluar Akun</button>
+    </div>
+</section>
