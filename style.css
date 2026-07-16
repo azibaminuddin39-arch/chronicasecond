@@ -739,65 +739,65 @@ main::-webkit-scrollbar { display: none; }
 .section-title { font-size: 1.2rem; margin-bottom: 10px; color: #ffd700; }
 .placeholder-text { font-size: 0.85rem; color: #888888; }
 
-/* BOTTOM NAVIGATION MENU CAPSULE */
-.bottom-nav {
-    position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
-    width: 90%; background-color: #8a0000; border-radius: 50px;
-    display: flex; justify-content: space-around; align-items: center;
-    padding: 10px 5px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); z-index: 100;
-}
+/* ==========================================
+   STYLE BAR NAVIGASI PREMIUM (FLOATING CAPSULE)
+   ========================================== */
 
-.nav-item { display: flex; flex-direction: column; align-items: center; color: #ffffff; opacity: 0.5; cursor: pointer; width: 22%; padding: 5px 0; }
-.nav-item span { font-size: 0.68rem; margin-top: 4px; }
-.icon-wrapper { width: 42px; height: 42px; display: flex; justify-content: center; align-items: center; border-radius: 50%; }
-.nav-icon { width: 22px; height: 22px; }
-.nav-item.active { opacity: 1; }
-.nav-item.active .icon-wrapper { background-color: #3d0000; }
-/* Helper untuk menyembunyikan tab yang sedang tidak aktif */
+/* Pastikan tab yang tidak aktif benar-benar tersembunyi */
 .hidden {
     display: none !important;
 }
 
-/* Styling Bottom Navigation agar melayang rapi di bawah */
+/* Navigasi Kapsul Melayang */
 .bottom-nav {
     position: fixed;
-    bottom: 0;
+    bottom: 12px; /* Memberikan jarak dari bawah layar agar efek melayangnya terasa */
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px; /* Menyesuaikan lebar mobile-container kamu */
-    height: 65px;
-    background: rgba(15, 23, 42, 0.95); /* Warna gelap transparan */
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 92%; /* Memperkecil lebar agar tidak mentok ke ujung layar HP */
+    max-width: 440px; /* Menyesuaikan lebar mobile container kamu */
+    height: 68px;
+    background: rgba(15, 23, 42, 0.95); /* Slate gelap transparan (Modern Glassmorphism) */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Border tipis elegan di sekeliling kapsul */
+    border-radius: 30px; /* Membuat sudut membulat sempurna */
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 100;
-    padding-bottom: env(safe-area-inset-bottom); /* Aman untuk layar HP berponi bawah */
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Efek bayangan lembut agar navigasi terlihat timbul */
+    padding: 0 10px;
 }
 
-/* Tombol Menu */
+/* Tombol Menu Navigasi */
 .nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #94a3b8; /* Abu-abu pasif */
+    color: #64748b; /* Warna abu-abu pasif (lebih soft & elegan) */
     font-size: 11px;
     font-family: 'Poppins', sans-serif;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     flex: 1;
     height: 100%;
 }
 
-/* Pembungkus Ikon */
+/* Pembungkus Ikon (Menetralkan sisa-sisa bulatan merah) */
 .icon-wrapper {
     width: 24px;
     height: 24px;
     margin-bottom: 4px;
-    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important; /* Memaksa menghapus warna background merah */
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: transform 0.3s ease;
 }
 
 .nav-icon {
@@ -806,16 +806,19 @@ main::-webkit-scrollbar { display: none; }
     fill: currentColor;
 }
 
-/* Efek tombol ketika sedang diklik / Aktif */
+/* Efek Ketika Tab Sedang Aktif (Selected) */
 .nav-item.active {
-    color: #3b82f6; /* Berubah warna biru terang khas Chronica */
+    color: #3b82f6; /* Warna biru menyala khas Chronica */
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.2); /* Glow lembut pada teks */
 }
 
+/* Animasi Ikon Melompat Sedikit ke Atas saat Aktif */
 .nav-item.active .icon-wrapper {
-    transform: translateY(-3px); /* Ikon sedikit naik ke atas */
+    transform: translateY(-4px); 
+    color: #3b82f6;
 }
 
-/* Jarak ekstra di bawah main-content agar tidak tertutup nav-bar */
+/* Jarak aman di bawah konten utama agar tidak tertutup bar navigasi */
 #content-area {
-    padding-bottom: 80px;
+    padding-bottom: 100px;
 }
