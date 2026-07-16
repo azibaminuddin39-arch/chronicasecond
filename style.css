@@ -362,3 +362,9 @@ main::-webkit-scrollbar { display: none; }
 #content-area {
     padding-bottom: 85px !important;
 }
+.nav-container { /* ganti dengan nama class navigasimu */
+    display: flex;
+    justify-content: space-around; /* atau space-between */
+    align-items: center;
+    padding: 0 20px; /* <--- TAMBAHKAN ATAU PERBESAR INI (Atas-Bawah 0, Kiri-Kanan 20px) */
+}
