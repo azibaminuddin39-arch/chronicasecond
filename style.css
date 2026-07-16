@@ -14,12 +14,10 @@ body {
     background-color: #121212;
     display: flex;
     justify-content: center;
-    /* Diubah ke flex-start & ditambah padding agar mockup panjang tidak terpotong di desktop */
-    align-items: flex-start; 
+    align-items: flex-start; /* Fleksibel untuk layar monitor kecil agar tidak terpotong */
     padding: 20px 0;
     min-height: 100vh;
     color: #ffffff;
-    overflow-y: auto;
 }
 
 /* ==========================================
@@ -28,15 +26,12 @@ body {
 .mobile-container {
     width: 100%;
     max-width: 430px;
-    /* FIX: Diubah dari tinggi kaku 932px agar bisa memanjang & scroll natural */
-    min-height: 100vh; 
-    height: auto;
+    height: 932px; /* Kunci tinggi mockup agar tidak melebar */
     background: linear-gradient(-45deg, #0a0a0a, #220202, #0d0a1a, #1a0303);
     background-size: 400% 400%;
     animation: gradientBG 18s ease infinite; /* Gradasi mengalir santai */
     position: relative;
-    /* FIX: Diubah ke overflow-x agar animasi tidak bocor ke samping, tapi tetap bisa scroll ke bawah */
-    overflow-x: hidden; 
+    overflow: hidden; /* Mengunci konten agar tidak bocor dari bodi HP */
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 40px rgba(0,0,0,0.9);
@@ -99,36 +94,35 @@ header {
    ========================================== */
 .datetime-wrap {
     width: 100%;
-    /* Gradasi gelap ke merah transparan di tengah agar terlihat menyatu dengan background */
     background: linear-gradient(90deg, transparent, rgba(138, 0, 0, 0.25), transparent);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding: 8px 0;
     display: flex;
-    justify-content: center; /* Memastikan teks berada tepat di tengah horizontal */
-    align-items: center;     /* Memastikan teks berada tepat di tengah vertikal */
+    justify-content: center; /* Kunci tepat di tengah */
+    align-items: center;
 }
 
 .datetime-container {
     display: flex;
     align-items: center;
-    gap: 8px; /* Jarak antara titik live dan teks waktu */
+    gap: 8px; /* Jarak titik indikator ke teks waktu */
     font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 1px;
-    color: #ffd700; /* Warna emas elegan */
-    text-shadow: 0 0 6px rgba(255, 215, 0, 0.3); /* Efek cahaya tipis pada teks */
+    letter-spacing: 0.5px;
+    color: #ffd700; /* Warna kuning emas */
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
 }
 
-/* Hiasan Titik Live Berkedip (Live Dot Indicator) */
+/* Hiasan Titik Live Berkedip */
 .live-indicator {
     width: 6px;
     height: 6px;
-    background-color: #ff3333; /* Warna merah menyala */
+    background-color: #ff3333;
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 0 8px #ff3333; /* Efek neon pada titik merah */
-    animation: blinkLive 1.5s infinite ease-in-out; /* Animasi berkedip lembut */
+    box-shadow: 0 0 8px #ff3333;
+    animation: blinkLive 1.5s infinite ease-in-out;
 }
 
 @keyframes blinkLive {
@@ -136,12 +130,13 @@ header {
     50% { opacity: 1; transform: scale(1.1); }
     100% { opacity: 0.4; transform: scale(0.9); }
 }
+
 /* ==========================================
    5. MAIN CONTENT AREA & TABS
    ========================================== */
 main {
     flex: 1;
-    /* FIX: overflow-y: scroll dihapus agar tidak membuat scrollbox terpisah di dalam mading */
+    overflow-y: scroll; /* Scroll independen hanya ada di area mading */
     padding: 15px 20px 120px 20px;
 }
 
@@ -254,7 +249,7 @@ main::-webkit-scrollbar { display: none; }
 .reward-tag { color: #ffd700; font-weight: 600; }
 
 /* ==========================================
-   10. DOCUMENTATION AUTO-SLIDER (GANTI INSTAGRAM CARD)
+   10. DOCUMENTATION AUTO-SLIDER (SANGAT AMAN / ANTI-MELAR)
    ========================================== */
 .doc-slider-card {
     background: rgba(255, 255, 255, 0.05);
@@ -262,37 +257,39 @@ main::-webkit-scrollbar { display: none; }
     border-radius: 24px;
     padding: 15px;
     margin-top: 15px;
-    overflow: hidden;
+    overflow: hidden; /* Mengunci agar slide tidak merusak bodi luar */
+    width: 100%;
 }
 
 .slider-container {
     position: relative;
     width: 100%;
-    height: 190px; /* Tinggi frame slider, silakan sesuaikan */
+    height: 190px;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: hidden; /* Menyembunyikan gambar cadangan di samping */
 }
 
 .slider-wrapper {
     display: flex;
-    width: 300%; /* Total lebar pembungkus (100% dikali jumlah slide, misal 3 slide = 300%) */
+    width: 100%; /* Mengunci lebar utama */
     height: 100%;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Efek geser halus premium */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .slide {
+    flex: 0 0 100%; /* MEMAKSA gambar tepat 100% dari lebar layar HP */
     width: 100%;
     height: 100%;
-    flex-shrink: 0;
 }
 
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Menjamin foto tidak distorsi/gepeng saat menyesuaikan frame */
+    object-fit: cover; /* Foto proporsional, tidak gepeng */
+    display: block;
 }
 
-/* Titik Indikator Aktif (Dots) */
+/* Dots Indikator */
 .slider-dots {
     position: absolute;
     bottom: 10px;
@@ -312,8 +309,8 @@ main::-webkit-scrollbar { display: none; }
 }
 
 .dot.active {
-    background: #ffd700; /* Warna kuning emas mengikuti aksen web-mu */
-    width: 18px; /* Efek memanjang menyerupai kapsul modern */
+    background: #ffd700; /* Warna emas */
+    width: 18px; /* Kapsul aktif */
     border-radius: 4px;
 }
 
@@ -331,8 +328,9 @@ main::-webkit-scrollbar { display: none; }
 
 .slider-info p {
     font-size: 0.75rem;
-    color: #888888;
+    color: #aaaaaa;
 }
+
 /* ==========================================
    11. AUTHENTICATION & PROFILE
    ========================================== */
@@ -367,24 +365,23 @@ main::-webkit-scrollbar { display: none; }
    12. STABILIZED BOTTOM NAVIGATION (PERFECT CENTER)
    ========================================== */
 .bottom-nav {
-    position: fixed;
+    position: absolute; /* Tetap menempel rapi di bagian paling bawah frame HP */
     bottom: 12px; 
     left: 50%;
-    transform: translateX(-50%) !important; /* Posisi horizontal dikunci di tengah */
+    transform: translateX(-50%) !important;
     width: 85%; 
     max-width: 340px; 
     height: 56px; 
-    background: rgba(15, 23, 42, 0.95) !important; /* Slate Gelap Mewah */
+    background: rgba(15, 23, 42, 0.95) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 20px !important; 
     display: flex !important;
     justify-content: space-around !important;
-    align-items: center !important; /* Semua item dikunci tepat di tengah vertikal */
+    align-items: center !important;
     z-index: 1000 !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-    /* FIX: Padding kiri-kanan dinaikkan dari 8px ke 18px agar Beranda & Profile tidak mepet lengkungan */
     padding: 0 18px !important; 
     box-sizing: border-box !important;
 }
@@ -395,7 +392,7 @@ main::-webkit-scrollbar { display: none; }
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    color: #64748b !important; /* Warna pasif abu-abu */
+    color: #64748b !important;
     font-size: 10px !important; 
     font-family: 'Poppins', sans-serif !important;
     font-weight: 500 !important;
@@ -403,25 +400,25 @@ main::-webkit-scrollbar { display: none; }
     flex: 1 !important;
     height: 100% !important;
     text-align: center !important;
-    opacity: 1 !important; /* Memaksa opacity konstan */
+    opacity: 1 !important;
     padding: 0 !important;
     width: auto !important;
-    transform: none !important; /* Mencegah guncangan posisi */
-    transition: color 0.15s ease !important; /* HANYA transisi warna */
+    transform: none !important;
+    transition: color 0.15s ease !important;
 }
 
-/* Pembungkus Ikon (Sengaja Dibuat Statis Total) */
+/* Pembungkus Ikon */
 .icon-wrapper {
     width: 20px !important; 
     height: 20px !important;
-    margin-bottom: 3px !important; /* Jarak pas ke teks */
+    margin-bottom: 3px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: transparent !important; /* Menghapus bulatan merah */
+    background: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    transform: none !important; /* Mencegah ikon melompat */
+    transform: none !important;
     transition: color 0.15s ease !important;
 }
 
@@ -431,7 +428,7 @@ main::-webkit-scrollbar { display: none; }
     fill: currentColor !important;
 }
 
-/* Efek Tab Aktif: HANYA Berubah Warna Biru */
+/* Efek Tab Aktif */
 .nav-item.active {
     color: #3b82f6 !important; 
     opacity: 1 !important;
@@ -439,8 +436,8 @@ main::-webkit-scrollbar { display: none; }
 
 .nav-item.active .icon-wrapper {
     color: #3b82f6 !important;
-    background: transparent !important; /* Jaminan lingkaran merah hilang selamanya */
-    transform: none !important; /* Mengunci posisi di tengah tanpa gerakan bouncy */
+    background: transparent !important;
+    transform: none !important;
 }
 
 /* Jarak Konten Bawah */
