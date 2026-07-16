@@ -95,35 +95,47 @@ header {
 }
 
 /* ==========================================
-   4. BREAKING NEWS TICKER
+   4. LIVE DATETIME BAR (CENTERED & DECORATED)
    ========================================== */
-.ticker-wrap {
+.datetime-wrap {
     width: 100%;
-    overflow: hidden;
-    background-color: rgba(138, 0, 0, 0.4);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 6px 0;
-}
-
-.ticker {
+    /* Gradasi gelap ke merah transparan di tengah agar terlihat menyatu dengan background */
+    background: linear-gradient(90deg, transparent, rgba(138, 0, 0, 0.25), transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 8px 0;
     display: flex;
-    white-space: nowrap;
-    animation: marquee 25s linear infinite;
+    justify-content: center; /* Memastikan teks berada tepat di tengah horizontal */
+    align-items: center;     /* Memastikan teks berada tepat di tengah vertikal */
 }
 
-.ticker-item {
-    display: inline-block;
-    padding-right: 50px;
+.datetime-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak antara titik live dan teks waktu */
     font-size: 0.78rem;
-    color: #ffd700;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #ffd700; /* Warna emas elegan */
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.3); /* Efek cahaya tipis pada teks */
 }
 
-@keyframes marquee {
-    0% { transform: translate3d(100%, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
+/* Hiasan Titik Live Berkedip (Live Dot Indicator) */
+.live-indicator {
+    width: 6px;
+    height: 6px;
+    background-color: #ff3333; /* Warna merah menyala */
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #ff3333; /* Efek neon pada titik merah */
+    animation: blinkLive 1.5s infinite ease-in-out; /* Animasi berkedip lembut */
 }
 
+@keyframes blinkLive {
+    0% { opacity: 0.4; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.4; transform: scale(0.9); }
+}
 /* ==========================================
    5. MAIN CONTENT AREA & TABS
    ========================================== */
