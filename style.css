@@ -487,3 +487,125 @@ main {
 #content-area {
     padding-bottom: 85px !important;
 }
+/* ==========================================
+   KUSTOM STYLING TAB ANGGOTA (CHRONICA)
+   ========================================== */
+.tab-content {
+    display: none; /* Menyembunyikan semua tab secara default */
+}
+
+.tab-content.active {
+    display: block; /* Menampilkan tab aktif */
+}
+
+#anggota {
+    padding: 16px;
+    padding-bottom: 80px; /* Jarak agar tidak terpotong bottom nav */
+}
+
+.tab-header {
+    margin-bottom: 20px;
+}
+
+.tab-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 4px;
+}
+
+.tab-subtitle {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.anggota-summary {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.summary-badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.member-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(30, 41, 59, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.2);
+    background: rgba(30, 41, 59, 0.6);
+}
+
+.member-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #0369a1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.member-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+}
+
+.member-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+.member-class {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.member-divisi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.divisi-tag {
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 9px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
