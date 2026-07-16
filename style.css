@@ -242,19 +242,85 @@ main::-webkit-scrollbar { display: none; }
 .reward-tag { color: #ffd700; font-weight: 600; }
 
 /* ==========================================
-   10. INSTAGRAM CARD
+   10. DOCUMENTATION AUTO-SLIDER (GANTI INSTAGRAM CARD)
    ========================================== */
-.instagram-card {
-    background: linear-gradient(135deg, rgba(138, 0, 0, 0.3), rgba(40, 0, 0, 0.5));
-    border: 1px solid rgba(255, 50, 50, 0.2);
-    border-radius: 24px; padding: 20px; margin-top: 15px; text-align: center;
+.doc-slider-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 15px;
+    margin-top: 15px;
+    overflow: hidden;
 }
 
-.ig-header { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 8px; }
-.ig-icon { font-size: 1.3rem; }
-.instagram-card p { font-size: 0.78rem; color: #cccccc; margin-bottom: 15px; }
-.btn-ig { display: inline-block; background: #ffffff; color: #8a0000; text-decoration: none; font-size: 0.8rem; font-weight: 600; padding: 8px 24px; border-radius: 30px; }
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 190px; /* Tinggi frame slider, silakan sesuaikan */
+    border-radius: 16px;
+    overflow: hidden;
+}
 
+.slider-wrapper {
+    display: flex;
+    width: 300%; /* Total lebar pembungkus (100% dikali jumlah slide, misal 3 slide = 300%) */
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Efek geser halus premium */
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Menjamin foto tidak distorsi/gepeng saat menyesuaikan frame */
+}
+
+/* Titik Indikator Aktif (Dots) */
+.slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #ffd700; /* Warna kuning emas mengikuti aksen web-mu */
+    width: 18px; /* Efek memanjang menyerupai kapsul modern */
+    border-radius: 4px;
+}
+
+.slider-info {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.slider-info h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.slider-info p {
+    font-size: 0.75rem;
+    color: #888888;
+}
 /* ==========================================
    11. AUTHENTICATION & PROFILE
    ========================================== */
