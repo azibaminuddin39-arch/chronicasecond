@@ -3,248 +3,635 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Chronica</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Chronica - Mading Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. RESET & FONTS GLOBAL
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0c0c0c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        /* ==========================================
+           2. CONTAINER SMARTPHONE (MOCKUP PREMIUM)
+           ========================================== */
+        .mobile-container {
+            width: 100%;
+            max-width: 430px;
+            height: 932px; /* Kunci tinggi layar HP */
+            background: linear-gradient(-45deg, #0a0a0a, #220202, #0d0a1a, #1a0303);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            overflow: hidden; /* Mengunci konten agar tidak bocor keluar */
+            display: flex;
+            flex-direction: column;
+            border-radius: 40px;
+            border: 8px solid #222222; /* Bezel HP */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ==========================================
+           3. HEADER STYLE
+           ========================================== */
+        header {
+            text-align: center;
+            padding: 25px 20px 10px 20px;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .header-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .welcome-text {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #cccccc;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            margin-top: 3px;
+            color: #ffffff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .title-divider {
+            width: 35%;
+            margin: 8px auto 0 auto;
+            border: 0;
+            height: 1.5px;
+            background-color: rgba(255,255,255,0.4);
+        }
+
+        /* ==========================================
+           4. LIVE DATETIME BAR (CENTERED & DECORATED)
+           ========================================== */
+        .datetime-wrap {
+            width: 100%;
+            background: linear-gradient(90deg, transparent, rgba(138, 0, 0, 0.25), transparent);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .datetime-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #ffd700; /* Kuning Emas */
+            text-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+        }
+
+        .live-indicator {
+            width: 6px;
+            height: 6px;
+            background-color: #ff3333;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #ff3333;
+            animation: blinkLive 1.5s infinite ease-in-out;
+        }
+
+        @keyframes blinkLive {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        /* ==========================================
+           5. MAIN CONTENT AREA & TABS
+           ========================================== */
+        main {
+            flex: 1;
+            overflow-y: auto; /* Mencegah seluruh HP ikut ter-scroll */
+            padding: 15px 20px 90px 20px; /* Ruang agar tidak tertabrak nav bawah */
+        }
+
+        main::-webkit-scrollbar { display: none; }
+
+        .tab-content { animation: fadeIn 0.4s ease; }
+        .hidden { display: none !important; }
+        .active { display: block !important; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================
+           6. USER BAR & POIN WIDGET
+           ========================================== */
+        .user-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 15px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .avatar { font-size: 1.5rem; }
+        .greeting { font-size: 0.85rem; font-weight: 600; }
+        .sub-greeting { font-size: 0.7rem; color: #aaaaaa; }
+
+        .point-badge {
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            padding: 6px 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .point-value { font-size: 0.75rem; font-weight: 600; color: #000000; }
+
+        /* ==========================================
+           7. FEATURED CARD
+           ========================================== */
+        .featured-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .featured-img { width: 100%; border-radius: 18px; display: block; }
+
+        /* ==========================================
+           8. CATEGORY SCROLL
+           ========================================== */
+        .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
+        .category-scroll::-webkit-scrollbar { display: none; }
+
+        .category-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cccccc;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .category-pill.active {
+            background: #8a0000;
+            color: #ffffff;
+            border-color: #ff3333;
+        }
+
+        /* ==========================================
+           9. ARTIKEL LIST FEED
+           ========================================== */
+        .feed-title { font-size: 1.05rem; margin-bottom: 12px; }
+
+        .article-item {
+            display: flex;
+            gap: 12px;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .article-thumb {
+            width: 70px; height: 70px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; flex-shrink: 0;
+        }
+
+        .article-details { display: flex; flex-direction: column; justify-content: space-between; }
+        .tag-label { font-size: 0.65rem; background: rgba(0, 150, 255, 0.15); color: #0096ff; padding: 2px 8px; border-radius: 6px; width: fit-content; }
+        .tag-label.Sastra { background: rgba(155, 0, 255, 0.15); color: #be5eff; }
+        .article-details h4 { font-size: 0.85rem; font-weight: 500; line-height: 1.3; color: #eeeeee; }
+        .article-meta { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888888; gap: 20px; }
+        .reward-tag { color: #ffd700; font-weight: 600; }
+
+        /* ==========================================
+           10. DOCUMENTATION AUTO-SLIDER (ANTI-MELAR)
+           ========================================== */
+        .doc-slider-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 15px;
+            margin-top: 15px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 5;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #ffd700;
+            width: 18px;
+            border-radius: 4px;
+        }
+
+        .slider-info {
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .slider-info h4 { font-size: 0.9rem; font-weight: 600; color: #ffffff; margin-bottom: 2px; }
+        .slider-info p { font-size: 0.75rem; color: #aaaaaa; }
+
+        /* ==========================================
+           11. PROFILE TAB
+           ========================================== */
+        .profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
+        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #8a0000; margin-bottom: 10px; object-fit: cover; }
+        #user-name { font-size: 1.1rem; font-weight: 600; }
+        #user-email { font-size: 0.8rem; color: #aaaaaa; }
+
+        /* ==========================================
+           12. STABILIZED BOTTOM NAVIGATION (PERFECT PRESERVATION)
+           ========================================== */
+        .bottom-nav {
+            position: absolute;
+            bottom: 15px; 
+            left: 50%;
+            transform: translateX(-50%) !important;
+            width: 88%; 
+            max-width: 360px; 
+            height: 58px; 
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 20px !important; 
+            display: flex !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            z-index: 1000 !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+            padding: 0 10px !important; 
+            box-sizing: border-box !important;
+        }
+
+        /* Tombol Menu */
+        .nav-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #64748b !important; /* Abu-abu tidak aktif */
+            font-size: 10px !important; 
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            flex: 1 !important;
+            height: 100% !important;
+            text-align: center !important;
+            opacity: 1 !important;
+            padding: 0 !important;
+            width: auto !important;
+            transform: none !important;
+            transition: color 0.15s ease !important;
+            text-decoration: none;
+        }
+
+        /* Pembungkus Ikon (SANGAT KRUSIAL: Mengunci Ukuran SVG Kamu) */
+        .icon-wrapper {
+            width: 20px !important; 
+            height: 20px !important;
+            margin-bottom: 3px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            transform: none !important;
+            transition: color 0.15s ease !important;
+        }
+
+        /* Ikon SVG Bawaan */
+        .nav-icon {
+            width: 100% !important;
+            height: 100% !important;
+            fill: currentColor !important; /* Warna mengikuti induknya */
+        }
+
+        /* Efek Tab Aktif (Emas Elegan Agar Senada) */
+        .nav-item.active {
+            color: #ffd700 !important; /* Jika ingin ganti biru, ubah ke #3b82f6 */
+            opacity: 1 !important;
+        }
+
+        .nav-item.active .icon-wrapper {
+            color: #ffd700 !important; /* Jika ingin ganti biru, ubah ke #3b82f6 */
+            background: transparent !important;
+            transform: none !important;
+        }
+    </style>
 </head>
 <body>
 
     <div class="mobile-container">
+        
         <header>
             <div class="logo-area">
-                <img src="logo_sekolah.png" alt="Logo SMAN 3" class="header-logo">
-                <img src="logo_organisasi.png" alt="Logo Chronica" class="header-logo">
+                <img src="logo.png" alt="Chronica" class="header-logo">
             </div>
-            <p class="welcome-text">WELCOME TO WEBSITE</p>
+            <p class="welcome-text">Mading Digital</p>
             <h1 class="main-title">CHRONICA</h1>
             <hr class="title-divider">
         </header>
 
-      <div class="datetime-wrap">
-    <div class="datetime-container">
-        <span class="live-indicator"></span>
-        <span id="live-datetime">Memuat Waktu...</span>
-    </div>
-          
-        <main id="content-area">
+        <div class="datetime-wrap">
+            <div class="datetime-container">
+                <span class="live-indicator"></span>
+                <span id="live-datetime">Memuat Waktu...</span>
+            </div>
+        </div>
+
+        <main>
             
-            <section id="tab-beranda" class="tab-content active">
-                
+            <div id="home-tab" class="tab-content active">
                 <div class="user-bar">
                     <div class="user-info">
                         <span class="avatar">👋</span>
-                        <div class="user-text">
-                            <p class="greeting">Halo, Pembaca Setia!</p>
-                            <p class="sub-greeting">Mau baca mading apa hari ini?</p>
+                        <div>
+                            <div class="greeting">Halo, Pembaca</div>
+                            <div class="sub-greeting">Selamat datang di Chronica</div>
                         </div>
                     </div>
                     <div class="point-badge">
-                        <span class="coin-icon">🪙</span>
-                        <span id="display-poin" class="point-value">120 Poin</span>
+                        <span class="point-value">150 Poin</span>
                     </div>
                 </div>
 
                 <div class="featured-card">
-                    <span class="ticker-item" id="live-datetime">Memuat Waktu...</span>
+                    <img src="featured.jpg" alt="Highlight" class="featured-img">
                 </div>
 
                 <div class="category-scroll">
-                    <button class="category-pill active">✨ Semua</button>
-                    <button class="category-pill">📰 Berita</button>
-                    <button class="category-pill">✍️ Sastra</button>
-                    <button class="category-pill">📸 Galeri</button>
-                    <button class="category-pill">📢 Opini</button>
+                    <span class="category-pill active">Semua</span>
+                    <span class="category-pill">Artikel</span>
+                    <span class="category-pill">Sastra</span>
+                    <span class="category-pill">Pengumuman</span>
                 </div>
 
-                <div class="article-feed">
-                    <h3 class="feed-title">Artikel Populer</h3>
-                    
-                    <div class="article-item" onclick="tambahPoin()">
-                        <div class="article-thumb placeholder-img">📰</div>
-                        <div class="article-details">
-                            <span class="tag-label">Berita</span>
-                            <h4>Keseruan Dibalik Layar Classmeet SMAN 3 Banjarbaru</h4>
-                            <div class="article-meta">
-                                <span>⏱️ 3 Menit Baca</span>
-                                <span class="reward-tag">+10 Poin</span>
-                            </div>
-                        </div>
-                    </div>
+                <h3 class="feed-title">Rekomendasi Utama</h3>
 
-                    <div class="article-item" onclick="tambahPoin()">
-                        <div class="article-thumb placeholder-img">✍️</div>
-                        <div class="article-details">
-                            <span class="tag-label Sastra">Sastra</span>
-                            <h4>Rembulan di Balik Jendela Kelas (Sebuah Puisi)</h4>
-                            <div class="article-meta">
-                                <span>⏱️ 2 Menit Baca</span>
-                                <span class="reward-tag">+10 Poin</span>
-                            </div>
+                <div class="article-item">
+                    <div class="article-thumb">📰</div>
+                    <div class="article-details">
+                        <span class="tag-label">Artikel</span>
+                        <h4>Menumbuhkan Budaya Literasi Kreatif Sekolah</h4>
+                        <div class="article-meta">
+                            <span>Admin</span>
+                            <span class="reward-tag">+20 Poin</span>
                         </div>
                     </div>
                 </div>
 
-<div class="doc-slider-card">
-    <div class="slider-container">
-        <div class="slider-wrapper" id="sliderWrapper">
-            <div class="slide"><img src="foto1.jpg" alt="Dokumentasi 1"></div>
-            <div class="slide"><img src="foto2.jpg" alt="Dokumentasi 2"></div>
-            <div class="slide"><img src="foto3.jpg" alt="Dokumentasi 3"></div>
-        </div>
-        <div class="slider-dots" id="sliderDots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
-    <div class="slider-info">
-        <h4>Dokumentasi Jurnalistik</h4>
-        <p>Kegiatan & Liputan Redaksi Chronica</p>
-    </div>
-            </section>
-
-            <section id="tab-news" class="tab-content hidden">
-                <h2 class="section-title">Berita & Mading</h2>
-                <p class="placeholder-text">Halaman arsip mading lengkap ada di sini.</p>
-            </section>
-
-            <section id="tab-anggota" class="tab-content hidden">
-                <h2 class="section-title">Susunan Anggota</h2>
-                <p class="placeholder-text">Susunan pengurus inti Chronica.</p>
-            </section>
-
-            <section id="tab-profile" class="tab-content hidden">
-                <h2 class="section-title">Profil Pengguna</h2>
-                
-                <div id="auth-logged-out" class="auth-box">
-                    <p class="placeholder-text">Masuk untuk menyimpan poin membaca kamu agar tidak hilang.</p>
-                    <button id="btn-login-google" class="btn-login">
-                        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo">
-                        Masuk dengan Google
-                    </button>
-                </div>
-
-                <div id="auth-logged-in" class="auth-box hidden">
-                    <div class="profile-card">
-                        <img id="user-photo" src="" alt="Foto Profil" class="profile-avatar">
-                        <h4 id="user-name">Nama Pengguna</h4>
-                        <p id="user-email">email@sman3.sch.id</p>
+                <div class="doc-slider-card">
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="sliderWrapper">
+                            <div class="slide"><img src="foto1.jpg" alt="Dokumentasi 1"></div>
+                            <div class="slide"><img src="foto2.jpg" alt="Dokumentasi 2"></div>
+                            <div class="slide"><img src="foto3.jpg" alt="Dokumentasi 3"></div>
+                        </div>
+                        <div class="slider-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
                     </div>
-                    
-                    <div class="profile-stats">
-                        <p>Total Poin Kamu: <span id="profile-poin" class="reward-tag">120 Poin</span></p>
+                    <div class="slider-info">
+                        <h4>Dokumentasi Jurnalistik</h4>
+                        <p>Kegiatan & Liputan Redaksi Chronica</p>
                     </div>
-
-                    <button id="btn-logout" class="btn-logout">Keluar Akun</button>
                 </div>
-            </section>
+            </div>
+
+            <div id="artikel-tab" class="tab-content hidden">
+                <h3 class="feed-title">Semua Artikel</h3>
+                <p style="color: #888; font-size: 0.85rem; text-align: center; margin-top: 30px;">Konten artikel akan tampil di sini.</p>
+            </div>
+
+            <div id="profil-tab" class="tab-content hidden">
+                <div class="profile-card">
+                    <img src="avatar.jpg" alt="Avatar" class="profile-avatar">
+                    <h3 id="user-name">Guest User</h3>
+                    <p id="user-email">guest@chronica.com</p>
+                </div>
+            </div>
 
         </main>
 
-        <nav class="bottom-nav">
-            <div class="nav-item active" data-tab="tab-beranda">
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('home')">
                 <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
                 </div>
-                <span>Beranda</span>
+                <span>Home</span>
             </div>
 
-            <div class="nav-item" data-tab="tab-news">
+            <div class="nav-item" onclick="switchTab('artikel')">
                 <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V6c0-.55.45-1 1-1h12c55 0 1 .45 1 1v12c0 .55-.45 1-1 1zm-3-4H8v-2h7v2zm2-4H8V7h9v2z"/></svg>
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                    </svg>
                 </div>
-                <span>News</span>
+                <span>Artikel</span>
             </div>
 
-            <div class="nav-item" data-tab="tab-anggota">
+            <div class="nav-item" onclick="switchTab('profil')">
                 <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
                 </div>
-                <span>Anggota</span>
+                <span>Profil</span>
             </div>
+        </div>
 
-            <div class="nav-item" data-tab="tab-profile">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-                </div>
-                <span>Profile</span>
-            </div>
-        </nav>
     </div>
 
-    <script type="module" src="script.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // ----------------------------------------------------
-    // A. SISTEM GERAK OTOMATIS SLIDER (AUTO-SLIDE)
-    // ----------------------------------------------------
-    const sliderWrapper = document.getElementById('sliderWrapper');
-    const dots = document.querySelectorAll('.dot');
-    let currentSlide = 0;
-    const totalSlides = dots.length;
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. SISTEM GERAK AUTO-SLIDER
+            const sliderWrapper = document.getElementById('sliderWrapper');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            const totalSlides = dots.length;
 
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSlider();
-    }
+            if (sliderWrapper && totalSlides > 0) {
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateSlider();
+                }
 
-    function updateSlider() {
-        // Menggeser posisi koordinat wrapper slide
-        sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-        
-        // Memperbarui indikator titik (dots) aktif
-        dots.forEach((dot, index) => {
-            if (index === currentSlide) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
+                function updateSlider() {
+                    sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    dots.forEach((dot, index) => {
+                        if (index === currentSlide) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+
+                setInterval(nextSlide, 4000);
             }
+
+            // 2. SISTEM WAKTU & TANGGAL REAL-TIME
+            function updateLiveDateTime() {
+                const timeElement = document.getElementById('live-datetime');
+                if (!timeElement) return;
+
+                const now = new Date();
+                const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                const months = [
+                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                ];
+
+                const dayName = days[now.getDay()];
+                const date = now.getDate();
+                const monthName = months[now.getMonth()];
+                const year = now.getFullYear();
+                
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+
+                timeElement.textContent = `${dayName}, ${date} ${monthName} ${year} | ${hours}:${minutes}:${seconds}`;
+            }
+
+            setInterval(updateLiveDateTime, 1000);
+            updateLiveDateTime();
         });
-    }
 
-    // Menjalankan pergantian slide otomatis setiap 4 detik (4000ms)
-    let slideInterval = setInterval(nextSlide, 4000);
+        // 3. SISTEM PERPINDAHAN TAB NAVIGATION
+        function switchTab(tabId) {
+            // Sembunyikan semua konten tab
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('active');
+            });
 
+            // Tampilkan tab yang dipilih
+            const targetTab = document.getElementById(tabId + '-tab');
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+                targetTab.classList.add('active');
+            }
 
-    // ----------------------------------------------------
-    // B. SISTEM WAKTU & TANGGAL REAL-TIME (JAM DIGITAL)
-    // ----------------------------------------------------
-    function updateLiveDateTime() {
-        const timeElement = document.getElementById('live-datetime');
-        if (!timeElement) return;
+            // Reset status aktif tombol navigasi
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
 
-        const now = new Date();
-        
-        // Format lokalisasi Bahasa Indonesia
-        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        const months = [
-            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-        ];
-
-        const dayName = days[now.getDay()];
-        const date = now.getDate();
-        const monthName = months[now.getMonth()];
-        const year = now.getFullYear();
-        
-        // Mengamankan penulisan waktu agar selalu dua digit (misal: 08:05:01)
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-
-        // Menggabungkan susunan format
-        const dateTimeString = `${dayName}, ${date} ${monthName} ${year} | ${hours}:${minutes}:${seconds}`;
-        
-        // Menampilkan hasil waktu ke running text
-        timeElement.textContent = dateTimeString;
-    }
-
-    // Memperbarui jam digital setiap 1 detik
-    setInterval(updateLiveDateTime, 1000);
-    updateLiveDateTime(); // Langsung dipanggil di awal agar waktu tidak delay kosong saat pertama kali dibuka
-});
-</script>
+            // Aktifkan tombol navigasi yang diklik
+            const activeNav = document.querySelector(`.nav-item[onclick="switchTab('${tabId}')"]`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
