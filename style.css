@@ -757,56 +757,67 @@ main::-webkit-scrollbar { display: none; }
     display: none !important;
 }
 
-/* Kapsul Navigasi - Diperkecil & Dirapatkan */
+/* ==========================================
+   STYLE BAR NAVIGASI (PERFECTLY CENTERED & STABLE)
+   ========================================== */
+
+/* Pastikan tab yang tidak aktif tetap tersembunyi */
+.hidden {
+    display: none !important;
+}
+
+/* Kapsul Navigasi - Ramping & Seimbang */
 .bottom-nav {
     position: fixed;
-    bottom: 12px; /* Jarak pas dari bawah layar */
+    bottom: 12px; 
     left: 50%;
     transform: translateX(-50%);
-    width: 85%; /* Dipersempit agar tidak terlalu melebar ke samping */
-    max-width: 340px; /* Batas lebar maksimal yang ideal agar ikon lebih rapat */
-    height: 56px; /* Diperkecil tingginya dari 68px menjadi 56px */
+    width: 85%; 
+    max-width: 340px; 
+    height: 56px; 
     background: rgba(15, 23, 42, 0.95); /* Slate gelap transparan */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px; /* Kelengkungan sudut yang disesuaikan dengan ukuran baru */
+    border-radius: 20px; 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around; /* Membagi ruang antar-item secara merata */
     align-items: center;
     z-index: 1000;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    padding: 0 6px;
+    padding: 0 8px;
+    box-sizing: border-box; /* Mencegah ukuran berlebih */
 }
 
-/* Tombol Menu */
+/* Tombol Menu - Menjamin Semua Konten Tetap di Tengah */
 .nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #64748b; /* Abu-abu pasif yang lembut */
-    font-size: 10px; /* Ukuran teks diperkecil sedikit agar seimbang */
+    color: #64748b; 
+    font-size: 10px; 
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: color 0.2s ease; /* Hanya transisi warna, tanpa pergerakan posisi */
     flex: 1;
     height: 100%;
+    text-align: center;
 }
 
-/* Pembungkus Ikon - Ukuran Disesuaikan */
+/* Pembungkus Ikon - Diam di Tengah, Tanpa Bergeser */
 .icon-wrapper {
-    width: 20px; /* Ukuran ikon diturunkan dari 24px ke 20px agar proporsional */
+    width: 20px; 
     height: 20px;
-    margin-bottom: 2px; /* Jarak vertikal antara ikon dan teks dirapatkan */
+    margin-bottom: 3px; /* Jarak vertikal yang seimbang antara ikon dan teks */
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    transition: transform 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .nav-icon {
@@ -815,15 +826,14 @@ main::-webkit-scrollbar { display: none; }
     fill: currentColor;
 }
 
-/* Efek Ketika Tab Aktif */
+/* Efek Ketika Tab Aktif - HANYA UBAH WARNA (Tanpa Gerakan) */
 .nav-item.active {
     color: #3b82f6; /* Warna biru khas Chronica */
 }
 
-/* Animasi Halus Saat Ikon Diklik */
 .nav-item.active .icon-wrapper {
-    transform: translateY(-2px); /* Lompatan ikon dikurangi agar tidak terlalu jauh */
-    color: #3b82f6;
+    color: #3b82f6; 
+    transform: none !important; /* Memaksa ikon agar tidak bergerak naik/turun */
 }
 
 /* Jarak aman di bawah konten utama */
