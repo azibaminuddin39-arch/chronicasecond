@@ -753,3 +753,69 @@ main::-webkit-scrollbar { display: none; }
 .nav-icon { width: 22px; height: 22px; }
 .nav-item.active { opacity: 1; }
 .nav-item.active .icon-wrapper { background-color: #3d0000; }
+/* Helper untuk menyembunyikan tab yang sedang tidak aktif */
+.hidden {
+    display: none !important;
+}
+
+/* Styling Bottom Navigation agar melayang rapi di bawah */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px; /* Menyesuaikan lebar mobile-container kamu */
+    height: 65px;
+    background: rgba(15, 23, 42, 0.95); /* Warna gelap transparan */
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom); /* Aman untuk layar HP berponi bawah */
+}
+
+/* Tombol Menu */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8; /* Abu-abu pasif */
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    height: 100%;
+}
+
+/* Pembungkus Ikon */
+.icon-wrapper {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    transition: transform 0.2s ease;
+}
+
+.nav-icon {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+/* Efek tombol ketika sedang diklik / Aktif */
+.nav-item.active {
+    color: #3b82f6; /* Berubah warna biru terang khas Chronica */
+}
+
+.nav-item.active .icon-wrapper {
+    transform: translateY(-3px); /* Ikon sedikit naik ke atas */
+}
+
+/* Jarak ekstra di bawah main-content agar tidak tertutup nav-bar */
+#content-area {
+    padding-bottom: 80px;
+}
