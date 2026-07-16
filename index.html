@@ -110,7 +110,28 @@
 
             <section id="tab-profile" class="tab-content hidden">
                 <h2 class="section-title">Profil Pengguna</h2>
-                <p class="placeholder-text">Pengaturan akun pembaca.</p>
+                
+                <div id="auth-logged-out" class="auth-box">
+                    <p class="placeholder-text">Masuk untuk menyimpan poin membaca kamu agar tidak hilang.</p>
+                    <button id="btn-login-google" class="btn-login">
+                        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo">
+                        Masuk dengan Google
+                    </button>
+                </div>
+
+                <div id="auth-logged-in" class="auth-box hidden">
+                    <div class="profile-card">
+                        <img id="user-photo" src="" alt="Foto Profil" class="profile-avatar">
+                        <h4 id="user-name">Nama Pengguna</h4>
+                        <p id="user-email">email@sman3.sch.id</p>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <p>Total Poin Kamu: <span id="profile-poin" class="reward-tag">120 Poin</span></p>
+                    </div>
+
+                    <button id="btn-logout" class="btn-logout">Keluar Akun</button>
+                </div>
             </section>
 
         </main>
@@ -146,31 +167,6 @@
         </nav>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
-<section id="tab-profile" class="tab-content hidden">
-    <h2 class="section-title">Profil Pengguna</h2>
-    
-    <div id="auth-logged-out" class="auth-box">
-        <p class="placeholder-text">Masuk untuk menyimpan poin membaca kamu agar tidak hilang.</p>
-        <button id="btn-login-google" class="btn-login">
-            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo">
-            Masuk dengan Google
-        </button>
-    </div>
-
-    <div id="auth-logged-in" class="auth-box hidden">
-        <div class="profile-card">
-            <img id="user-photo" src="" alt="Foto Profil" class="profile-avatar">
-            <h4 id="user-name">Nama Pengguna</h4>
-            <p id="user-email">email@sman3.sch.id</p>
-        </div>
-        
-        <div class="profile-stats">
-            <p>Total Poin Kamu: <span id="profile-poin" class="reward-tag">120 Poin</span></p>
-        </div>
-
-        <button id="btn-logout" class="btn-logout">Keluar Akun</button>
-    </div>
-</section>
