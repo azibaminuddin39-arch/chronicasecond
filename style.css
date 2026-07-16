@@ -1,9 +1,11 @@
-/* RESET & FONTS */
+/* ==========================================
+   1. RESET & FONTS GLOBAL
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent; /* Menghapus highlight biru di HP */
     outline: none;
 }
 
@@ -17,496 +19,16 @@ body {
     color: #ffffff;
 }
 
-/* CONTAINER SMARTPHONE UTAMA + ANIMASI BG GRADIENT BERGERAK SANTAI */
-.mobile-container {
-    width: 100%;
-    max-width: 430px;
-    height: 932px;
-    /* Kombinasi warna Hitam, Deep Maroon, dan Charcoal */
-    background: linear-gradient(-45deg, #0a0a0a, #200404, #0f0c1b, #150202);
-    background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite; /* Durasi 18 detik agar bergeraknya santai */
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 40px rgba(0,0,0,0.9);
-}
-
-/* Animasi Pergeseran Gradasi */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* HEADER STYLE */
-header {
-    text-align: center;
-    padding: 30px 20px 10px 20px;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
-}
-
-.logo-area {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.header-logo {
-    height: 45px;
-    width: auto;
-    object-fit: contain;
-}
-
-.welcome-text {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: #cccccc;
-    font-weight: 300;
-}
-
-.main-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    margin-top: 3px;
-    color: #ffffff;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-
-.title-divider {
-    width: 35%;
-    margin: 10px auto 0 auto;
-    border: 0;
-    height: 1.5px;
-    background-color: rgba(255,255,255,0.6);
-}
-
-/* BREAKING NEWS TICKER */
-.ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    background-color: rgba(138, 0, 0, 0.4);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 6px 0;
-}
-
-.ticker {
-    display: flex;
-    white-space: nowrap;
-    animation: marquee 25s linear infinite;
-}
-
-.ticker-item {
-    display: inline-block;
-    padding-right: 50px;
-    font-size: 0.78rem;
-    color: #ffd700;
-    font-weight: 400;
-}
-
-@keyframes marquee {
-    0% { transform: translate3d(100%, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
-}
-
-/* AREA KONTEN (SCROLLABLE TABS) */
-main {
-    flex: 1;
-    overflow-y: scroll;
-    padding: 15px 20px 120px 20px;
-}
-
-main::-webkit-scrollbar {
-    display: none; /* Sembunyikan scrollbar agar rapi */
-}
-
-.tab-content {
-    animation: fadeIn 0.4s ease;
-}
-
-.hidden { display: none; }
-.active { display: block; }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* 1. USER BAR STYLING */
-.user-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 12px 15px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.avatar {
-    font-size: 1.5rem;
-}
-
-.greeting {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.sub-greeting {
-    font-size: 0.7rem;
-    color: #aaaaaa;
-}
-
-.point-badge {
-    background: linear-gradient(135deg, #ffd700, #b8860b);
-    padding: 6px 12px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    box-shadow: 0 4px 10px rgba(218,165,32,0.2);
-}
-
-.point-value {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #000000;
-}
-
-/* 2. FEATURED CARD */
-.featured-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 20px;
-}
-
-.featured-img {
-    width: 100%;
-    border-radius: 18px;
-    display: block;
-}
-
-/* 3. KATEGORI KAPSUL (SCROLL HORIZONTAL) */
-.category-scroll {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.category-scroll::-webkit-scrollbar { display: none; }
-
-.category-pill {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #cccccc;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.category-pill.active {
-    background: #8a0000;
-    color: #ffffff;
-    border-color: #ff3333;
-    box-shadow: 0 4px 10px rgba(138,0,0,0.4);
-}
-
-/* 4. FEED ARTIKEL LIST */
-.feed-title {
-    font-size: 1.05rem;
-    margin-bottom: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-}
-
-.article-item {
-    display: flex;
-    gap: 12px;
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid rgba(255,255,255,0.05);
-    padding: 12px;
-    border-radius: 18px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.article-item:active {
-    transform: scale(0.98);
-}
-
-.article-thumb {
-    width: 75px;
-    height: 75px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-}
-
-.article-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.tag-label {
-    font-size: 0.65rem;
-    background: rgba(0, 150, 255, 0.15);
-    color: #0096ff;
-    padding: 2px 8px;
-    border-radius: 6px;
-    width: fit-content;
-    font-weight: 500;
-}
-
-.tag-label.Sastra {
-    background: rgba(155, 0, 255, 0.15);
-    color: #be5eff;
-}
-
-.article-details h4 {
-    font-size: 0.85rem;
-    font-weight: 500;
-    line-height: 1.3;
-    margin: 4px 0;
-    color: #eeeeee;
-}
-
-.article-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.7rem;
-    color: #888888;
-}
-
-.reward-tag {
-    color: #ffd700;
-    font-weight: 600;
-}
-
-/* 5. INSTAGRAM CARD STYLING */
-.instagram-card {
-    background: linear-gradient(135deg, rgba(138, 0, 0, 0.3), rgba(40, 0, 0, 0.5));
-    border: 1px solid rgba(255, 50, 50, 0.2);
-    border-radius: 24px;
-    padding: 20px;
-    margin-top: 15px;
-    text-align: center;
-}
-
-.ig-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.ig-icon { font-size: 1.3rem; }
-.ig-header h4 { font-size: 0.95rem; font-weight: 600; color: #ffffff;}
-.instagram-card p { font-size: 0.78rem; color: #cccccc; line-height: 1.4; margin-bottom: 15px; }
-
-.btn-ig {
-    display: inline-block;
-    background: #ffffff;
-    color: #8a0000;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 8px 24px;
-    border-radius: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: background 0.2s;
-}
-
-.btn-ig:active { background: #dddddd; }
-
-/* SIMULASI HALAMAN LAIN */
-.section-title { font-size: 1.2rem; margin-bottom: 10px; color: #ffd700; }
-.placeholder-text { font-size: 0.85rem; color: #888888; }
-
-/* BOTTOM NAVIGATION BAR CAPSULED */
-.bottom-nav {
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background-color: #8a0000;
-    border-radius: 50px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 5px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    z-index: 100;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #ffffff;
-    opacity: 0.5;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 22%;
-    padding: 5px 0;
-}
-
-.nav-item span {
-    font-size: 0.68rem;
-    font-weight: 400;
-    margin-top: 4px;
-}
-
-.icon-wrapper {
-    width: 42px;
-    height: 42px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-
-.nav-icon { width: 22px; height: 22px; }
-
-.nav-item.active { opacity: 1; }
-.nav-item.active .icon-wrapper { background-color: #3d0000; }
-/* AUTH & PROFILE STYLING */
-.auth-box {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 25px 20px;
-    border-radius: 24px;
-    text-align: center;
-    margin-top: 15px;
-}
-
-.btn-login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    background-color: #ffffff;
-    color: #333333;
-    border: none;
-    padding: 12px;
-    border-radius: 30px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-top: 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.btn-login img {
-    width: 20px;
-    height: 20px;
-}
-
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #8a0000;
-    margin-bottom: 10px;
-}
-
-#user-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-#user-email {
-    font-size: 0.8rem;
-    color: #aaaaaa;
-}
-
-.profile-stats {
-    background: rgba(138, 0, 0, 0.2);
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-}
-
-.btn-logout {
-    background: none;
-    border: 1px solid #ff3333;
-    color: #ff3333;
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    width: 100%;
-}
-/* RESET & FONTS GLOBAL */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Hilangkan efek kotak biru bawaan HP */
-    outline: none;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #121212;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #ffffff;
-}
-
-/* SMARTPHONE MOCKUP + ANIMASI GRADIENT BERGERAK SANTAI */
+/* ==========================================
+   2. CONTAINER SMARTPHONE (MOCKUP)
+   ========================================== */
 .mobile-container {
     width: 100%;
     max-width: 430px;
     height: 932px;
     background: linear-gradient(-45deg, #0a0a0a, #220202, #0d0a1a, #1a0303);
     background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite; /* Kecepatan santai 18 detik */
+    animation: gradientBG 18s ease infinite; /* Gradasi mengalir santai */
     position: relative;
     overflow: hidden;
     display: flex;
@@ -520,7 +42,9 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* HEADER STYLE */
+/* ==========================================
+   3. HEADER STYLE
+   ========================================== */
 header {
     text-align: center;
     padding: 30px 20px 10px 20px;
@@ -564,7 +88,9 @@ header {
     background-color: rgba(255,255,255,0.6);
 }
 
-/* BREAKING NEWS TICKER */
+/* ==========================================
+   4. BREAKING NEWS TICKER
+   ========================================== */
 .ticker-wrap {
     width: 100%;
     overflow: hidden;
@@ -592,7 +118,9 @@ header {
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
-/* MAIN CONTENT AREA */
+/* ==========================================
+   5. MAIN CONTENT AREA & TABS
+   ========================================== */
 main {
     flex: 1;
     overflow-y: scroll;
@@ -610,7 +138,9 @@ main::-webkit-scrollbar { display: none; }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* USER BAR & POIN WIDGET */
+/* ==========================================
+   6. USER BAR & POIN WIDGET
+   ========================================== */
 .user-bar {
     display: flex;
     justify-content: space-between;
@@ -638,7 +168,9 @@ main::-webkit-scrollbar { display: none; }
 
 .point-value { font-size: 0.75rem; font-weight: 600; color: #000000; }
 
-/* FEATURED CARD */
+/* ==========================================
+   7. FEATURED CARD
+   ========================================== */
 .featured-card {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 30px;
@@ -649,7 +181,9 @@ main::-webkit-scrollbar { display: none; }
 
 .featured-img { width: 100%; border-radius: 18px; display: block; }
 
-/* KATEGORI SCROLL */
+/* ==========================================
+   8. CATEGORY SCROLL
+   ========================================== */
 .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
 .category-scroll::-webkit-scrollbar { display: none; }
 
@@ -670,7 +204,9 @@ main::-webkit-scrollbar { display: none; }
     border-color: #ff3333;
 }
 
-/* ARTIKEL LIST FEED */
+/* ==========================================
+   9. ARTIKEL LIST FEED
+   ========================================== */
 .feed-title { font-size: 1.05rem; margin-bottom: 12px; }
 
 .article-item {
@@ -699,7 +235,9 @@ main::-webkit-scrollbar { display: none; }
 .article-meta { display: flex; justify-content: space-between; font-size: 0.7rem; color: #888888; gap: 20px; }
 .reward-tag { color: #ffd700; font-weight: 600; }
 
-/* INSTAGRAM CARD */
+/* ==========================================
+   10. INSTAGRAM CARD
+   ========================================== */
 .instagram-card {
     background: linear-gradient(135deg, rgba(138, 0, 0, 0.3), rgba(40, 0, 0, 0.5));
     border: 1px solid rgba(255, 50, 50, 0.2);
@@ -711,7 +249,9 @@ main::-webkit-scrollbar { display: none; }
 .instagram-card p { font-size: 0.78rem; color: #cccccc; margin-bottom: 15px; }
 .btn-ig { display: inline-block; background: #ffffff; color: #8a0000; text-decoration: none; font-size: 0.8rem; font-weight: 600; padding: 8px 24px; border-radius: 30px; }
 
-/* AUTHENTICATION & LOGIN Visual / Tampilan */
+/* ==========================================
+   11. AUTHENTICATION & PROFILE
+   ========================================== */
 .auth-box {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255,255,255,0.07);
@@ -740,103 +280,85 @@ main::-webkit-scrollbar { display: none; }
 .placeholder-text { font-size: 0.85rem; color: #888888; }
 
 /* ==========================================
-   STYLE BAR NAVIGASI PREMIUM (FLOATING CAPSULE)
+   12. STABILIZED BOTTOM NAVIGATION (PERFECT CENTER)
    ========================================== */
-
-/* Pastikan tab yang tidak aktif benar-benar tersembunyi */
-.hidden {
-    display: none !important;
-}
-
-/* ==========================================
-   STYLE BAR NAVIGASI (COMPACT & PROPORSIAL)
-   ========================================== */
-
-/* Pastikan tab yang tidak aktif tetap tersembunyi */
-.hidden {
-    display: none !important;
-}
-
-/* ==========================================
-   STYLE BAR NAVIGASI (PERFECTLY CENTERED & STABLE)
-   ========================================== */
-
-/* Pastikan tab yang tidak aktif tetap tersembunyi */
-.hidden {
-    display: none !important;
-}
-
-/* Kapsul Navigasi - Ramping & Seimbang */
 .bottom-nav {
     position: fixed;
     bottom: 12px; 
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) !important; /* Posisi horizontal dikunci di tengah */
     width: 85%; 
     max-width: 340px; 
     height: 56px; 
-    background: rgba(15, 23, 42, 0.95); /* Slate gelap transparan */
+    background: rgba(15, 23, 42, 0.95) !important; /* Slate Gelap Mewah */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px; 
-    display: flex;
-    justify-content: space-around; /* Membagi ruang antar-item secara merata */
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    padding: 0 8px;
-    box-sizing: border-box; /* Mencegah ukuran berlebih */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 20px !important; 
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: center !important; /* Semua item dikunci tepat di tengah vertikal */
+    z-index: 1000 !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    padding: 0 8px !important;
+    box-sizing: border-box !important;
 }
 
-/* Tombol Menu - Menjamin Semua Konten Tetap di Tengah */
+/* Tombol Menu */
 .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #64748b; 
-    font-size: 10px; 
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.2s ease; /* Hanya transisi warna, tanpa pergerakan posisi */
-    flex: 1;
-    height: 100%;
-    text-align: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #64748b !important; /* Warna pasif abu-abu */
+    font-size: 10px !important; 
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    flex: 1 !important;
+    height: 100% !important;
+    text-align: center !important;
+    opacity: 1 !important; /* Memaksa opacity konstan */
+    padding: 0 !important;
+    width: auto !important;
+    transform: none !important; /* Mencegah guncangan posisi */
+    transition: color 0.15s ease !important; /* HANYA transisi warna */
 }
 
-/* Pembungkus Ikon - Diam di Tengah, Tanpa Bergeser */
+/* Pembungkus Ikon (Sengaja Dibuat Statis Total) */
 .icon-wrapper {
-    width: 20px; 
-    height: 20px;
-    margin-bottom: 3px; /* Jarak vertikal yang seimbang antara ikon dan teks */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent !important;
+    width: 20px !important; 
+    height: 20px !important;
+    margin-bottom: 3px !important; /* Jarak pas ke teks */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important; /* Menghapus bulatan merah */
     border-radius: 0 !important;
     box-shadow: none !important;
-    transition: color 0.2s ease;
+    transform: none !important; /* Mencegah ikon melompat */
+    transition: color 0.15s ease !important;
 }
 
 .nav-icon {
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
+    width: 100% !important;
+    height: 100% !important;
+    fill: currentColor !important;
 }
 
-/* Efek Ketika Tab Aktif - HANYA UBAH WARNA (Tanpa Gerakan) */
+/* Efek Tab Aktif: HANYA Berubah Warna Biru */
 .nav-item.active {
-    color: #3b82f6; /* Warna biru khas Chronica */
+    color: #3b82f6 !important; 
+    opacity: 1 !important;
 }
 
 .nav-item.active .icon-wrapper {
-    color: #3b82f6; 
-    transform: none !important; /* Memaksa ikon agar tidak bergerak naik/turun */
+    color: #3b82f6 !important;
+    background: transparent !important; /* Jaminan lingkaran merah hilang selamanya */
+    transform: none !important; /* Mengunci posisi di tengah tanpa gerakan bouncy */
 }
 
-/* Jarak aman di bawah konten utama */
+/* Jarak Konten Bawah */
 #content-area {
-    padding-bottom: 85px;
+    padding-bottom: 85px !important;
 }
